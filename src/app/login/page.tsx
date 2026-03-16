@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { LoginForm } from './LoginForm'
 
 export default function LoginPage() {
@@ -10,7 +11,9 @@ export default function LoginPage() {
             Daftarkan dan kelola band kamu
           </p>
         </div>
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   )
