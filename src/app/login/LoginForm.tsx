@@ -88,13 +88,13 @@ export function LoginForm() {
   }
 
   const inputClass =
-    'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400'
+    'w-full border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500'
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 space-y-5">
+    <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5">
       {/* Mode toggle */}
       {mode !== 'forgot' ? (
-        <div className="flex rounded-lg border border-gray-200 dark:border-gray-700 p-1 gap-1">
+        <div className="flex rounded-lg border border-stone-200 dark:border-stone-700 p-1 gap-1">
           {(['login', 'register'] as const).map((m) => (
             <button
               key={m}
@@ -102,8 +102,8 @@ export function LoginForm() {
               onClick={() => { setMode(m); setError(''); setSuccess('') }}
               className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${
                 mode === m
-                  ? 'bg-indigo-600 text-white'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                  ? 'bg-amber-700 text-white'
+                  : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200'
               }`}
             >
               {m === 'login' ? 'Masuk' : 'Daftar'}
@@ -115,21 +115,21 @@ export function LoginForm() {
           <button
             type="button"
             onClick={() => { setMode('login'); setError(''); setSuccess('') }}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+            className="text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors"
           >
             ←
           </button>
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Reset Password</span>
+          <span className="text-sm font-semibold text-stone-700 dark:text-stone-300">Reset Password</span>
         </div>
       )}
 
       {mode === 'forgot' ? (
         <form onSubmit={handleForgotPassword} className="space-y-4">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-stone-500 dark:text-stone-400">
             Masukkan email kamu dan kami akan kirimkan link untuk reset password.
           </p>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
             <input
               type="email"
               placeholder="Email"
@@ -152,7 +152,7 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
+            className="w-full bg-amber-700 hover:bg-amber-800 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
           >
             {loading ? 'Mengirim...' : 'Kirim Link Reset'}
           </button>
@@ -164,21 +164,21 @@ export function LoginForm() {
             type="button"
             onClick={handleGoogleLogin}
             disabled={googleLoading}
-            className="w-full flex items-center justify-center gap-2.5 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-60"
+            className="w-full flex items-center justify-center gap-2.5 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-700 dark:text-stone-200 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors disabled:opacity-60"
           >
             <GoogleIcon />
             {googleLoading ? 'Mengalihkan...' : 'Lanjutkan dengan Google'}
           </button>
 
-          <div className="flex items-center gap-3 text-xs text-gray-400">
-            <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+          <div className="flex items-center gap-3 text-xs text-stone-400">
+            <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
             atau
-            <div className="flex-1 h-px bg-gray-200 dark:bg-gray-700" />
+            <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
               <input
                 type="email"
                 placeholder="Email"
@@ -191,7 +191,7 @@ export function LoginForm() {
 
             <div className="space-y-1">
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
@@ -204,7 +204,7 @@ export function LoginForm() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -214,7 +214,7 @@ export function LoginForm() {
                   <button
                     type="button"
                     onClick={() => { setMode('forgot'); setError(''); setSuccess('') }}
-                    className="text-xs text-indigo-500 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                    className="text-xs text-amber-600 hover:text-amber-800 dark:hover:text-amber-400 transition-colors"
                   >
                     Lupa password?
                   </button>
@@ -236,7 +236,7 @@ export function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
+              className="w-full bg-amber-700 hover:bg-amber-800 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
             >
               {loading ? 'Memproses...' : mode === 'login' ? 'Masuk' : 'Buat Akun'}
             </button>

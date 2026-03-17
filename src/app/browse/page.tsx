@@ -65,12 +65,12 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
   ].filter(Boolean) as Chip[]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Jelajahi Band & Musisi</h1>
+    <div className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-stone-900 dark:text-stone-100">Jelajahi Band</h1>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         {/* Sidebar — provinces & genres passed as props from server */}
-        <aside className="w-full lg:w-64 shrink-0">
+        <aside className="w-full md:w-56 lg:w-64 shrink-0">
           <Suspense>
             <FilterBar />
           </Suspense>
@@ -86,7 +86,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                 <Link
                   key={chip.href}
                   href={chip.href}
-                  className="inline-flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700 text-sm px-3 py-1 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors"
+                  className="inline-flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-800 text-sm px-3 py-1 rounded-full hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-colors"
                 >
                   {chip.label}
                   <X className="w-3.5 h-3.5" />
@@ -94,21 +94,21 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
               ))}
               <Link
                 href="/browse"
-                className="text-sm text-gray-400 px-3 py-1 rounded-full hover:text-red-500 transition-colors"
+                className="text-sm text-stone-400 px-3 py-1 rounded-full hover:text-red-500 transition-colors"
               >
                 Hapus semua
               </Link>
             </div>
           )}
 
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{bands.length} band ditemukan</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">{bands.length} band ditemukan</p>
 
           {bands.length === 0 ? (
-            <div className="text-center py-20 text-gray-400">
+            <div className="text-center py-20 text-stone-400">
               <p className="text-lg font-medium">Tidak ada band yang ditemukan</p>
               <p className="text-sm mt-1">
                 Coba ubah filter atau{' '}
-                <Link href="/browse" className="text-indigo-500 hover:underline">
+                <Link href="/browse" className="text-amber-600 hover:underline">
                   reset pencarian
                 </Link>
               </p>

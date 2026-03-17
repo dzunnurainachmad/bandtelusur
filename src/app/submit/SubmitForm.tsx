@@ -143,7 +143,7 @@ export function SubmitForm() {
   }
 
   const inputClass =
-    'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400'
+    'w-full border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500'
 
   const submitLabel = uploading
     ? 'Mengupload foto...'
@@ -152,13 +152,13 @@ export function SubmitForm() {
     : 'Daftarkan Band'
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+    <form onSubmit={handleSubmit} className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
 
       {/* Photo upload */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Foto Band</label>
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">Foto Band</label>
         {photoPreview ? (
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={photoPreview}
@@ -177,7 +177,7 @@ export function SubmitForm() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full aspect-video rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-col items-center justify-center gap-2 text-gray-400 dark:text-gray-500 hover:border-indigo-400 hover:text-indigo-500 transition-colors"
+            className="w-full aspect-video rounded-xl border-2 border-dashed border-stone-300 dark:border-stone-600 flex flex-col items-center justify-center gap-2 text-stone-400 dark:text-stone-500 hover:border-amber-500 hover:text-amber-600 transition-colors"
           >
             <ImagePlus className="w-8 h-8" />
             <span className="text-sm">Klik untuk upload foto</span>
@@ -195,7 +195,7 @@ export function SubmitForm() {
 
       {/* Name */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">
           Nama Band / Project <span className="text-red-500">*</span>
         </label>
         <input
@@ -209,7 +209,7 @@ export function SubmitForm() {
 
       {/* Bio */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio / Deskripsi</label>
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Bio / Deskripsi</label>
         <textarea
           value={form.bio}
           onChange={(e) => set('bio', e.target.value)}
@@ -221,7 +221,7 @@ export function SubmitForm() {
 
       {/* Formed year */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tahun Berdiri</label>
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Tahun Berdiri</label>
         <input
           type="number"
           value={form.formed_year}
@@ -234,7 +234,7 @@ export function SubmitForm() {
       </div>
 
       {/* Province + City */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Select
           label="Provinsi"
           placeholder="Pilih provinsi"
@@ -265,8 +265,8 @@ export function SubmitForm() {
               onClick={() => toggleGenre(g.id)}
               className={`px-3 py-1 rounded-full text-sm border transition-colors ${
                 form.genre_ids.includes(g.id)
-                  ? 'bg-indigo-600 text-white border-indigo-600'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-indigo-400'
+                  ? 'bg-amber-700 text-white border-amber-700'
+                  : 'border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 hover:border-amber-500'
               }`}
             >
               {g.name}
@@ -277,25 +277,25 @@ export function SubmitForm() {
 
       {/* WhatsApp */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nomor WhatsApp</label>
+        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Nomor WhatsApp</label>
         <div className="flex">
-          <span className="inline-flex items-center px-3 border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+          <span className="inline-flex items-center px-3 border border-r-0 border-stone-300 dark:border-stone-600 rounded-l-lg bg-stone-50 dark:bg-stone-700 text-stone-500 dark:text-stone-400 text-sm">
             +62
           </span>
           <input
             type="text"
             value={form.contact_wa.replace(/^62/, '')}
             onChange={(e) => set('contact_wa', '62' + e.target.value.replace(/^0/, ''))}
-            className="flex-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="flex-1 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
             placeholder="8123456789"
           />
         </div>
       </div>
 
       {/* Social */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Instagram</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Instagram</label>
           <input
             type="text"
             value={form.instagram}
@@ -305,7 +305,7 @@ export function SubmitForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">YouTube URL</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">YouTube URL</label>
           <input
             type="text"
             value={form.youtube}
@@ -315,7 +315,7 @@ export function SubmitForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Spotify URL</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Spotify URL</label>
           <input
             type="text"
             value={form.spotify}
@@ -325,7 +325,7 @@ export function SubmitForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">YouTube Music URL</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">YouTube Music URL</label>
           <input
             type="text"
             value={form.youtube_music}
@@ -335,7 +335,7 @@ export function SubmitForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Apple Music URL</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Apple Music URL</label>
           <input
             type="text"
             value={form.apple_music}
@@ -345,7 +345,7 @@ export function SubmitForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bandcamp URL</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Bandcamp URL</label>
           <input
             type="text"
             value={form.bandcamp}
@@ -362,9 +362,9 @@ export function SubmitForm() {
           type="checkbox"
           checked={form.is_looking_for_members}
           onChange={(e) => set('is_looking_for_members', e.target.checked)}
-          className="rounded text-indigo-600 w-4 h-4"
+          className="rounded text-amber-700 w-4 h-4"
         />
-        <span className="text-sm text-gray-700 dark:text-gray-300">
+        <span className="text-sm text-stone-700 dark:text-stone-300">
           Band kami sedang membuka lowongan untuk member baru
         </span>
       </label>
@@ -378,7 +378,7 @@ export function SubmitForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition-colors disabled:opacity-60"
+        className="w-full bg-amber-700 text-white py-2.5 rounded-lg font-semibold hover:bg-amber-800 transition-colors disabled:opacity-60"
       >
         {submitLabel}
       </button>

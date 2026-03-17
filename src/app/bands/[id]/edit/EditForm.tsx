@@ -150,18 +150,18 @@ export function EditForm({ band }: Props) {
   }
 
   const inputClass =
-    'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400'
-  const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
+    'w-full border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500'
+  const labelClass = 'block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1'
   const submitLabel = uploading ? 'Mengupload foto...' : submitting ? 'Menyimpan...' : 'Simpan Perubahan'
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+    <form onSubmit={handleSubmit} className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
 
       {/* Photo */}
       <div>
         <label className={`${labelClass} mb-2`}>Foto Band</label>
         {photoPreview ? (
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={photoPreview} alt="Preview" className="w-full h-full object-cover" />
             <button
@@ -176,7 +176,7 @@ export function EditForm({ band }: Props) {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full aspect-video rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-col items-center justify-center gap-2 text-gray-400 dark:text-gray-500 hover:border-indigo-400 hover:text-indigo-500 transition-colors"
+            className="w-full aspect-video rounded-xl border-2 border-dashed border-stone-300 dark:border-stone-600 flex flex-col items-center justify-center gap-2 text-stone-400 dark:text-stone-500 hover:border-amber-500 hover:text-amber-600 transition-colors"
           >
             <ImagePlus className="w-8 h-8" />
             <span className="text-sm">Klik untuk upload foto</span>
@@ -205,7 +205,7 @@ export function EditForm({ band }: Props) {
       </div>
 
       {/* Province + City */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Select label="Provinsi" placeholder="Pilih provinsi" value={form.province_id} options={provinces.map((p) => ({ value: String(p.id), label: p.name }))} onChange={(val) => set('province_id', val)} searchable />
         <Select label="Kota / Kabupaten" placeholder="Pilih kota" value={form.city_id} options={cities.map((c) => ({ value: String(c.id), label: c.name }))} onChange={(val) => set('city_id', val)} disabled={cities.length === 0} searchable />
       </div>
@@ -218,8 +218,8 @@ export function EditForm({ band }: Props) {
             <button key={g.id} type="button" onClick={() => toggleGenre(g.id)}
               className={`px-3 py-1 rounded-full text-sm border transition-colors ${
                 form.genre_ids.includes(g.id)
-                  ? 'bg-indigo-600 text-white border-indigo-600'
-                  : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-indigo-400'
+                  ? 'bg-amber-700 text-white border-amber-700'
+                  : 'border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 hover:border-amber-500'
               }`}
             >
               {g.name}
@@ -232,13 +232,13 @@ export function EditForm({ band }: Props) {
       <div>
         <label className={labelClass}>Nomor WhatsApp</label>
         <div className="flex">
-          <span className="inline-flex items-center px-3 border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-sm">+62</span>
-          <input type="text" value={form.contact_wa.replace(/^62/, '')} onChange={(e) => set('contact_wa', '62' + e.target.value.replace(/^0/, ''))} className="flex-1 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="8123456789" />
+          <span className="inline-flex items-center px-3 border border-r-0 border-stone-300 dark:border-stone-600 rounded-l-lg bg-stone-50 dark:bg-stone-700 text-stone-500 dark:text-stone-400 text-sm">+62</span>
+          <input type="text" value={form.contact_wa.replace(/^62/, '')} onChange={(e) => set('contact_wa', '62' + e.target.value.replace(/^0/, ''))} className="flex-1 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="8123456789" />
         </div>
       </div>
 
       {/* Social */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         <div>
           <label className={labelClass}>Instagram</label>
           <input type="text" value={form.instagram} onChange={(e) => set('instagram', e.target.value)} className={inputClass} placeholder="@bandkamu" />
@@ -267,8 +267,8 @@ export function EditForm({ band }: Props) {
 
       {/* Looking for members */}
       <label className="flex items-center gap-3 cursor-pointer">
-        <input type="checkbox" checked={form.is_looking_for_members} onChange={(e) => set('is_looking_for_members', e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
-        <span className="text-sm text-gray-700 dark:text-gray-300">Band kami sedang membuka lowongan untuk member baru</span>
+        <input type="checkbox" checked={form.is_looking_for_members} onChange={(e) => set('is_looking_for_members', e.target.checked)} className="rounded text-amber-700 w-4 h-4" />
+        <span className="text-sm text-stone-700 dark:text-stone-300">Band kami sedang membuka lowongan untuk member baru</span>
       </label>
 
       {error && (
@@ -276,15 +276,15 @@ export function EditForm({ band }: Props) {
       )}
 
       <div className="flex gap-3">
-        <button type="button" onClick={() => router.back()} className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+        <button type="button" onClick={() => router.back()} className="flex-1 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 py-2.5 rounded-lg text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">
           Batal
         </button>
-        <button type="submit" disabled={submitting} className="flex-1 bg-indigo-600 text-white py-2.5 rounded-lg font-semibold text-sm hover:bg-indigo-700 transition-colors disabled:opacity-60">
+        <button type="submit" disabled={submitting} className="flex-1 bg-amber-700 text-white py-2.5 rounded-lg font-semibold text-sm hover:bg-amber-800 transition-colors disabled:opacity-60">
           {submitLabel}
         </button>
       </div>
 
-      <div className="pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-end">
+      <div className="pt-4 border-t border-stone-200 dark:border-stone-700 flex justify-end">
         <DeleteBandButton bandId={band.id} bandName={band.name} />
       </div>
 

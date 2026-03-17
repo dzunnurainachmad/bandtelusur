@@ -24,7 +24,7 @@ export default async function EditBandPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Edit Band</h1>
+      <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-6">Edit Band</h1>
       <EditForm band={band} />
     </div>
   )

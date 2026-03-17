@@ -36,25 +36,25 @@ export default function ResetPasswordPage() {
   }
 
   const inputClass =
-    'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400'
+    'w-full border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500'
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Password Baru</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">Password Baru</h1>
+          <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">
             Masukkan password baru untuk akunmu
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
+        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-6">
           {!ready ? (
-            <p className="text-sm text-center text-gray-400 py-4">Memverifikasi link...</p>
+            <p className="text-sm text-center text-stone-400 py-4">Memverifikasi link...</p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Password baru"
@@ -67,7 +67,7 @@ export default function ResetPasswordPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -82,7 +82,7 @@ export default function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
+                className="w-full bg-amber-700 hover:bg-amber-800 text-white py-2.5 rounded-lg font-semibold text-sm transition-colors disabled:opacity-60"
               >
                 {loading ? 'Menyimpan...' : 'Simpan Password Baru'}
               </button>

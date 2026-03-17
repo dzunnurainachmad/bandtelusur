@@ -62,8 +62,8 @@ export function PlayButton({
         onClick={handlePlay}
         className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-colors ${
           isPlaying
-            ? 'bg-indigo-500 text-white'
-            : 'bg-white text-indigo-600 hover:bg-indigo-50'
+            ? 'bg-amber-600 text-white'
+            : 'bg-[#fefaf4] text-amber-700 hover:bg-amber-50'
         }`}
       >
         <Play className="w-5 h-5 fill-current translate-x-0.5" />
@@ -78,8 +78,8 @@ export function PlayButton({
         title="Putar Musik"
         className={`px-3 py-1.5 rounded-lg border transition-colors ${
           isPlaying
-            ? 'border-indigo-500 bg-indigo-50 text-indigo-600'
-            : 'border-gray-300 text-gray-600 hover:border-indigo-400 hover:text-indigo-600 hover:bg-indigo-50'
+            ? 'border-amber-600 bg-amber-50 text-amber-700'
+            : 'border-stone-300 text-stone-600 hover:border-amber-500 hover:text-amber-700 hover:bg-amber-50'
         }`}
       >
         <Play className="w-4 h-4 fill-current" />
@@ -92,8 +92,8 @@ export function PlayButton({
       onClick={handlePlay}
       className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
         isPlaying
-          ? 'bg-indigo-600 text-white'
-          : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+          ? 'bg-amber-700 text-white'
+          : 'bg-amber-700 hover:bg-amber-800 text-white'
       }`}
     >
       <Play className="w-4 h-4 fill-current" />

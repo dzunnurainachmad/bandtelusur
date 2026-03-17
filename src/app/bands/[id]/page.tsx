@@ -41,46 +41,46 @@ export default async function BandDetailPage({ params }: Props) {
       <div className="flex items-center justify-between mb-6">
         <Link
           href="/browse"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-indigo-600"
+          className="inline-flex items-center gap-1 text-sm text-stone-500 hover:text-amber-700"
         >
           <ArrowLeft className="w-4 h-4" /> Kembali
         </Link>
         {isOwner && (
           <Link
             href={`/bands/${id}/edit`}
-            className="inline-flex items-center gap-1.5 text-sm border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-3 py-1.5 rounded-lg hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-300 px-3 py-1.5 rounded-lg hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors"
           >
             <Pencil className="w-3.5 h-3.5" /> Edit Band
           </Link>
         )}
       </div>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
         {/* Cover photo */}
-        <div className="aspect-video bg-linear-to-br from-indigo-100 to-purple-100 relative">
+        <div className="aspect-video bg-linear-to-br from-amber-100 to-orange-100 relative">
           {band.photo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={band.photo_url} alt={band.name} className="w-full h-full object-cover" />
           ) : (
             <div className="flex items-center justify-center w-full h-full">
-              <Music className="w-16 h-16 text-indigo-300" />
+              <Music className="w-16 h-16 text-amber-400" />
             </div>
           )}
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
           {/* Header */}
-          <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{band.name}</h1>
+              <h1 className="text-xl sm:text-3xl font-bold text-stone-900 dark:text-stone-100">{band.name}</h1>
               {(band.city_name || band.province_name) && (
-                <p className="flex items-center gap-1 text-gray-500 dark:text-gray-400 mt-1">
+                <p className="flex items-center gap-1 text-stone-500 dark:text-stone-400 mt-1">
                   <MapPin className="w-4 h-4" />
                   {band.city_name && `${band.city_name}, `}{band.province_name}
                 </p>
               )}
               {band.formed_year && (
-                <p className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-sm mt-0.5">
+                <p className="flex items-center gap-1 text-stone-500 dark:text-stone-400 text-sm mt-0.5">
                   <Calendar className="w-3.5 h-3.5" />
                   Berdiri {band.formed_year}
                 </p>
@@ -118,19 +118,19 @@ export default async function BandDetailPage({ params }: Props) {
           {/* Bio */}
           {band.bio && (
             <div>
-              <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">Tentang</h2>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line">{band.bio}</p>
+              <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-2">Tentang</h2>
+              <p className="text-stone-600 dark:text-stone-400 leading-relaxed whitespace-pre-line">{band.bio}</p>
             </div>
           )}
 
           {/* ── YouTube Player ────────────────────────────────── */}
           {youtubeEmbed ? (
             <div>
-              <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3 flex items-center gap-2">
                 <YoutubeIcon className="w-4 h-4 text-red-500" />
                 YouTube
               </h2>
-              <div className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 aspect-video">
+              <div className="rounded-xl overflow-hidden border border-stone-200 dark:border-stone-700 aspect-video">
                 <iframe
                   src={youtubeEmbed}
                   title={`${band.name} — YouTube`}
@@ -144,14 +144,14 @@ export default async function BandDetailPage({ params }: Props) {
             <div className="flex flex-wrap gap-2">
               {band.youtube && (
                 <a href={band.youtube} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+                  className="inline-flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
                 >
                   <YoutubeIcon className="w-4 h-4 text-red-500" /> Buka YouTube
                 </a>
               )}
               {band.youtube_music && (
                 <a href={band.youtube_music} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+                  className="inline-flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
                 >
                   <YoutubeIcon className="w-4 h-4 text-red-500" /> Buka YouTube Music
                 </a>
@@ -162,7 +162,7 @@ export default async function BandDetailPage({ params }: Props) {
           {/* ── Spotify Player ────────────────────────────────── */}
           {spotifyEmbed ? (
             <div>
-              <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3 flex items-center gap-2">
                 <Music className="w-4 h-4 text-green-500" />
                 Spotify
               </h2>
@@ -180,7 +180,7 @@ export default async function BandDetailPage({ params }: Props) {
               href={band.spotify}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+              className="inline-flex items-center gap-2 border border-stone-300 text-stone-700 px-4 py-2 rounded-lg hover:bg-stone-50 transition-colors text-sm"
             >
               <Music className="w-4 h-4" /> Buka Spotify
             </a>
@@ -189,7 +189,7 @@ export default async function BandDetailPage({ params }: Props) {
           {/* ── Apple Music Player ────────────────────────────── */}
           {appleMusicEmbed ? (
             <div>
-              <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3 flex items-center gap-2">
                 <Music className="w-4 h-4 text-pink-500" />
                 Apple Music
               </h2>
@@ -208,7 +208,7 @@ export default async function BandDetailPage({ params }: Props) {
               href={band.apple_music}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+              className="inline-flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
             >
               <Music className="w-4 h-4 text-pink-500" /> Buka Apple Music
             </a>
@@ -217,7 +217,7 @@ export default async function BandDetailPage({ params }: Props) {
           {/* ── Bandcamp ──────────────────────────────────────── */}
           {band.bandcamp && (
             <div>
-              <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+              <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3 flex items-center gap-2">
                 <ExternalLink className="w-4 h-4 text-teal-500" />
                 Bandcamp
               </h2>
@@ -234,14 +234,14 @@ export default async function BandDetailPage({ params }: Props) {
 
           {/* ── Contact & Social ──────────────────────────────── */}
           <div>
-            <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-3">Kontak & Media Sosial</h2>
-            <div className="flex flex-wrap gap-3">
+            <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3">Kontak & Media Sosial</h2>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {waLink && (
                 <a
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-600 transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 bg-emerald-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-emerald-600 transition-colors text-xs sm:text-sm font-medium"
                 >
                   Hubungi via WhatsApp
                 </a>
@@ -251,7 +251,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={`https://instagram.com/${band.instagram.replace('@', '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
                 >
                   <Instagram className="w-4 h-4" /> Instagram
                 </a>
@@ -261,7 +261,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={band.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
                 >
                   <YoutubeIcon className="w-4 h-4" /> YouTube
                 </a>
@@ -271,7 +271,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={band.spotify}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
                 >
                   <Music className="w-4 h-4" /> Spotify
                 </a>

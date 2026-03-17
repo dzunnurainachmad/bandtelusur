@@ -23,12 +23,12 @@ export default async function DashboardPage() {
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{user.email}</p>
+          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">Dashboard</h1>
+          <p className="text-sm text-stone-500 dark:text-stone-400 mt-0.5">{user.email}</p>
         </div>
         <Link
           href="/submit"
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
         >
           <Plus className="w-4 h-4" />
           Daftarkan Band
@@ -36,18 +36,18 @@ export default async function DashboardPage() {
       </div>
 
       {myBands.length === 0 ? (
-        <div className="text-center py-24 text-gray-400 dark:text-gray-500">
+        <div className="text-center py-24 text-stone-400 dark:text-stone-500">
           <Music className="w-12 h-12 mx-auto mb-3 opacity-40" />
           <p className="font-medium">Belum ada band terdaftar</p>
           <p className="text-sm mt-1">
-            <Link href="/submit" className="text-indigo-500 hover:underline">
+            <Link href="/submit" className="text-amber-600 hover:underline">
               Daftarkan band pertamamu
             </Link>
           </p>
         </div>
       ) : (
         <>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{myBands.length} band</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">{myBands.length} band</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {myBands.map((band) => (
               <div key={band.id} className="relative group/card">

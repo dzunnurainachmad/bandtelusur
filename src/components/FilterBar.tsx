@@ -96,13 +96,13 @@ export function FilterBar() {
     .filter(Boolean).length
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 space-y-4">
+    <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 space-y-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-gray-700 dark:text-gray-200 font-semibold">
+        <div className="flex items-center gap-2 text-stone-700 dark:text-stone-200 font-semibold">
           <SlidersHorizontal className="w-4 h-4" />
           Filter
           {activeCount > 0 && (
-            <span className="bg-indigo-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            <span className="bg-amber-700 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
               {activeCount}
             </span>
           )}
@@ -110,7 +110,7 @@ export function FilterBar() {
         {activeCount > 0 && (
           <button
             onClick={reset}
-            className="flex items-center gap-1 text-xs text-gray-400 hover:text-red-500 transition-colors"
+            className="flex items-center gap-1 text-xs text-stone-400 hover:text-red-500 transition-colors"
           >
             <X className="w-3 h-3" /> Reset
           </button>
@@ -119,7 +119,7 @@ export function FilterBar() {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
         <input
           ref={searchRef}
           type="text"
@@ -127,12 +127,12 @@ export function FilterBar() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()}
-          className="w-full pl-9 pr-8 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full pl-9 pr-8 py-2 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
         {search && (
           <button
             onClick={() => { setSearch(''); router.push(buildURL({ q: '' })) }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -170,12 +170,12 @@ export function FilterBar() {
       />
 
       {/* Looking for members */}
-      <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+      <label className="flex items-center gap-2 text-sm text-stone-700 dark:text-stone-300 cursor-pointer select-none">
         <input
           type="checkbox"
           checked={lookingForMembers}
           onChange={(e) => handleOpenChange(e.target.checked)}
-          className="rounded text-indigo-600"
+          className="rounded text-amber-700"
         />
         Buka lowongan member
       </label>

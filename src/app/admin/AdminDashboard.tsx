@@ -68,20 +68,20 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
   return (
     <div>
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-xl w-fit mb-6">
+      <div className="flex gap-1 bg-stone-100 dark:bg-stone-800 p-1 rounded-xl w-fit mb-6">
         {([['users', 'Users', Users], ['bands', 'Bands', Music]] as const).map(([key, label, Icon]) => (
           <button
             key={key}
             onClick={() => { setTab(key); setQuery('') }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               tab === key
-                ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
+                ? 'bg-[#fefaf4] dark:bg-[#231d15] text-stone-900 dark:text-stone-100 shadow-sm'
+                : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200'
             }`}
           >
             <Icon className="w-4 h-4" />
             {label}
-            <span className="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-1.5 py-0.5 rounded-full">
+            <span className="bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300 text-xs px-1.5 py-0.5 rounded-full">
               {key === 'users' ? users.length : bands.length}
             </span>
           </button>
@@ -90,38 +90,38 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
 
       {/* Search */}
       <div className="relative mb-4 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={tab === 'users' ? 'Cari email...' : 'Cari nama band...'}
-          className="w-full pl-9 pr-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full pl-9 pr-3 py-2 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
         />
       </div>
 
       {/* Users table */}
       {tab === 'users' && (
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
+          <table className="w-full text-sm min-w-150">
+            <thead className="bg-stone-50 dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700">
               <tr>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Email</th>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Role</th>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Status</th>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Alasan</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Email</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Role</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Status</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Alasan</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+            <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                  <td className="px-4 py-3 text-gray-900 dark:text-gray-100 font-medium">{user.email ?? '—'}</td>
+                <tr key={user.id} className="hover:bg-stone-50 dark:hover:bg-stone-800/50">
+                  <td className="px-4 py-3 text-stone-900 dark:text-stone-100 font-medium">{user.email ?? '—'}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       user.role === 'admin'
-                        ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300'
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                        ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400'
                     }`}>
                       {user.role}
                     </span>
@@ -140,11 +140,11 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
                         placeholder="Alasan ban..."
                         value={banReason[user.id] ?? ''}
                         onChange={(e) => setBanReason((r) => ({ ...r, [user.id]: e.target.value }))}
-                        className="text-xs border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg px-2 py-1 w-40 focus:outline-none focus:ring-1 focus:ring-indigo-400"
+                        className="text-xs border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-lg px-2 py-1 w-full min-w-24 focus:outline-none focus:ring-1 focus:ring-amber-500"
                       />
                     )}
                     {user.is_banned && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 italic">{user.banned_reason ?? '—'}</span>
+                      <span className="text-xs text-stone-500 dark:text-stone-400 italic">{user.banned_reason ?? '—'}</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -168,7 +168,7 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
                 </tr>
               ))}
               {filteredUsers.length === 0 && (
-                <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-400">Tidak ada user</td></tr>
+                <tr><td colSpan={5} className="px-4 py-8 text-center text-stone-400">Tidak ada user</td></tr>
               )}
             </tbody>
           </table>
@@ -177,26 +177,26 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
 
       {/* Bands table */}
       {tab === 'bands' && (
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
+          <table className="w-full text-sm min-w-150">
+            <thead className="bg-stone-50 dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700">
               <tr>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Nama Band</th>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Lokasi</th>
-                <th className="text-left px-4 py-3 text-gray-500 dark:text-gray-400 font-medium">Owner</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Nama Band</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Lokasi</th>
+                <th className="text-left px-4 py-3 text-stone-500 dark:text-stone-400 font-medium">Owner</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+            <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
               {filteredBands.map((band) => {
                 const ownerEmail = users.find((u) => u.id === band.user_id)?.email
                 return (
-                  <tr key={band.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                    <td className="px-4 py-3 text-gray-900 dark:text-gray-100 font-medium">{band.name}</td>
-                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
+                  <tr key={band.id} className="hover:bg-stone-50 dark:hover:bg-stone-800/50">
+                    <td className="px-4 py-3 text-stone-900 dark:text-stone-100 font-medium">{band.name}</td>
+                    <td className="px-4 py-3 text-stone-500 dark:text-stone-400">
                       {[band.city_name, band.province_name].filter(Boolean).join(', ') || '—'}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400 text-xs">{ownerEmail ?? '—'}</td>
+                    <td className="px-4 py-3 text-stone-500 dark:text-stone-400 text-xs">{ownerEmail ?? '—'}</td>
                     <td className="px-4 py-3 text-right">
                       <button
                         onClick={() => handleDeleteBand(band.id)}
@@ -210,7 +210,7 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
                 )
               })}
               {filteredBands.length === 0 && (
-                <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-400">Tidak ada band</td></tr>
+                <tr><td colSpan={4} className="px-4 py-8 text-center text-stone-400">Tidak ada band</td></tr>
               )}
             </tbody>
           </table>

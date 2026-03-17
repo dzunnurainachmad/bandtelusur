@@ -31,7 +31,7 @@ export function DeleteBandButton({ bandId, bandName, redirectTo = '/dashboard' }
   if (confirm) {
     return (
       <div className="flex items-center gap-2">
-        <span className="text-sm text-gray-500 dark:text-gray-400">Hapus &quot;{bandName}&quot;?</span>
+        <span className="text-sm text-stone-500 dark:text-stone-400">Hapus &quot;{bandName}&quot;?</span>
         <button
           onClick={handleDelete}
           disabled={loading}
@@ -41,7 +41,7 @@ export function DeleteBandButton({ bandId, bandName, redirectTo = '/dashboard' }
         </button>
         <button
           onClick={() => setConfirm(false)}
-          className="text-sm border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 px-3 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          className="text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 px-3 py-1.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors"
         >
           Batal
         </button>

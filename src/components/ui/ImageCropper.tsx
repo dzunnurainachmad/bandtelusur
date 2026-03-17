@@ -148,12 +148,12 @@ export function ImageCropper({ src, onConfirm, onCancel }: Props) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl">
+      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-          <span className="font-semibold text-sm text-gray-900 dark:text-gray-100">Atur Foto</span>
-          <button onClick={onCancel} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 rounded-lg transition-colors">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-stone-200 dark:border-stone-700">
+          <span className="font-semibold text-sm text-stone-900 dark:text-stone-100">Atur Foto</span>
+          <button onClick={onCancel} className="text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 p-1 rounded-lg transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -189,28 +189,28 @@ export function ImageCropper({ src, onConfirm, onCancel }: Props) {
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 border-t border-stone-200 dark:border-stone-700">
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => applyZoom(0.85)}
-              className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
             >
               <ZoomOut className="w-4 h-4" />
             </button>
             <button
               type="button"
               onClick={() => applyZoom(1.15)}
-              className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
             >
               <ZoomIn className="w-4 h-4" />
             </button>
-            <span className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block">Geser & zoom untuk mengatur</span>
+            <span className="text-xs text-stone-400 dark:text-stone-500 hidden sm:block">Geser & zoom untuk mengatur</span>
           </div>
           <button
             type="button"
             onClick={handleConfirm}
-            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+            className="flex items-center gap-2 bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-amber-800 transition-colors"
           >
             <Check className="w-4 h-4" />
             Gunakan
