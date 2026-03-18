@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ImagePlus, X } from 'lucide-react'
+import { ImagePlus, Sparkles, X } from 'lucide-react'
 import { getProvinces, getCitiesByProvince, getGenres, createBand, uploadBandPhoto } from '@/lib/queries'
 import { Select } from '@/components/ui/Select'
 import { ImageCropper } from '@/components/ui/ImageCropper'
@@ -142,6 +142,53 @@ export function SubmitForm() {
     }
   }
 
+  const [isGenerating, setIsGenerating] = useState(false)
+
+  async function handleGenerateBio() {
+    if (!form.name.trim()) {
+      setError('Isi nama band dulu sebelum generate bio.')
+      return
+    }
+    setError('')
+    setIsGenerating(true)
+    set('bio', '')
+
+    try {
+      const selectedProvince = provinces.find((p) => String(p.id) === form.province_id)
+      const selectedCity = cities.find((c) => String(c.id) === form.city_id)
+      const location = [selectedCity?.name, selectedProvince?.name].filter(Boolean).join(', ')
+      const selectedGenres = genres.filter((g) => form.genre_ids.includes(g.id)).map((g) => g.name).join(', ')
+
+      const res = await fetch('/api/generate-bio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          genre: selectedGenres,
+          formedYear: form.formed_year,
+          location,
+        }),
+      })
+
+      if (!res.ok) throw new Error('Gagal generate bio.')
+
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+      let bio = ''
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        bio += decoder.decode(value, { stream: true })
+        set('bio', bio)
+      }
+    } catch {
+      setError('Gagal generate bio. Coba lagi.')
+    } finally {
+      setIsGenerating(false)
+    }
+  }
+
   const inputClass =
     'w-full border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500'
 
@@ -209,10 +256,22 @@ export function SubmitForm() {
 
       {/* Bio */}
       <div>
-        <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1">Bio / Deskripsi</label>
+        <div className="flex items-center justify-between mb-1">
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300">Bio / Deskripsi</label>
+          <button
+            type="button"
+            onClick={handleGenerateBio}
+            disabled={isGenerating || !form.name.trim()}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            {isGenerating ? 'Generating...' : 'Generate dengan AI'}
+          </button>
+        </div>
         <textarea
           value={form.bio}
           onChange={(e) => set('bio', e.target.value)}
+          readOnly={isGenerating}
           rows={3}
           className={inputClass}
           placeholder="Ceritakan sedikit tentang band kamu..."
