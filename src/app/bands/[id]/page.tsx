@@ -9,10 +9,11 @@ function YoutubeIcon({ className }: { className?: string }) {
     </svg>
   )
 }
-import { getBandById } from '@/lib/queries'
+import { getBandById, getSimilarBands } from '@/lib/queries'
 import { getYouTubeEmbedUrl, getSpotifyEmbedUrl, getSpotifyEmbedHeight, getAppleMusicEmbedUrl, getAppleMusicEmbedHeight } from '@/lib/embed'
 import { Badge } from '@/components/ui/Badge'
 import { PlayButton } from '@/components/PlayButton'
+import { BandCard } from '@/components/BandCard'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 interface Props {
@@ -21,7 +22,11 @@ interface Props {
 
 export default async function BandDetailPage({ params }: Props) {
   const { id } = await params
-  const [band, supabase] = await Promise.all([getBandById(id), createSupabaseServerClient()])
+  const [band, supabase, similarBands] = await Promise.all([
+    getBandById(id),
+    createSupabaseServerClient(),
+    getSimilarBands(id),
+  ])
 
   if (!band) notFound()
 
@@ -280,6 +285,18 @@ export default async function BandDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Similar Bands */}
+      {similarBands.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100 mb-4">Band Serupa</h2>
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {similarBands.map((b) => (
+              <BandCard key={b.id} band={b} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

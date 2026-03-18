@@ -46,7 +46,7 @@ export interface Band {
 export interface BandFilters {
   province_id?: number
   city_id?: number
-  genre_id?: number
+  genre_ids?: number[]
   is_looking_for_members?: boolean
   search?: string
 }

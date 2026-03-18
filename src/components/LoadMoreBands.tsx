@@ -18,6 +18,13 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters }: Props) 
   const [loading, setLoading] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
+  // Reset state when filters/initial data change (e.g. navigation, "Hapus semua")
+  useEffect(() => {
+    setBands(initialBands)
+    setHasMore(initialHasMore)
+    setPage(0)
+  }, [initialBands, initialHasMore])
+
   const loadMore = useCallback(async () => {
     const nextPage = page + 1
     setLoading(true)
@@ -26,14 +33,18 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters }: Props) 
       params.set('page', String(nextPage))
       if (filters.province_id) params.set('province', String(filters.province_id))
       if (filters.city_id) params.set('city', String(filters.city_id))
-      if (filters.genre_id) params.set('genre', String(filters.genre_id))
+      if (filters.genre_ids?.length) params.set('genre', filters.genre_ids.join(','))
       if (filters.is_looking_for_members) params.set('open', 'true')
       if (filters.search) params.set('q', filters.search)
 
       const res = await fetch(`/api/bands?${params.toString()}`)
       const data = await res.json()
 
-      setBands((prev) => [...prev, ...data.bands])
+      setBands((prev) => {
+        const existingIds = new Set(prev.map((b) => b.id))
+        const newBands = data.bands.filter((b: Band) => !existingIds.has(b.id))
+        return [...prev, ...newBands]
+      })
       setHasMore(data.hasMore)
       setPage(nextPage)
     } finally {

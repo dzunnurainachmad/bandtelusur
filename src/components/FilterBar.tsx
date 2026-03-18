@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { getProvinces, getGenres, getCitiesByProvince } from '@/lib/queries'
 import type { Province, City, Genre } from '@/types'
 import { Select } from '@/components/ui/Select'
+import { MultiSelect } from '@/components/ui/MultiSelect'
 import { Search, SlidersHorizontal, X } from 'lucide-react'
 
 export function FilterBar() {
@@ -12,36 +13,48 @@ export function FilterBar() {
   const params = useSearchParams()
   const searchRef = useRef<HTMLInputElement>(null)
 
+  // Static data
   const [provinces, setProvinces] = useState<Province[]>([])
   const [genres, setGenres] = useState<Genre[]>([])
   const [cities, setCities] = useState<City[]>([])
-  const [province, setProvince] = useState(params.get('province') ?? '')
-  const [city, setCity] = useState(params.get('city') ?? '')
-  const [genre, setGenre] = useState(params.get('genre') ?? '')
-  const [lookingForMembers, setLookingForMembers] = useState(params.get('open') === 'true')
+
+  // Derive filter values directly from URL params (no local state needed)
+  const province = params.get('province') ?? ''
+  const city = params.get('city') ?? ''
+  const genreIds = useMemo(() => {
+    const g = params.get('genre')
+    return g ? g.split(',') : []
+  }, [params])
+  const lookingForMembers = params.get('open') === 'true'
+
+  // Search needs local state (typed before Enter submits)
   const [search, setSearch] = useState(params.get('q') ?? '')
 
-  // On mount: fetch static data + restore city if province is in URL
+  // On mount: fetch static data
   useEffect(() => {
     getProvinces().then(setProvinces)
     getGenres().then(setGenres)
-
-    const p = params.get('province')
-    const c = params.get('city')
-    if (p) {
-      getCitiesByProvince(Number(p)).then((data) => {
-        setCities(data)
-        if (c) setCity(c)
-      })
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Sync search input when URL changes (e.g. chip removed)
+  useEffect(() => {
+    setSearch(params.get('q') ?? '') // eslint-disable-line react-hooks/set-state-in-effect
+  }, [params])
+
+  // Fetch cities when province changes
+  useEffect(() => {
+    if (province) {
+      getCitiesByProvince(Number(province)).then(setCities)
+    } else {
+      setCities([]) // eslint-disable-line react-hooks/set-state-in-effect
+    }
+  }, [province])
 
   function buildURL(overrides: Partial<Record<'province' | 'city' | 'genre' | 'open' | 'q', string>>) {
     const merged = {
       province,
       city,
-      genre,
+      genre: genreIds.join(','),
       open: lookingForMembers ? 'true' : '',
       q: search,
       ...overrides,
@@ -56,25 +69,20 @@ export function FilterBar() {
   }
 
   function handleProvinceChange(val: string) {
-    setProvince(val)
-    setCity('')
     setCities([])
     if (val) getCitiesByProvince(Number(val)).then(setCities)
     router.push(buildURL({ province: val, city: '' }))
   }
 
   function handleCityChange(val: string) {
-    setCity(val)
     router.push(buildURL({ city: val }))
   }
 
-  function handleGenreChange(val: string) {
-    setGenre(val)
-    router.push(buildURL({ genre: val }))
+  function handleGenreChange(vals: string[]) {
+    router.push(buildURL({ genre: vals.join(',') }))
   }
 
   function handleOpenChange(checked: boolean) {
-    setLookingForMembers(checked)
     router.push(buildURL({ open: checked ? 'true' : '' }))
   }
 
@@ -83,16 +91,12 @@ export function FilterBar() {
   }
 
   function reset() {
-    setProvince('')
-    setCity('')
-    setGenre('')
-    setLookingForMembers(false)
     setSearch('')
     setCities([])
     router.push('/browse')
   }
 
-  const activeCount = [province, city, genre, lookingForMembers ? 'open' : '', search]
+  const activeCount = [province, city, genreIds.length > 0 ? 'genre' : '', lookingForMembers ? 'open' : '', params.get('q')]
     .filter(Boolean).length
 
   return (
@@ -160,11 +164,11 @@ export function FilterBar() {
         searchable
       />
 
-      {/* Genre */}
-      <Select
+      {/* Genre (multi-select) */}
+      <MultiSelect
         label="Genre"
         placeholder="Semua Genre"
-        value={genre}
+        value={genreIds}
         options={genres.map((g) => ({ value: String(g.id), label: g.name }))}
         onChange={handleGenreChange}
       />

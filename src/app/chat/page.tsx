@@ -85,7 +85,7 @@ export default function ChatPage() {
               }
 
               // Render band cards from tool results
-              if (part.type === 'tool-searchBands' && part.state === 'output-available') {
+              if ((part.type === 'tool-searchBands' || part.type === 'tool-semanticSearch') && part.state === 'output-available') {
                 const result = part.output as { bands?: Band[] }
                 if (result?.bands && result.bands.length > 0) {
                   return (

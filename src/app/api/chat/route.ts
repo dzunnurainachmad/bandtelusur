@@ -2,6 +2,7 @@ import { streamText, tool, stepCountIs, convertToModelMessages } from 'ai'
 import { openai } from '@ai-sdk/openai'
 import { z } from 'zod/v4'
 import { supabase } from '@/lib/supabase'
+import { generateEmbedding } from '@/lib/embeddings'
 
 export async function POST(req: Request) {
   const { messages } = await req.json()
@@ -11,8 +12,9 @@ export async function POST(req: Request) {
     model: openai('gpt-4o-mini'),
     system: `Kamu adalah asisten Bandly, platform untuk menemukan band Indonesia.
 Jawab dalam Bahasa Indonesia dengan gaya santai dan menarik.
-Ketika user ingin mencari band, gunakan tool searchBands.
-Jika user mencari posisi spesifik (drummer, vokalis, gitaris, dll), gunakan parameter bio_search untuk mencari di deskripsi band, dan juga set is_looking_for_members ke true.
+Gunakan tool semanticSearch untuk pencarian deskriptif atau bahasa alami (misal: "band indie dreamy dari Jogja", "band rock energik").
+Gunakan tool searchBands untuk filter spesifik (genre tertentu, kota tertentu, nama band).
+Jika user mencari posisi spesifik (drummer, vokalis, gitaris, dll), gunakan searchBands dengan parameter bio_search dan is_looking_for_members.
 Setelah mendapat hasil dari tool, rangkum hasilnya dengan menarik. Sebutkan nama band, genre, lokasi, dan info penting lainnya.
 Jika tidak ada hasil, sarankan kata kunci atau filter lain.
 Jangan pernah mengarang data band — hanya gunakan data dari tool.`,
@@ -68,6 +70,35 @@ Jangan pernah mengarang data band — hanya gunakan data dari tool.`,
               formed_year: b.formed_year,
             })),
             total: bands.length,
+          }
+        },
+      }),
+      semanticSearch: tool({
+        description: 'Pencarian semantik untuk menemukan band berdasarkan deskripsi natural language. Cocok untuk query deskriptif seperti "band indie dreamy dari Jogja" atau "band rock energik yang sering manggung"',
+        inputSchema: z.object({
+          query: z.string().describe('Deskripsi band yang dicari dalam bahasa alami'),
+        }),
+        execute: async ({ query }) => {
+          const embedding = await generateEmbedding(query)
+          const { data, error } = await supabase.rpc('search_bands_semantic', {
+            query_embedding: JSON.stringify(embedding),
+            match_threshold: 0.3,
+            match_count: 10,
+          })
+          if (error) return { error: error.message, bands: [] }
+          return {
+            bands: (data ?? []).map((b: Record<string, unknown>) => ({
+              id: b.id,
+              name: b.name,
+              bio: b.bio,
+              province_name: b.province_name,
+              city_name: b.city_name,
+              genres: b.genres,
+              is_looking_for_members: b.is_looking_for_members,
+              photo_url: b.photo_url,
+              formed_year: b.formed_year,
+            })),
+            total: (data ?? []).length,
           }
         },
       }),

@@ -37,7 +37,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
   const filters = {
     province_id: sp.province ? Number(sp.province) : undefined,
     city_id: sp.city ? Number(sp.city) : undefined,
-    genre_id: sp.genre ? Number(sp.genre) : undefined,
+    genre_ids: sp.genre ? sp.genre.split(',').map(Number) : undefined,
     is_looking_for_members: sp.open === 'true' ? true : undefined,
     search: sp.q,
   }
@@ -52,7 +52,10 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
   const activeProvince = sp.province ? provinces.find((p) => p.id === Number(sp.province)) : null
   const activeCities = sp.province ? await getCitiesByProvince(Number(sp.province)) : []
   const activeCity = sp.city ? activeCities.find((c) => c.id === Number(sp.city)) : null
-  const activeGenre = sp.genre ? genres.find((g) => g.id === Number(sp.genre)) : null
+  const activeGenreIds = sp.genre ? sp.genre.split(',').map(Number) : []
+  const activeGenres = activeGenreIds
+    .map((id) => genres.find((g) => g.id === id))
+    .filter(Boolean)
 
   type Chip = { label: string; href: string }
   const chips: Chip[] = [
@@ -61,7 +64,19 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
       href: removeParam(sp, 'province', 'city'), // clear city too
     },
     activeCity && { label: activeCity.name, href: removeParam(sp, 'city') },
-    activeGenre && { label: activeGenre.name, href: removeParam(sp, 'genre') },
+    ...activeGenres.map((g) => {
+      // Remove this genre from the comma-separated list
+      const remaining = activeGenreIds.filter((id) => id !== g!.id)
+      const next: SearchParams = { ...sp, genre: remaining.length > 0 ? remaining.join(',') : undefined }
+      const p = new URLSearchParams()
+      if (next.province) p.set('province', next.province)
+      if (next.city) p.set('city', next.city)
+      if (next.genre) p.set('genre', next.genre)
+      if (next.open) p.set('open', next.open)
+      if (next.q) p.set('q', next.q)
+      const qs = p.toString()
+      return { label: g!.name, href: qs ? `/browse?${qs}` : '/browse' }
+    }),
     sp.open === 'true' && { label: 'Buka lowongan member', href: removeParam(sp, 'open') },
     sp.q && { label: `"${sp.q}"`, href: removeParam(sp, 'q') },
   ].filter(Boolean) as Chip[]
