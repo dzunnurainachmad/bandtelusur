@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, Guitar, Users } from 'lucide-react'
+import { MapPin, Guitar, Users, MessageCircle, Sparkles, Music } from 'lucide-react'
 import { LogoBT } from '@/components/LogoBT'
 import { getGenres } from '@/lib/queries'
 
@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-amber-700 to-amber-900 text-white py-12 sm:py-20 px-4">
+      <section className="bg-linear-to-br from-amber-700 to-amber-900 text-white py-12 sm:py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex justify-center mb-4">
             <LogoBT className="w-12 h-12 sm:w-14 sm:h-14" />
@@ -41,33 +41,80 @@ export default async function Home() {
       </section>
 
       {/* Features */}
-      <section className="max-w-5xl mx-auto px-4 py-10 sm:py-16 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-        <div className="text-center">
-          <div className="bg-amber-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <MapPin className="w-6 h-6 text-amber-700" />
+      <section className="max-w-5xl mx-auto px-4 py-10 sm:py-16">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-8 sm:mb-12 text-stone-900 dark:text-stone-100">Fitur Unggulan</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="text-center">
+            <div className="bg-amber-100 dark:bg-amber-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <MapPin className="w-6 h-6 text-amber-700 dark:text-amber-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">Filter Lokasi</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Cari band berdasarkan 34 provinsi dan ratusan kota di Indonesia.
+            </p>
           </div>
-          <h3 className="font-bold text-lg mb-1">Filter Lokasi</h3>
-          <p className="text-stone-500 text-sm">
-            Cari band berdasarkan 34 provinsi dan ratusan kota di Indonesia.
-          </p>
+          <div className="text-center">
+            <div className="bg-amber-100 dark:bg-amber-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Guitar className="w-6 h-6 text-amber-700 dark:text-amber-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">Filter Genre</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Dari Rock, Metal, Jazz, Dangdut hingga Electronic — semua ada di sini.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="bg-emerald-100 dark:bg-emerald-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Users className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">Cari Member</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Band yang buka lowongan member mudah ditemukan dengan filter khusus.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="bg-purple-100 dark:bg-purple-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <MessageCircle className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">Discover AI</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Tanya AI untuk rekomendasi band sesuai selera — cukup ceritakan musik yang kamu suka.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="bg-blue-100 dark:bg-blue-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">AI Bio Generator</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Buat bio band secara otomatis dengan AI. Cukup isi detail, bio langsung jadi.
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="bg-rose-100 dark:bg-rose-900/30 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Music className="w-6 h-6 text-rose-600 dark:text-rose-400" />
+            </div>
+            <h3 className="font-bold text-lg mb-1 text-stone-900 dark:text-stone-100">Dengarkan Langsung</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm">
+              Putar musik dari Spotify, YouTube, dan Apple Music langsung di halaman band.
+            </p>
+          </div>
         </div>
-        <div className="text-center">
-          <div className="bg-amber-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <Guitar className="w-6 h-6 text-amber-700" />
-          </div>
-          <h3 className="font-bold text-lg mb-1">Filter Genre</h3>
-          <p className="text-stone-500 text-sm">
-            Dari Rock, Metal, Jazz, Dangdut hingga Electronic — semua ada di sini.
+      </section>
+
+      {/* AI CTA */}
+      <section className="max-w-5xl mx-auto px-4 pb-10 sm:pb-16">
+        <div className="bg-linear-to-r from-purple-600 to-amber-700 rounded-2xl p-6 sm:p-10 text-white text-center">
+          <MessageCircle className="w-10 h-10 mx-auto mb-3 opacity-90" />
+          <h2 className="text-xl sm:text-2xl font-bold mb-2">Bingung Mau Dengerin Apa?</h2>
+          <p className="text-white/80 text-sm sm:text-base mb-5 max-w-lg mx-auto">
+            Ceritakan selera musikmu ke AI kami, dan dapatkan rekomendasi band Indonesia yang cocok buatmu.
           </p>
-        </div>
-        <div className="text-center">
-          <div className="bg-emerald-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <Users className="w-6 h-6 text-emerald-600" />
-          </div>
-          <h3 className="font-bold text-lg mb-1">Cari Member</h3>
-          <p className="text-stone-500 text-sm">
-            Band yang buka lowongan member mudah ditemukan dengan filter khusus.
-          </p>
+          <Link
+            href="/chat"
+            className="inline-block bg-white text-purple-700 font-semibold px-6 py-3 rounded-xl hover:bg-purple-50 transition-colors"
+          >
+            Coba Discover AI
+          </Link>
         </div>
       </section>
 

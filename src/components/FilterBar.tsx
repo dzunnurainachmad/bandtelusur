@@ -1,15 +1,16 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { getProvinces, getGenres, getCitiesByProvince } from '@/lib/queries'
 import type { Province, City, Genre } from '@/types'
 import { Select } from '@/components/ui/Select'
 import { MultiSelect } from '@/components/ui/MultiSelect'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { Search, SlidersHorizontal, X, Loader2 } from 'lucide-react'
+import { useFilterLoading } from './FilterLoadingContext'
 
 export function FilterBar() {
-  const router = useRouter()
+  const { isPending, navigate } = useFilterLoading()
   const params = useSearchParams()
   const searchRef = useRef<HTMLInputElement>(null)
 
@@ -71,29 +72,29 @@ export function FilterBar() {
   function handleProvinceChange(val: string) {
     setCities([])
     if (val) getCitiesByProvince(Number(val)).then(setCities)
-    router.push(buildURL({ province: val, city: '' }))
+    navigate(buildURL({ province: val, city: '' }))
   }
 
   function handleCityChange(val: string) {
-    router.push(buildURL({ city: val }))
+    navigate(buildURL({ city: val }))
   }
 
   function handleGenreChange(vals: string[]) {
-    router.push(buildURL({ genre: vals.join(',') }))
+    navigate(buildURL({ genre: vals.join(',') }))
   }
 
   function handleOpenChange(checked: boolean) {
-    router.push(buildURL({ open: checked ? 'true' : '' }))
+    navigate(buildURL({ open: checked ? 'true' : '' }))
   }
 
   function handleSearchSubmit() {
-    router.push(buildURL({ q: search }))
+    navigate(buildURL({ q: search }))
   }
 
   function reset() {
     setSearch('')
     setCities([])
-    router.push('/browse')
+    navigate('/browse')
   }
 
   const activeCount = [province, city, genreIds.length > 0 ? 'genre' : '', lookingForMembers ? 'open' : '', params.get('q')]
@@ -103,7 +104,11 @@ export function FilterBar() {
     <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-stone-700 dark:text-stone-200 font-semibold">
-          <SlidersHorizontal className="w-4 h-4" />
+          {isPending ? (
+            <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
+          ) : (
+            <SlidersHorizontal className="w-4 h-4" />
+          )}
           Filter
           {activeCount > 0 && (
             <span className="bg-amber-700 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
@@ -135,7 +140,7 @@ export function FilterBar() {
         />
         {search && (
           <button
-            onClick={() => { setSearch(''); router.push(buildURL({ q: '' })) }}
+            onClick={() => { setSearch(''); navigate(buildURL({ q: '' })) }}
             className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
           >
             <X className="w-3.5 h-3.5" />
