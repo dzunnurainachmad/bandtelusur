@@ -77,6 +77,42 @@ Jangan pernah mengarang data band — hanya gunakan data dari tool.`,
           }
         },
       }),
+      getBandDetail: tool({
+        description: 'Ambil detail lengkap satu band berdasarkan ID. Gunakan setelah searchBands atau semanticSearch jika user minta info lebih lanjut tentang band tertentu.',
+        inputSchema: z.object({
+          id: z.string().describe('ID band yang ingin dilihat detailnya'),
+        }),
+        execute: async ({ id }) => {
+          const { data, error } = await supabase
+            .from('bands_view')
+            .select('*')
+            .eq('id', id)
+            .single()
+
+          if (error || !data) return { error: 'Band tidak ditemukan' }
+
+          return {
+            band: {
+              id: data.id,
+              name: data.name,
+              bio: data.bio,
+              formed_year: data.formed_year,
+              province_name: data.province_name,
+              city_name: data.city_name,
+              genres: data.genres,
+              is_looking_for_members: data.is_looking_for_members,
+              photo_url: data.photo_url,
+              instagram: data.instagram,
+              youtube: data.youtube,
+              spotify: data.spotify,
+              youtube_music: data.youtube_music,
+              apple_music: data.apple_music,
+              bandcamp: data.bandcamp,
+              contact_wa: data.contact_wa,
+            },
+          }
+        },
+      }),
       semanticSearch: tool({
         description: 'Pencarian semantik untuk menemukan band berdasarkan deskripsi natural language. JANGAN gunakan untuk query berbasis lokasi — gunakan searchBands dengan city/province. Cocok untuk query deskriptif seperti "band yang musiknya dreamy" atau "band rock energik"',
         inputSchema: z.object({

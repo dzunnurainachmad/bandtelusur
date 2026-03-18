@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useChat } from '@ai-sdk/react'
 import Link from 'next/link'
 import { Send, Bot, User, MessageSquare } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 import type { Band } from '@/types'
 
 export default function ChatPage() {
@@ -75,11 +76,62 @@ export default function ChatPage() {
                           : 'bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200'
                       }`}
                     >
-                      <p className="text-sm whitespace-pre-wrap">{part.text}</p>
+                      <div className="text-sm prose prose-stone dark:prose-invert prose-sm max-w-none
+                          prose-p:my-1 prose-ul:my-1 prose-li:my-0 prose-headings:my-2
+                          prose-a:text-amber-700 dark:prose-a:text-amber-400 prose-a:no-underline hover:prose-a:underline
+                          prose-strong:text-stone-900 dark:prose-strong:text-stone-100
+                          prose-code:bg-stone-100 dark:prose-code:bg-stone-800 prose-code:px-1 prose-code:rounded prose-code:text-xs">
+                        <ReactMarkdown>{part.text}</ReactMarkdown>
+                      </div>
                     </div>
                     {message.role === 'user' && (
                       <User className="w-6 h-6 text-stone-400 shrink-0 mt-1" />
                     )}
+                  </div>
+                )
+              }
+
+              // Render detail card from getBandDetail
+              if (part.type === 'tool-getBandDetail' && part.state === 'output-available') {
+                const result = part.output as { band?: Band }
+                const band = result?.band
+                if (!band) return null
+                return (
+                  <div key={i} className="my-4 ml-9">
+                    <Link
+                      href={`/bands/${band.id}`}
+                      className="block bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-xl p-4 hover:border-amber-500 transition-colors"
+                    >
+                      <p className="font-bold text-base text-stone-900 dark:text-stone-100">{band.name}</p>
+                      {(band.city_name || band.province_name) && (
+                        <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                          {[band.city_name, band.province_name].filter(Boolean).join(', ')}
+                          {band.formed_year ? ` · est. ${band.formed_year}` : ''}
+                        </p>
+                      )}
+                      {Array.isArray(band.genres) && band.genres.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {band.genres.map((g) => (
+                            <span key={g.id} className="text-[10px] bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded-full">
+                              {g.name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {band.bio && (
+                        <p className="text-xs text-stone-600 dark:text-stone-400 mt-2 line-clamp-3">{band.bio}</p>
+                      )}
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-3 text-xs text-amber-700 dark:text-amber-400">
+                        {band.instagram && <span>Instagram</span>}
+                        {band.youtube && <span>YouTube</span>}
+                        {band.spotify && <span>Spotify</span>}
+                        {band.bandcamp && <span>Bandcamp</span>}
+                        {band.contact_wa && <span>WhatsApp</span>}
+                      </div>
+                      {band.is_looking_for_members && (
+                        <p className="text-[10px] text-green-600 dark:text-green-400 mt-2">Mencari anggota baru</p>
+                      )}
+                    </Link>
                   </div>
                 )
               }

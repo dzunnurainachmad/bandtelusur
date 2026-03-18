@@ -142,8 +142,8 @@ export function ImageCropper({ src, onConfirm, onCancel }: Props) {
 
     canvas.toBlob((blob) => {
       if (!blob) return
-      onConfirm(new File([blob], 'band-photo.jpg', { type: 'image/jpeg' }))
-    }, 'image/jpeg', 0.92)
+      onConfirm(new File([blob], 'band-photo.webp', { type: 'image/webp' }))
+    }, 'image/webp', 0.88)
   }
 
   return (
