@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Users, Music, ShieldX, ShieldCheck, Trash2, Search } from 'lucide-react'
+import Link from 'next/link'
+import { Users, Music, ShieldX, ShieldCheck, Trash2, Search, Flag } from 'lucide-react'
 import { supabaseBrowser } from '@/lib/supabase-browser'
 import { deleteBand } from '@/lib/queries'
 
@@ -68,7 +69,8 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
   return (
     <div>
       {/* Tabs */}
-      <div className="flex gap-1 bg-stone-100 dark:bg-stone-800 p-1 rounded-xl w-fit mb-6">
+      <div className="flex items-center gap-3 mb-6">
+      <div className="flex gap-1 bg-stone-100 dark:bg-stone-800 p-1 rounded-xl w-fit">
         {([['users', 'Users', Users], ['bands', 'Bands', Music]] as const).map(([key, label, Icon]) => (
           <button
             key={key}
@@ -86,6 +88,13 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
             </span>
           </button>
         ))}
+      </div>
+      <Link
+        href="/admin/moderate"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
+      >
+        <Flag className="w-4 h-4" /> Moderasi
+      </Link>
       </div>
 
       {/* Search */}
