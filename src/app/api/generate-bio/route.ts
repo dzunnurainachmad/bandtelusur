@@ -1,5 +1,6 @@
 import { streamText } from 'ai'
 import { openai } from '@ai-sdk/openai'
+import { buildGenerateBioPrompt } from '@/lib/prompts'
 
 export async function POST(req: Request) {
   const { name, genre, formedYear, location } = await req.json()
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    prompt: `Buatkan bio singkat (2-3 kalimat) dalam bahasa Indonesia untuk band berikut:\n${details}\n\nTulis dengan gaya santai dan menarik. Langsung tulis bio-nya saja tanpa pendahuluan atau label.`,
+    prompt: buildGenerateBioPrompt(details),
     maxOutputTokens: 300,
   })
 

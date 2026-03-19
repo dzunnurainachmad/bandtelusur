@@ -134,6 +134,7 @@ export function SubmitForm() {
         is_looking_for_members: form.is_looking_for_members,
         genre_ids: form.genre_ids,
       })
+      fetch('/api/embeddings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bandId: id }) })
       router.push(`/bands/${id}`)
     } catch (err) {
       setError((err as Error).message ?? 'Terjadi kesalahan. Coba lagi.')

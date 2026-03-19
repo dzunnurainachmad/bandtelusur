@@ -3,6 +3,7 @@ import { openai } from '@ai-sdk/openai'
 import { z } from 'zod/v4'
 import { supabase } from '@/lib/supabase'
 import { generateEmbedding } from '@/lib/embeddings'
+import { CHAT_SYSTEM_PROMPT } from '@/lib/prompts'
 
 export async function POST(req: Request) {
   const { messages } = await req.json()
@@ -10,18 +11,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    system: `Kamu adalah asisten BandTelusur, platform untuk menemukan band Indonesia.
-Jawab dalam Bahasa Indonesia dengan gaya santai dan menarik.
-
-ATURAN PEMILIHAN TOOL:
-- Jika user menyebut KOTA atau PROVINSI tertentu (misal: Bandung, Jogja, Jakarta, Surabaya), WAJIB gunakan searchBands dengan parameter city atau province. Jangan gunakan semanticSearch saja untuk query berbasis lokasi.
-- Gunakan semanticSearch HANYA untuk pencarian deskriptif tanpa lokasi spesifik (misal: "band yang musiknya dreamy", "band rock energik").
-- Jika user menyebut lokasi + deskripsi (misal: "band indie dari Bandung"), gunakan searchBands dengan filter city/province DAN genre jika relevan.
-- Jika user mencari posisi spesifik (drummer, vokalis, gitaris, dll), gunakan searchBands dengan parameter bio_search dan is_looking_for_members.
-
-Setelah mendapat hasil dari tool, rangkum hasilnya dengan menarik. Sebutkan nama band, genre, lokasi, dan info penting lainnya.
-Jika tidak ada hasil, sarankan kata kunci atau filter lain.
-Jangan pernah mengarang data band — hanya gunakan data dari tool.`,
+    system: CHAT_SYSTEM_PROMPT,
     messages: modelMessages,
     tools: {
       searchBands: tool({

@@ -14,6 +14,7 @@ import { getYouTubeEmbedUrl, getSpotifyEmbedUrl, getSpotifyEmbedHeight, getApple
 import { Badge } from '@/components/ui/Badge'
 import { PlayButton } from '@/components/PlayButton'
 import { BandCard } from '@/components/BandCard'
+import { BandInsights } from '@/components/BandInsights'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 interface Props {
@@ -127,6 +128,19 @@ export default async function BandDetailPage({ params }: Props) {
               <p className="text-stone-600 dark:text-stone-400 leading-relaxed whitespace-pre-line">{band.bio}</p>
             </div>
           )}
+
+          {/* AI Insights */}
+          <BandInsights
+            band={{
+              id: band.id,
+              name: band.name,
+              bio: band.bio,
+              formed_year: band.formed_year,
+              province_name: band.province_name,
+              city_name: band.city_name,
+              genres: band.genres,
+            }}
+          />
 
           {/* ── YouTube Player ────────────────────────────────── */}
           {youtubeEmbed ? (

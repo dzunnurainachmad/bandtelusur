@@ -140,6 +140,7 @@ export function EditForm({ band }: Props) {
         genre_ids: form.genre_ids,
       })
 
+      fetch('/api/embeddings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bandId: band.id }) })
       router.push(`/bands/${band.id}`)
       router.refresh()
     } catch (err) {
