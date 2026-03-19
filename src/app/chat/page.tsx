@@ -21,11 +21,16 @@ function loadMessages(): UIMessage[] {
 }
 
 export default function ChatPage() {
-  const [initialMessages] = useState<UIMessage[]>(loadMessages)
-  const { messages, sendMessage, status, setMessages } = useChat({ initialMessages })
+  const { messages, sendMessage, status, setMessages } = useChat()
   const [input, setInput] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
   const isLoading = status === 'streaming' || status === 'submitted'
+
+  useEffect(() => {
+    const stored = loadMessages()
+    if (stored.length > 0) setMessages(stored)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (messages.length > 0) {
