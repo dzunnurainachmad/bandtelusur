@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       {
         role: 'user',
         content: [
-          { type: 'image', image, mimeType: mimeType ?? 'image/jpeg' },
+          { type: 'image', image, mediaType: mimeType ?? 'image/jpeg' },
           { type: 'text', text: buildAnalyzePhotoPrompt(availableGenres ?? '') },
         ],
       },
