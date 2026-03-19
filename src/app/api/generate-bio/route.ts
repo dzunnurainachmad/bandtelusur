@@ -1,6 +1,6 @@
 import { streamText } from 'ai'
 import { openai } from '@ai-sdk/openai'
-import { buildGenerateBioPrompt } from '@/lib/prompts'
+import { buildGenerateBioPrompt, PROMPT_VERSIONS } from '@/lib/prompts'
 import { logAiCall } from '@/lib/ai-logger'
 
 export async function POST(req: Request) {
@@ -29,6 +29,7 @@ export async function POST(req: Request) {
         latencyMs: Date.now() - startedAt,
         inputTokens: usage?.inputTokens,
         outputTokens: usage?.outputTokens,
+        promptVersion: PROMPT_VERSIONS['generate-bio'],
       })
     },
   })

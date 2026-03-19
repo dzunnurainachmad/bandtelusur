@@ -3,7 +3,7 @@ import { openai } from '@ai-sdk/openai'
 import { z } from 'zod/v4'
 import { supabase } from '@/lib/supabase'
 import { generateEmbedding } from '@/lib/embeddings'
-import { CHAT_SYSTEM_PROMPT } from '@/lib/prompts'
+import { CHAT_SYSTEM_PROMPT, PROMPT_VERSIONS } from '@/lib/prompts'
 import { logAiCall } from '@/lib/ai-logger'
 
 export async function POST(req: Request) {
@@ -160,6 +160,7 @@ export async function POST(req: Request) {
         latencyMs: Date.now() - startedAt,
         inputTokens: usage?.inputTokens,
         outputTokens: usage?.outputTokens,
+        promptVersion: PROMPT_VERSIONS.chat,
       })
     },
   })

@@ -7,6 +7,7 @@ export async function logAiCall({
   inputTokens,
   outputTokens,
   bandId,
+  promptVersion,
 }: {
   route: string
   model: string
@@ -14,6 +15,7 @@ export async function logAiCall({
   inputTokens?: number
   outputTokens?: number
   bandId?: string
+  promptVersion?: string
 }) {
   try {
     await supabaseAdmin.from('ai_logs').insert({
@@ -23,6 +25,7 @@ export async function logAiCall({
       input_tokens: inputTokens ?? null,
       output_tokens: outputTokens ?? null,
       band_id: bandId ?? null,
+      prompt_version: promptVersion ?? null,
     })
   } catch (err) {
     console.error('[ai-logger] failed to log:', err)

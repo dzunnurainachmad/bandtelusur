@@ -1,6 +1,6 @@
 import { streamObject } from 'ai'
 import { openai } from '@ai-sdk/openai'
-import { buildAnalyzeBandPrompt } from '@/lib/prompts'
+import { buildAnalyzeBandPrompt, PROMPT_VERSIONS } from '@/lib/prompts'
 import { logAiCall } from '@/lib/ai-logger'
 import { BandInsightsSchema } from '@/lib/schemas'
 import { supabaseAdmin } from '@/lib/supabase-admin'
@@ -59,6 +59,7 @@ export async function POST(req: Request) {
         inputTokens: usage?.inputTokens,
         outputTokens: usage?.outputTokens,
         bandId: band_id,
+        promptVersion: PROMPT_VERSIONS['analyze-band'],
       })
       if (band_id && object) {
         supabaseAdmin

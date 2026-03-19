@@ -2,12 +2,24 @@
  * Centralized prompt registry for BandTelusur AI features.
  *
  * Versioning convention:
- * - Bump the version comment when changing a prompt
+ * - Bump the version comment AND PROMPT_VERSIONS below when changing a prompt
  * - Add a short "why" note so git history tells a story
  * - Keep old versions as comments if the change is significant
  *
- * To test a prompt change: update the text, run the eval, compare output quality.
+ * To test a prompt change: update the text, bump the version, run `npm run eval`.
  */
+
+// ---------------------------------------------------------------------------
+// Machine-readable version registry — used by ai-logger and eval runner
+// ---------------------------------------------------------------------------
+export const PROMPT_VERSIONS = {
+  chat: 'v1',
+  'analyze-band': 'v1',
+  'analyze-photo': 'v1',
+  'generate-bio': 'v1',
+} as const
+
+export type PromptRoute = keyof typeof PROMPT_VERSIONS
 
 // ---------------------------------------------------------------------------
 // chat — system prompt for the BandTelusur chat assistant
