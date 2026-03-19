@@ -10,6 +10,7 @@ function YoutubeIcon({ className }: { className?: string }) {
   )
 }
 import { getBandById, getSimilarBands } from '@/lib/queries'
+import { FlagBandButton } from '@/components/FlagBandButton'
 import { getYouTubeEmbedUrl, getSpotifyEmbedUrl, getSpotifyEmbedHeight, getAppleMusicEmbedUrl, getAppleMusicEmbedHeight } from '@/lib/embed'
 import { Badge } from '@/components/ui/Badge'
 import { PlayButton } from '@/components/PlayButton'
@@ -298,6 +299,11 @@ export default async function BandDetailPage({ params }: Props) {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Flag */}
+      <div className="mt-4 flex justify-end">
+        <FlagBandButton bandId={id} />
       </div>
 
       {/* Similar Bands */}

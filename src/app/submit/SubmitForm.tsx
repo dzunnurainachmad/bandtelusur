@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ImagePlus, Sparkles, X } from 'lucide-react'
+import { ImagePlus, Sparkles, X, Globe, Loader2 } from 'lucide-react'
+import type { SubmitBandAgentResult } from '@/lib/schemas'
 import { getProvinces, getCitiesByProvince, getGenres, createBand, uploadBandPhoto } from '@/lib/queries'
 import { Select } from '@/components/ui/Select'
 import { ImageCropper } from '@/components/ui/ImageCropper'
@@ -168,6 +169,46 @@ export function SubmitForm() {
     }
   }
 
+  const [fillUrl, setFillUrl] = useState('')
+  const [fillingFromUrl, setFillingFromUrl] = useState(false)
+  const [fillResult, setFillResult] = useState<SubmitBandAgentResult | null>(null)
+
+  async function handleFillFromUrl() {
+    if (!fillUrl.trim()) return
+    setFillingFromUrl(true)
+    setFillResult(null)
+    try {
+      const res = await fetch('/api/agents/submit-band', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: fillUrl }),
+      })
+      if (!res.ok) throw new Error('Gagal mengambil data')
+      const data: SubmitBandAgentResult = await res.json()
+      setFillResult(data)
+      // Apply fields to form
+      if (data.name) set('name', data.name)
+      if (data.bio) set('bio', data.bio)
+      if (data.instagram) set('instagram', data.instagram)
+      if (data.youtube) set('youtube', data.youtube)
+      if (data.spotify) set('spotify', data.spotify)
+      if (data.formed_year) set('formed_year', data.formed_year)
+      // Match suggested genre names to genre IDs
+      if (data.suggested_genres.length > 0) {
+        const matchedIds = genres
+          .filter((g) => data.suggested_genres.some(
+            (sg) => g.name.toLowerCase() === sg.toLowerCase()
+          ))
+          .map((g) => g.id)
+        if (matchedIds.length > 0) set('genre_ids', matchedIds)
+      }
+    } catch {
+      setError('Gagal mengisi formulir dari URL. Coba lagi.')
+    } finally {
+      setFillingFromUrl(false)
+    }
+  }
+
   const [isGenerating, setIsGenerating] = useState(false)
 
   async function handleGenerateBio() {
@@ -226,6 +267,41 @@ export function SubmitForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
+
+      {/* Fill from URL */}
+      <div className="border border-dashed border-amber-300 dark:border-amber-800 rounded-xl p-4 space-y-2">
+        <p className="text-sm font-medium text-stone-700 dark:text-stone-300 flex items-center gap-1.5">
+          <Globe className="w-4 h-4 text-amber-600" /> Isi otomatis dari URL
+        </p>
+        <p className="text-xs text-stone-500 dark:text-stone-400">
+          Tempel link website atau halaman Facebook/YouTube band — AI akan mengisi formulir secara otomatis.
+        </p>
+        <div className="flex gap-2">
+          <input
+            type="url"
+            value={fillUrl}
+            onChange={(e) => setFillUrl(e.target.value)}
+            placeholder="https://..."
+            className={inputClass + ' flex-1'}
+          />
+          <button
+            type="button"
+            onClick={handleFillFromUrl}
+            disabled={fillingFromUrl || !fillUrl.trim()}
+            className="inline-flex items-center gap-1.5 text-sm font-medium bg-amber-700 text-white px-3 py-2 rounded-lg hover:bg-amber-800 disabled:opacity-60 transition-colors whitespace-nowrap"
+          >
+            {fillingFromUrl ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Menganalisis...</> : 'Isi Formulir'}
+          </button>
+        </div>
+        {fillResult && !fillingFromUrl && (
+          <p className="text-xs text-green-700 dark:text-green-400">
+            ✓ Formulir diisi dari URL
+            {fillResult.flags.length > 0 && (
+              <span className="text-amber-600 dark:text-amber-400"> · {fillResult.flags.join(', ')}</span>
+            )}
+          </p>
+        )}
+      </div>
 
       {/* Photo upload */}
       <div>
