@@ -7,9 +7,10 @@ interface Props {
   src: string
   onConfirm: (file: File) => void
   onCancel: () => void
+  square?: boolean
 }
 
-export function ImageCropper({ src, onConfirm, onCancel }: Props) {
+export function ImageCropper({ src, onConfirm, onCancel, square = false }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [imgNatural, setImgNatural] = useState({ w: 0, h: 0 })
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 })
@@ -121,8 +122,8 @@ export function ImageCropper({ src, onConfirm, onCancel }: Props) {
   }
 
   async function handleConfirm() {
-    const OUT_W = 1280
-    const OUT_H = 720
+    const OUT_W = square ? 512 : 1280
+    const OUT_H = square ? 512 : 720
     const canvas = document.createElement('canvas')
     canvas.width = OUT_W
     canvas.height = OUT_H
@@ -161,7 +162,7 @@ export function ImageCropper({ src, onConfirm, onCancel }: Props) {
         {/* Canvas */}
         <div
           ref={containerRef}
-          className="relative w-full aspect-video overflow-hidden bg-black cursor-grab active:cursor-grabbing select-none"
+          className={`relative w-full ${square ? 'aspect-square' : 'aspect-video'} overflow-hidden bg-black cursor-grab active:cursor-grabbing select-none`}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}

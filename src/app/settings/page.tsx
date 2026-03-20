@@ -5,13 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Camera, Loader2, Check, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabaseBrowser } from '@/lib/supabase-browser'
-
-type Profile = {
-  display_name: string | null
-  bio: string | null
-  avatar_url: string | null
-  username: string | null
-}
+import { ImageCropper } from '@/components/ui/ImageCropper'
 
 type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid'
 
@@ -31,6 +25,7 @@ export default function SettingsPage() {
   const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>('idle')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const [cropSrc, setCropSrc] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [uploadingAvatar, setUploadingAvatar] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -78,19 +73,25 @@ export default function SettingsPage() {
     }, 500)
   }
 
-  async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
-    if (!file || !user) return
+    if (!file) return
+    if (file.size > 2 * 1024 * 1024) { setError('Ukuran foto maksimal 2 MB.'); return }
+    setError(null)
+    setCropSrc(URL.createObjectURL(file))
+    if (fileRef.current) fileRef.current.value = ''
+  }
 
+  async function handleCropConfirm(croppedFile: File) {
+    if (!user) return
+    setCropSrc(null)
     setUploadingAvatar(true)
     setError(null)
 
-    const ext = file.name.split('.').pop()
-    const filename = `${user.id}.${ext}`
-
+    const filename = `${user.id}.webp`
     const { error: uploadError } = await supabaseBrowser.storage
       .from('avatars')
-      .upload(filename, file, { upsert: true })
+      .upload(filename, croppedFile, { upsert: true, contentType: 'image/webp' })
 
     if (uploadError) {
       setError('Gagal upload foto: ' + uploadError.message)
@@ -103,6 +104,11 @@ export default function SettingsPage() {
     setAvatarUrl(url)
     setAvatarPreview(url)
     setUploadingAvatar(false)
+  }
+
+  function handleCropCancel() {
+    if (cropSrc) URL.revokeObjectURL(cropSrc)
+    setCropSrc(null)
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -252,6 +258,15 @@ export default function SettingsPage() {
           )}
         </button>
       </form>
+
+      {cropSrc && (
+        <ImageCropper
+          src={cropSrc}
+          square
+          onConfirm={handleCropConfirm}
+          onCancel={handleCropCancel}
+        />
+      )}
     </div>
   )
 }
