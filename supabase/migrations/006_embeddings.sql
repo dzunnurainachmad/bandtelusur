@@ -5,10 +5,6 @@
 -- Enable pgvector extension
 create extension if not exists vector with schema extensions;
 
--- Add embedding column to bands
-alter table bands
-  add column if not exists embedding vector(1536);
-
 -- Index for fast similarity search
 create index if not exists bands_embedding_idx
   on bands using ivfflat (embedding vector_cosine_ops)

@@ -9,10 +9,12 @@ create table ai_logs (
   latency_ms    integer,
   input_tokens  integer,
   output_tokens integer,
-  band_id       uuid        references bands(id) on delete set null,
-  created_at    timestamptz default now()
+  prompt_version text,
+  band_id        uuid        references bands(id) on delete set null,
+  created_at     timestamptz default now()
 );
 
 create index on ai_logs(route);
 create index on ai_logs(created_at desc);
 create index on ai_logs(band_id);
+create index on ai_logs(prompt_version);

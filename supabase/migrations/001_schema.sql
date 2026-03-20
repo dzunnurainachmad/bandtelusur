@@ -27,24 +27,28 @@ create table genres (
 
 -- Bands / Projects
 create table bands (
-  id                    uuid primary key default gen_random_uuid(),
-  user_id               uuid references auth.users(id) on delete set null,
-  name                  text not null,
-  bio                   text,
-  formed_year           integer,
-  province_id           integer references provinces(id),
-  city_id               integer references cities(id),
-  contact_wa            text,
-  instagram             text,
-  youtube               text,
-  spotify               text,
-  youtube_music         text,
-  apple_music           text,
-  bandcamp              text,
-  photo_url             text,
+  id                     uuid primary key default gen_random_uuid(),
+  user_id                uuid references auth.users(id) on delete set null,
+  name                   text not null,
+  bio                    text,
+  formed_year            integer,
+  province_id            integer references provinces(id),
+  city_id                integer references cities(id),
+  contact_wa             text,
+  contact_email          text,
+  instagram              text,
+  youtube                text,
+  spotify                text,
+  youtube_music          text,
+  apple_music            text,
+  bandcamp               text,
+  photo_url              text,
   is_looking_for_members boolean default false,
-  created_at            timestamptz default now(),
-  updated_at            timestamptz default now()
+  embedding              vector(1536),
+  insights               jsonb,
+  insights_cached_at     timestamptz,
+  created_at             timestamptz default now(),
+  updated_at             timestamptz default now()
 );
 
 -- Band <-> Genre (many-to-many)
@@ -72,6 +76,7 @@ select
   b.province_id,
   b.city_id,
   b.contact_wa,
+  b.contact_email,
   b.instagram,
   b.youtube,
   b.spotify,

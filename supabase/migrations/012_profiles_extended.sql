@@ -2,10 +2,7 @@
 -- PROFILES — extend with display fields
 -- ============================================================
 
-alter table profiles
-  add column if not exists display_name text,
-  add column if not exists bio          text,
-  add column if not exists avatar_url   text;
+-- (columns display_name, bio, avatar_url now defined in 005_admin.sql)
 
 -- ── Avatar storage bucket ────────────────────────────────────
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

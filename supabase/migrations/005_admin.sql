@@ -10,7 +10,12 @@ create table profiles (
   is_banned     boolean default false,
   banned_reason text,
   banned_at     timestamptz,
-  created_at    timestamptz default now()
+  display_name  text,
+  bio           text,
+  avatar_url    text,
+  username      text unique,
+  created_at    timestamptz default now(),
+  constraint username_format check (username ~ '^[a-z0-9_]{3,30}$')
 );
 
 -- Auto-create profile on signup (works for email & OAuth)
