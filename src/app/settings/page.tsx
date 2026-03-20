@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Camera, Loader2, Check } from 'lucide-react'
+import { Camera, Loader2, Check, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabaseBrowser } from '@/lib/supabase-browser'
 
@@ -10,17 +10,26 @@ type Profile = {
   display_name: string | null
   bio: string | null
   avatar_url: string | null
+  username: string | null
 }
+
+type UsernameStatus = 'idle' | 'checking' | 'available' | 'taken' | 'invalid'
+
+const USERNAME_RE = /^[a-z0-9_]{3,30}$/
 
 export default function SettingsPage() {
   const { user, loading } = useAuth()
   const router = useRouter()
 
-  const [profile, setProfile] = useState<Profile>({ display_name: null, bio: null, avatar_url: null })
   const [displayName, setDisplayName] = useState('')
   const [bio, setBio] = useState('')
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null)
+  const [username, setUsername] = useState('')
+  const [originalUsername, setOriginalUsername] = useState<string | null>(null)
+
+  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>('idle')
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [saving, setSaving] = useState(false)
   const [uploadingAvatar, setUploadingAvatar] = useState(false)
@@ -37,18 +46,37 @@ export default function SettingsPage() {
     if (!user) return
     supabaseBrowser
       .from('profiles')
-      .select('display_name, bio, avatar_url')
+      .select('display_name, bio, avatar_url, username')
       .eq('id', user.id)
       .single()
       .then(({ data }) => {
         if (!data) return
-        setProfile(data)
         setDisplayName(data.display_name ?? '')
         setBio(data.bio ?? '')
         setAvatarUrl(data.avatar_url)
         setAvatarPreview(data.avatar_url)
+        setUsername(data.username ?? '')
+        setOriginalUsername(data.username ?? null)
       })
   }, [user])
+
+  function handleUsernameChange(value: string) {
+    const lower = value.toLowerCase().replace(/[^a-z0-9_]/g, '')
+    setUsername(lower)
+
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+
+    if (!lower) { setUsernameStatus('idle'); return }
+    if (!USERNAME_RE.test(lower)) { setUsernameStatus('invalid'); return }
+    if (lower === originalUsername) { setUsernameStatus('available'); return }
+
+    setUsernameStatus('checking')
+    debounceRef.current = setTimeout(async () => {
+      const res = await fetch(`/api/profile/check-username?username=${lower}`)
+      const { available, reason } = await res.json()
+      setUsernameStatus(reason === 'format' ? 'invalid' : available ? 'available' : 'taken')
+    }, 500)
+  }
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -79,13 +107,19 @@ export default function SettingsPage() {
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
+    if (usernameStatus === 'taken' || usernameStatus === 'invalid') return
     setSaving(true)
     setError(null)
 
     const res = await fetch('/api/profile', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ display_name: displayName, bio, avatar_url: avatarUrl }),
+      body: JSON.stringify({
+        display_name: displayName,
+        bio,
+        avatar_url: avatarUrl,
+        username: username || null,
+      }),
     })
 
     setSaving(false)
@@ -96,6 +130,7 @@ export default function SettingsPage() {
       return
     }
 
+    setOriginalUsername(username || null)
     setSaved(true)
     setTimeout(() => setSaved(false), 2500)
   }
@@ -103,6 +138,16 @@ export default function SettingsPage() {
   if (loading || !user) return null
 
   const initials = (displayName || user.email || '?').slice(0, 2).toUpperCase()
+
+  const usernameHint = {
+    idle: null,
+    checking: <span className="text-stone-400 flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" /> Mengecek...</span>,
+    available: <span className="text-emerald-600 flex items-center gap-1"><Check className="w-3 h-3" /> Tersedia</span>,
+    taken: <span className="text-red-500 flex items-center gap-1"><X className="w-3 h-3" /> Sudah dipakai</span>,
+    invalid: <span className="text-red-500">3–30 karakter, hanya huruf kecil, angka, dan _</span>,
+  }[usernameStatus]
+
+  const canSave = usernameStatus !== 'taken' && usernameStatus !== 'invalid' && usernameStatus !== 'checking'
 
   return (
     <div className="max-w-lg mx-auto px-4 py-10">
@@ -141,6 +186,25 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Username */}
+        <div>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+            Username
+          </label>
+          <div className="flex items-center border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 rounded-lg px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-amber-500">
+            <span className="text-stone-400 mr-1">bandtelusur.com/u/</span>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => handleUsernameChange(e.target.value)}
+              maxLength={30}
+              placeholder="namamu"
+              className="flex-1 bg-transparent text-stone-900 dark:text-stone-100 focus:outline-none"
+            />
+          </div>
+          <div className="text-xs mt-1.5 min-h-[16px]">{usernameHint}</div>
+        </div>
+
         {/* Display name */}
         <div>
           <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">
@@ -176,7 +240,7 @@ export default function SettingsPage() {
 
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || !canSave}
           className="w-full flex items-center justify-center gap-2 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
         >
           {saving ? (

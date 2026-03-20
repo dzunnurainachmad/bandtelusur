@@ -8,18 +8,35 @@ interface Props {
   params: Promise<{ id: string }>
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+async function getProfile(slug: string) {
+  // Try username first, fall back to UUID
+  if (!UUID_RE.test(slug)) {
+    const { data } = await supabaseAdmin
+      .from('profiles')
+      .select('id, display_name, bio, avatar_url, username')
+      .eq('username', slug)
+      .single()
+    return data ?? null
+  }
+
+  // Looks like a UUID — try UUID, but prefer username redirect if they have one
+  const { data } = await supabaseAdmin
+    .from('profiles')
+    .select('id, display_name, bio, avatar_url, username')
+    .eq('id', slug)
+    .single()
+  return data ?? null
+}
+
 export default async function PublicProfilePage({ params }: Props) {
   const { id } = await params
-
-  const { data: profile } = await supabaseAdmin
-    .from('profiles')
-    .select('id, display_name, bio, avatar_url, created_at')
-    .eq('id', id)
-    .single()
+  const profile = await getProfile(id)
 
   if (!profile) notFound()
 
-  const { bands } = await getUserBands(id)
+  const { bands } = await getUserBands(profile.id)
 
   const displayName = profile.display_name ?? 'Pengguna'
   const initials = displayName.slice(0, 2).toUpperCase()
@@ -42,6 +59,9 @@ export default async function PublicProfilePage({ params }: Props) {
         )}
         <div>
           <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">{displayName}</h1>
+          {profile.username && (
+            <p className="text-sm text-stone-400 dark:text-stone-500 mt-0.5">@{profile.username}</p>
+          )}
           {profile.bio && (
             <p className="text-stone-500 dark:text-stone-400 mt-1 text-sm leading-relaxed">{profile.bio}</p>
           )}

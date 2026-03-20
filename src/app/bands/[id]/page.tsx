@@ -39,7 +39,7 @@ export default async function BandDetailPage({ params }: Props) {
   const ownerProfile = band.user_id
     ? await supabaseAdmin
         .from('profiles')
-        .select('display_name, avatar_url')
+        .select('display_name, avatar_url, username')
         .eq('id', band.user_id)
         .single()
         .then(({ data }) => data)
@@ -91,7 +91,7 @@ export default async function BandDetailPage({ params }: Props) {
             <div>
               <h1 className="text-xl sm:text-3xl font-bold text-stone-900 dark:text-stone-100">{band.name}</h1>
               {ownerProfile && band.user_id && (
-                <Link href={`/u/${band.user_id}`} className="text-xs text-stone-400 hover:text-amber-600 transition-colors mt-0.5 inline-block">
+                <Link href={`/u/${ownerProfile.username ?? band.user_id}`} className="text-xs text-stone-400 hover:text-amber-600 transition-colors mt-0.5 inline-block">
                   Oleh {ownerProfile.display_name ?? 'Pengguna'}
                 </Link>
               )}

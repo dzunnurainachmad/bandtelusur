@@ -14,7 +14,7 @@ export default async function DashboardPage() {
 
   const [{ bands, hasMore }, profileRes] = await Promise.all([
     getUserBands(user.id),
-    supabaseAdmin.from('profiles').select('display_name, bio, avatar_url').eq('id', user.id).single(),
+    supabaseAdmin.from('profiles').select('display_name, bio, avatar_url, username').eq('id', user.id).single(),
   ])
 
   const profile = profileRes.data
@@ -35,11 +35,19 @@ export default async function DashboardPage() {
         )}
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-stone-900 dark:text-stone-100 truncate">{displayName ?? user.email}</p>
+          {profile?.username && <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">@{profile.username}</p>}
           {profile?.bio && <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5 truncate">{profile.bio}</p>}
         </div>
-        <Link href="/settings" className="shrink-0 flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-500 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-lg transition-colors">
-          <Settings className="w-3.5 h-3.5" /> Edit Profil
-        </Link>
+        <div className="shrink-0 flex items-center gap-2">
+          {(profile?.username || user.id) && (
+            <Link href={`/u/${profile?.username ?? user.id}`} className="flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-500 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-lg transition-colors">
+              Profil Publik
+            </Link>
+          )}
+          <Link href="/settings" className="flex items-center gap-1.5 text-xs text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-500 border border-stone-200 dark:border-stone-700 px-3 py-1.5 rounded-lg transition-colors">
+            <Settings className="w-3.5 h-3.5" /> Edit
+          </Link>
+        </div>
       </div>
 
       <div className="flex items-center justify-between mb-6">
