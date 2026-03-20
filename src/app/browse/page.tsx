@@ -132,9 +132,12 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
 
             <ResultsOverlay>
               {bands.length === 0 ? (
-                <div className="text-center py-20 text-stone-400">
-                  <p className="text-lg font-medium">Tidak ada band yang ditemukan</p>
-                  <p className="text-sm mt-1">
+                <div className="text-center py-20">
+                  <div className="w-16 h-16 bg-stone-100 dark:bg-stone-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <X className="w-8 h-8 text-stone-300 dark:text-stone-600" />
+                  </div>
+                  <p className="text-lg font-medium text-stone-600 dark:text-stone-400">Tidak ada band yang ditemukan</p>
+                  <p className="text-sm mt-1 text-stone-400 dark:text-stone-500">
                     Coba ubah filter atau{' '}
                     <Link href="/browse" className="text-amber-600 hover:underline">
                       reset pencarian

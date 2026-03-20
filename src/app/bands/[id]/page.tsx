@@ -65,11 +65,11 @@ export default async function BandDetailPage({ params }: Props) {
   const appleMusicHeight = appleMusicEmbed ? getAppleMusicEmbedHeight(appleMusicEmbed) : 450
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <Link
           href="/browse"
-          className="inline-flex items-center gap-1 text-sm text-stone-500 hover:text-amber-700"
+          className="inline-flex items-center gap-1 text-sm text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-500 transition-colors min-h-11 py-2"
         >
           <ArrowLeft className="w-4 h-4" /> Kembali
         </Link>
@@ -78,9 +78,9 @@ export default async function BandDetailPage({ params }: Props) {
           {isOwner && (
             <Link
               href={`/bands/${id}/edit`}
-              className="inline-flex items-center gap-1.5 text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-300 px-3 py-1.5 rounded-lg hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-300 px-3 py-2 rounded-lg hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors min-h-11"
             >
-              <Pencil className="w-3.5 h-3.5" /> Edit Band
+              <Pencil className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Edit Band</span><span className="sm:hidden">Edit</span>
             </Link>
           )}
         </div>
@@ -284,13 +284,13 @@ export default async function BandDetailPage({ params }: Props) {
           {/* ── Contact & Social ──────────────────────────────── */}
           <div>
             <h2 className="font-semibold text-stone-700 dark:text-stone-300 mb-3">Kontak & Media Sosial</h2>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
+            <div className="flex flex-wrap gap-2">
               {waLink && (
                 <a
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-emerald-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-emerald-600 transition-colors text-xs sm:text-sm font-medium"
+                  className="flex items-center gap-2 bg-emerald-500 text-white px-4 py-2.5 rounded-lg hover:bg-emerald-600 transition-colors text-sm font-medium min-h-11"
                 >
                   Hubungi via WhatsApp
                 </a>
@@ -298,7 +298,7 @@ export default async function BandDetailPage({ params }: Props) {
               {band.contact_email && (
                 <a
                   href={`mailto:${band.contact_email}`}
-                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm min-h-11"
                 >
                   <Mail className="w-4 h-4" /> Email
                 </a>
@@ -308,7 +308,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={`https://instagram.com/${band.instagram.replace('@', '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm min-h-11"
                 >
                   <Instagram className="w-4 h-4" /> Instagram
                 </a>
@@ -318,7 +318,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={band.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm min-h-11"
                 >
                   <YoutubeIcon className="w-4 h-4" /> YouTube
                 </a>
@@ -328,7 +328,7 @@ export default async function BandDetailPage({ params }: Props) {
                   href={band.spotify}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm"
+                  className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm min-h-11"
                 >
                   <Music className="w-4 h-4" /> Spotify
                 </a>

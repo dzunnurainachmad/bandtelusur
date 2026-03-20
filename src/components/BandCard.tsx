@@ -18,8 +18,8 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
   const contactLink = waLink ?? emailLink
   const contactLabel = waLink ? 'WhatsApp' : 'Email'
   const contactStyle = waLink
-    ? 'flex-1 text-center text-sm border border-emerald-500 text-emerald-600 px-3 py-1.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors'
-    : 'flex-1 text-center text-sm border border-sky-500 text-sky-600 px-3 py-1.5 rounded-lg hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors'
+    ? 'flex-1 text-center text-sm border border-emerald-500 text-emerald-600 px-2 py-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors min-h-11 flex items-center justify-center'
+    : 'flex-1 text-center text-sm border border-sky-500 text-sky-600 px-2 py-2 rounded-lg hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors min-h-11 flex items-center justify-center'
   const youtubeEmbed = (band.youtube ? getYouTubeEmbedUrl(band.youtube) : null)
     ?? (band.youtube_music ? getYouTubeEmbedUrl(band.youtube_music) : null)
   const spotifyEmbed = band.spotify ? getSpotifyEmbedUrl(band.spotify) : null
@@ -27,7 +27,7 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
   const hasMedia = !!(youtubeEmbed || spotifyEmbed || appleMusicEmbed)
 
   return (
-    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden hover:shadow-md transition-shadow group flex flex-col h-full">
+    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden hover:shadow-md hover:border-stone-300 dark:hover:border-stone-600 transition-all duration-200 group flex flex-col h-full">
       {/* Thumbnail */}
       <div className="aspect-video bg-linear-to-br from-amber-100 to-orange-100 relative">
         {band.photo_url ? (
@@ -95,13 +95,13 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
           </div>
         )}
 
-        <div className="mt-auto pt-4 flex gap-2">
+        <div className="mt-auto pt-3 flex gap-2">
           {band.instagram && (
             <a
               href={`https://instagram.com/${band.instagram.replace('@', '')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 text-center text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 px-3 py-1.5 rounded-lg hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors"
+              className="flex-1 text-center text-sm border border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 px-2 py-2 rounded-lg hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors min-h-11 flex items-center justify-center"
             >
               Instagram
             </a>

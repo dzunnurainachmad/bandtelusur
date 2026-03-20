@@ -19,6 +19,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body className={`${geist.className} bg-[#faf6f0] dark:bg-[#1a1510] text-stone-900 dark:text-stone-100 antialiased`}>
         <ThemeProvider>
           <AuthProvider>

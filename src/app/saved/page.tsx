@@ -40,10 +40,12 @@ export default async function SavedBandsPage() {
       </div>
 
       {bands.length === 0 ? (
-        <div className="text-center py-24 text-stone-400 dark:text-stone-500">
-          <Music className="w-12 h-12 mx-auto mb-3 opacity-40" />
-          <p className="font-medium">Belum ada band tersimpan</p>
-          <p className="text-sm mt-1">
+        <div className="text-center py-24">
+          <div className="w-16 h-16 bg-stone-100 dark:bg-stone-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Bookmark className="w-8 h-8 text-stone-300 dark:text-stone-600" />
+          </div>
+          <p className="font-medium text-stone-600 dark:text-stone-400">Belum ada band tersimpan</p>
+          <p className="text-sm mt-1 text-stone-400 dark:text-stone-500">
             <Link href="/browse" className="text-amber-600 hover:underline">
               Jelajahi band dan simpan yang kamu suka
             </Link>

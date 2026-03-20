@@ -41,7 +41,7 @@ export function SaveBandButton({ bandId, initialSaved, isLoggedIn, variant = 'de
         onClick={handleToggle}
         disabled={loading}
         title={saved ? 'Hapus dari tersimpan' : 'Simpan band ini'}
-        className={`flex-none p-1.5 rounded-lg border transition-colors disabled:opacity-60 ${
+        className={`flex-none p-2.5 rounded-lg border transition-colors disabled:opacity-60 ${
           saved
             ? 'bg-amber-700 text-white border-amber-700 hover:bg-amber-800'
             : 'border-stone-300 dark:border-stone-600 text-stone-400 dark:text-stone-500 hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500'

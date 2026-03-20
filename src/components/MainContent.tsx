@@ -6,7 +6,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
   const { track } = usePlayer()
 
   return (
-    <main className={track ? 'pb-24' : ''}>
+    <main className={track ? 'pb-16 sm:pb-20' : ''}>
       {children}
     </main>
   )

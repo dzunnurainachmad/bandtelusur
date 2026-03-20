@@ -197,8 +197,8 @@ export default function SettingsPage() {
           <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">
             Username
           </label>
-          <div className="flex items-center border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 rounded-lg px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-amber-500">
-            <span className="text-stone-400 mr-1">bandtelusur.com/u/</span>
+          <div className="flex items-center border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 rounded-lg px-3 py-2.5 text-sm focus-within:ring-2 focus-within:ring-amber-500 min-h-11">
+            <span className="text-stone-400 mr-1 text-xs sm:text-sm whitespace-nowrap">bandtelusur.com/u/</span>
             <input
               type="text"
               value={username}
@@ -222,7 +222,7 @@ export default function SettingsPage() {
             onChange={(e) => setDisplayName(e.target.value)}
             maxLength={60}
             placeholder="Nama yang terlihat publik"
-            className="w-full border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 min-h-11"
           />
         </div>
 
@@ -237,7 +237,7 @@ export default function SettingsPage() {
             maxLength={200}
             rows={3}
             placeholder="Ceritakan sedikit tentang dirimu..."
-            className="w-full border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+            className="w-full border border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
           />
           <p className="text-xs text-stone-400 mt-1 text-right">{bio.length}/200</p>
         </div>
@@ -247,7 +247,7 @@ export default function SettingsPage() {
         <button
           type="submit"
           disabled={saving || !canSave}
-          className="w-full flex items-center justify-center gap-2 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors min-h-11"
         >
           {saving ? (
             <Loader2 className="w-4 h-4 animate-spin" />

@@ -51,7 +51,7 @@ export default async function PublicProfilePage({ params }: Props) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       {/* Profile header */}
-      <div className="flex items-center gap-5 mb-8">
+      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5 mb-8 text-center sm:text-left">
         {profile.avatar_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -64,8 +64,8 @@ export default async function PublicProfilePage({ params }: Props) {
             {initials}
           </div>
         )}
-        <div>
-          <h1 className="text-2xl font-bold text-stone-900 dark:text-stone-100">{displayName}</h1>
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold text-stone-900 dark:text-stone-100">{displayName}</h1>
           {profile.username && (
             <p className="text-sm text-stone-400 dark:text-stone-500 mt-0.5">@{profile.username}</p>
           )}
