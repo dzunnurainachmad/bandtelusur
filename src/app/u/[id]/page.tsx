@@ -21,13 +21,20 @@ async function getProfile(slug: string) {
     return data ?? null
   }
 
-  // Looks like a UUID — try UUID, but prefer username redirect if they have one
+  // Looks like a UUID — try profiles table first
   const { data } = await supabaseAdmin
     .from('profiles')
     .select('id, display_name, bio, avatar_url, username')
     .eq('id', slug)
     .single()
-  return data ?? null
+  if (data) return data
+
+  // Profile row missing but user may exist — verify via auth
+  const { data: { user } } = await supabaseAdmin.auth.admin.getUserById(slug)
+  if (!user) return null
+
+  // Return a minimal profile so the page renders instead of 404
+  return { id: user.id, display_name: null, bio: null, avatar_url: null, username: null }
 }
 
 export default async function PublicProfilePage({ params }: Props) {

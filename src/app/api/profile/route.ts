@@ -24,8 +24,7 @@ export async function PATCH(req: Request) {
 
   const { error } = await supabaseAdmin
     .from('profiles')
-    .update(updates)
-    .eq('id', user.id)
+    .upsert({ id: user.id, email: user.email, ...updates })
 
   if (error) {
     if (error.code === '23505') return Response.json({ error: 'Username sudah dipakai' }, { status: 409 })
