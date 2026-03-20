@@ -5,7 +5,7 @@ import { logAiCall } from '@/lib/ai-logger'
 import { checkRateLimit, getIp, rateLimitResponse } from '@/lib/rate-limit'
 
 export async function POST(req: Request) {
-  const { allowed } = checkRateLimit(`generate-bio:${getIp(req)}`, 5, 60_000)
+  const { allowed } = await checkRateLimit(`generate-bio:${getIp(req)}`, 5, 60_000)
   if (!allowed) return rateLimitResponse()
 
   const { name, genre, formedYear, location } = await req.json()

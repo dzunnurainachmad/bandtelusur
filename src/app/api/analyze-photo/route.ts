@@ -11,7 +11,7 @@ const PhotoAnalysisSchema = z.object({
 })
 
 export async function POST(req: Request) {
-  const { allowed } = checkRateLimit(`analyze-photo:${getIp(req)}`, 5, 60_000)
+  const { allowed } = await checkRateLimit(`analyze-photo:${getIp(req)}`, 5, 60_000)
   if (!allowed) return rateLimitResponse()
 
   const { image, mimeType, availableGenres } = await req.json()

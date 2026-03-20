@@ -8,7 +8,7 @@ import { logAiCall } from '@/lib/ai-logger'
 import { checkRateLimit, getIp, rateLimitResponse } from '@/lib/rate-limit'
 
 export async function POST(req: Request) {
-  const { allowed } = checkRateLimit(`chat:${getIp(req)}`, 15, 60_000)
+  const { allowed } = await checkRateLimit(`chat:${getIp(req)}`, 15, 60_000)
   if (!allowed) return rateLimitResponse()
 
   const { messages } = await req.json()

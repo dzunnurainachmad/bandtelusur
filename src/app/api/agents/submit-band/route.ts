@@ -16,7 +16,7 @@ function parseJsonFromText(text: string) {
 }
 
 export async function POST(req: Request) {
-  const { allowed } = checkRateLimit(`submit-band-agent:${getIp(req)}`, 3, 60_000)
+  const { allowed } = await checkRateLimit(`submit-band-agent:${getIp(req)}`, 3, 60_000)
   if (!allowed) return rateLimitResponse()
 
   const { url } = await req.json()

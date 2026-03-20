@@ -1,31 +1,37 @@
-// In-memory sliding window rate limiter.
-//
-// Works per serverless instance — fine for single-instance dev/staging.
-// For multi-instance production on Vercel, replace `store` with Upstash Redis:
-//   import { Ratelimit } from '@upstash/ratelimit'
-//   import { Redis } from '@upstash/redis'
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
-const store = new Map<string, { timestamps: number[] }>()
+// Persistent sliding window rate limiter backed by Upstash Redis.
+// Works across all Vercel serverless instances.
 
-export function checkRateLimit(
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+// One limiter per route, keyed by IP
+const limiters: Record<string, Ratelimit> = {}
+
+function getLimiter(max: number, windowSeconds: number): Ratelimit {
+  const key = `${max}:${windowSeconds}`
+  if (!limiters[key]) {
+    limiters[key] = new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(max, `${windowSeconds} s`),
+      prefix: 'bt:rl',
+    })
+  }
+  return limiters[key]
+}
+
+export async function checkRateLimit(
   key: string,
   max: number,
   windowMs: number,
-): { allowed: boolean; remaining: number } {
-  const now = Date.now()
-  const windowStart = now - windowMs
-
-  const entry = store.get(key) ?? { timestamps: [] }
-  entry.timestamps = entry.timestamps.filter((t) => t > windowStart)
-
-  if (entry.timestamps.length >= max) {
-    store.set(key, entry)
-    return { allowed: false, remaining: 0 }
-  }
-
-  entry.timestamps.push(now)
-  store.set(key, entry)
-  return { allowed: true, remaining: max - entry.timestamps.length }
+): Promise<{ allowed: boolean; remaining: number }> {
+  const limiter = getLimiter(max, Math.round(windowMs / 1000))
+  const { success, remaining } = await limiter.limit(key)
+  return { allowed: success, remaining }
 }
 
 export function getIp(req: Request): string {

@@ -25,7 +25,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { allowed } = checkRateLimit(`analyze-band:${getIp(req)}`, 5, 60_000)
+  const { allowed } = await checkRateLimit(`analyze-band:${getIp(req)}`, 5, 60_000)
   if (!allowed) return rateLimitResponse()
 
   const { name, bio, genres, province, city, formed_year, band_id } = await req.json()
