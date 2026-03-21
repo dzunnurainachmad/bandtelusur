@@ -14,8 +14,8 @@ interface PlayButtonProps {
   appleMusicEmbed: string | null
   appleMusicHeight?: number
   preferredSource?: PlayerSource
-  /** 'default' = full button with text, 'icon' = small icon button, 'circle' = large circle overlay */
-  variant?: 'default' | 'icon' | 'circle'
+  /** 'default' = full button with text, 'icon' = small icon button, 'circle' = large circle overlay, 'circle-sm' = small circle overlay (mobile thumbnail) */
+  variant?: 'default' | 'icon' | 'circle' | 'circle-sm'
 }
 
 export function PlayButton({
@@ -54,6 +54,22 @@ export function PlayButton({
       appleMusicHeight: appleMusicHeight ?? (appleMusicEmbed ? getAppleMusicEmbedHeight(appleMusicEmbed) : 450),
       source,
     })
+  }
+
+  if (variant === 'circle-sm') {
+    return (
+      <button
+        onClick={handlePlay}
+        title="Putar Musik"
+        className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-colors ${
+          isPlaying
+            ? 'bg-amber-600 text-white'
+            : 'bg-amber-600 text-white hover:bg-amber-700'
+        }`}
+      >
+        <Play className="w-3.5 h-3.5 fill-current translate-x-0.5" />
+      </button>
+    )
   }
 
   if (variant === 'circle') {

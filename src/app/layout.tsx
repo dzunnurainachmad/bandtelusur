@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { MiniPlayer } from '@/components/MiniPlayer'
+import { FloatingChat } from '@/components/FloatingChat'
 import { MainContent } from '@/components/MainContent'
 import { PlayerProvider } from '@/contexts/PlayerContext'
 import { ThemeProvider } from '@/components/ThemeProvider'
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Navbar />
               <MainContent>{children}</MainContent>
               <MiniPlayer />
+              <FloatingChat />
             </PlayerProvider>
           </AuthProvider>
         </ThemeProvider>

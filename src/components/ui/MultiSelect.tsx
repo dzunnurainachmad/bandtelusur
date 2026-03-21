@@ -69,7 +69,7 @@ export function MultiSelect({
   return (
     <div className="space-y-1">
       {label && (
-        <span className="block text-xs font-medium text-stone-500">{label}</span>
+        <span className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">{label}</span>
       )}
       <div ref={ref} className="relative">
         <button

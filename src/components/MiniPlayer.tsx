@@ -40,7 +40,7 @@ export function MiniPlayer() {
   const isVideo = track.source === 'youtube'
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 pointer-events-none">
+    <div className="fixed bottom-16 lg:bottom-0 left-0 lg:left-16 right-0 z-40 pointer-events-none">
       {/* Iframe */}
       <div
         className={clsx(

@@ -32,18 +32,35 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
       {/* ── Mobile: horizontal list row ── */}
       <div className="flex sm:hidden items-center gap-4 p-4">
         {/* Thumbnail */}
-        <Link href={`/bands/${band.id}`} className="shrink-0">
-          <div className="w-14 h-14 rounded-xl bg-linear-to-br from-amber-100 to-orange-100 overflow-hidden relative">
-            {band.photo_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={band.photo_url} alt={band.name} className="w-full h-full object-cover" />
-            ) : (
-              <div className="flex items-center justify-center w-full h-full">
-                <Music className="w-6 h-6 text-amber-400" />
-              </div>
-            )}
-          </div>
-        </Link>
+        <div className="shrink-0 relative">
+          <Link href={`/bands/${band.id}`}>
+            <div className="w-14 h-14 rounded-xl bg-linear-to-br from-amber-100 to-orange-100 overflow-hidden">
+              {band.photo_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={band.photo_url} alt={band.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="flex items-center justify-center w-full h-full">
+                  <Music className="w-6 h-6 text-amber-400" />
+                </div>
+              )}
+            </div>
+          </Link>
+          {hasMedia && (
+            <div className="absolute -bottom-1.5 -right-1.5">
+              <PlayButton
+                bandId={band.id}
+                bandName={band.name}
+                photoUrl={band.photo_url}
+                youtubeEmbed={youtubeEmbed}
+                spotifyEmbed={spotifyEmbed}
+                spotifyHeight={spotifyEmbed ? getSpotifyEmbedHeight(spotifyEmbed) : 352}
+                appleMusicEmbed={appleMusicEmbed}
+                appleMusicHeight={appleMusicEmbed ? getAppleMusicEmbedHeight(appleMusicEmbed) : 450}
+                variant="circle-sm"
+              />
+            </div>
+          )}
+        </div>
 
         {/* Info */}
         <Link href={`/bands/${band.id}`} className="flex-1 min-w-0">
@@ -77,19 +94,6 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-2 shrink-0">
-          {hasMedia && (
-            <PlayButton
-              bandId={band.id}
-              bandName={band.name}
-              photoUrl={band.photo_url}
-              youtubeEmbed={youtubeEmbed}
-              spotifyEmbed={spotifyEmbed}
-              spotifyHeight={spotifyEmbed ? getSpotifyEmbedHeight(spotifyEmbed) : 352}
-              appleMusicEmbed={appleMusicEmbed}
-              appleMusicHeight={appleMusicEmbed ? getAppleMusicEmbedHeight(appleMusicEmbed) : 450}
-              variant="icon"
-            />
-          )}
           {isLoggedIn !== undefined && (
             <SaveBandButton bandId={band.id} initialSaved={isSaved} isLoggedIn={isLoggedIn} variant="icon" />
           )}

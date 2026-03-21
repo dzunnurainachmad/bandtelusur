@@ -109,20 +109,44 @@ export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edi
 export function CardSkeleton() {
   return (
     <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col h-full">
-      <Bone className="aspect-video rounded-none" />
-      <div className="p-4 flex flex-col flex-1 space-y-3">
-        <Bone className="h-5 w-3/4" />
-        <Bone className="h-4 w-1/2" />
-        <Bone className="h-4 w-full" />
-        <div className="flex gap-1.5 pt-1">
-          <Bone className="h-6 w-16 rounded-full" />
-          <Bone className="h-6 w-16 rounded-full" />
+
+      {/* ── Mobile: horizontal list row ── */}
+      <div className="flex sm:hidden items-center gap-4 p-4">
+        {/* Thumbnail */}
+        <Bone className="w-14 h-14 shrink-0 rounded-xl" />
+
+        {/* Info */}
+        <div className="flex-1 min-w-0 space-y-1.5">
+          <Bone className="h-4 w-2/3" />
+          <Bone className="h-3 w-1/3" />
+          <div className="flex gap-1 pt-0.5">
+            <Bone className="h-4 w-12 rounded-full" />
+            <Bone className="h-4 w-12 rounded-full" />
+          </div>
         </div>
-        <div className="flex gap-2 pt-2 mt-auto">
-          <Bone className="h-8 flex-1 rounded-lg" />
-          <Bone className="h-8 flex-1 rounded-lg" />
+
+        {/* Chevron */}
+        <Bone className="w-4 h-4 shrink-0 rounded" />
+      </div>
+
+      {/* ── Desktop: card layout ── */}
+      <div className="hidden sm:flex flex-col flex-1">
+        <Bone className="aspect-video rounded-none" />
+        <div className="p-4 flex flex-col flex-1 space-y-3">
+          <Bone className="h-5 w-3/4" />
+          <Bone className="h-4 w-1/2" />
+          <Bone className="h-4 w-full" />
+          <div className="flex gap-1.5 pt-1">
+            <Bone className="h-6 w-16 rounded-full" />
+            <Bone className="h-6 w-16 rounded-full" />
+          </div>
+          <div className="flex gap-2 pt-2 mt-auto">
+            <Bone className="h-8 flex-1 rounded-lg" />
+            <Bone className="h-8 flex-1 rounded-lg" />
+          </div>
         </div>
       </div>
+
     </div>
   )
 }
