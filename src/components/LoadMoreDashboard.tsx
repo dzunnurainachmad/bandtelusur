@@ -17,17 +17,22 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
   const [page, setPage] = useState(0)
   const [hasMore, setHasMore] = useState(initialHasMore)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   const loadMore = useCallback(async () => {
     const nextPage = page + 1
     setLoading(true)
+    setError(false)
     try {
       const res = await fetch(`/api/dashboard?page=${nextPage}`)
+      if (!res.ok) throw new Error('fetch failed')
       const data = await res.json()
       setBands((prev) => [...prev, ...data.bands])
       setHasMore(data.hasMore)
       setPage(nextPage)
+    } catch {
+      setError(true)
     } finally {
       setLoading(false)
     }
@@ -68,6 +73,18 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
           <CardSkeleton key={`skeleton-${i}`} />
         ))}
       </div>
+
+      {error && (
+        <div className="col-span-full text-center py-6">
+          <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">Gagal memuat band berikutnya.</p>
+          <button
+            onClick={loadMore}
+            className="text-sm text-amber-700 dark:text-amber-500 hover:underline"
+          >
+            Coba lagi
+          </button>
+        </div>
+      )}
 
       <div ref={sentinelRef} />
     </>

@@ -19,6 +19,7 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters, isLoggedI
   const [page, setPage] = useState(0)
   const [hasMore, setHasMore] = useState(initialHasMore)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   // Reset state when filters/initial data change (e.g. navigation, "Hapus semua")
@@ -26,11 +27,13 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters, isLoggedI
     setBands(initialBands)
     setHasMore(initialHasMore)
     setPage(0)
+    setError(false)
   }, [initialBands, initialHasMore])
 
   const loadMore = useCallback(async () => {
     const nextPage = page + 1
     setLoading(true)
+    setError(false)
     try {
       const params = new URLSearchParams()
       params.set('page', String(nextPage))
@@ -42,6 +45,7 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters, isLoggedI
       if (filters.sort) params.set('sort', filters.sort)
 
       const res = await fetch(`/api/bands?${params.toString()}`)
+      if (!res.ok) throw new Error('fetch failed')
       const data = await res.json()
 
       setBands((prev) => {
@@ -51,6 +55,8 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters, isLoggedI
       })
       setHasMore(data.hasMore)
       setPage(nextPage)
+    } catch {
+      setError(true)
     } finally {
       setLoading(false)
     }
@@ -83,6 +89,18 @@ export function LoadMoreBands({ initialBands, initialHasMore, filters, isLoggedI
           <CardSkeleton key={`skeleton-${i}`} />
         ))}
       </div>
+
+      {error && (
+        <div className="col-span-full text-center py-6">
+          <p className="text-sm text-stone-500 dark:text-stone-400 mb-3">Gagal memuat band berikutnya.</p>
+          <button
+            onClick={loadMore}
+            className="text-sm text-amber-700 dark:text-amber-500 hover:underline"
+          >
+            Coba lagi
+          </button>
+        </div>
+      )}
 
       <div ref={sentinelRef} />
     </>
