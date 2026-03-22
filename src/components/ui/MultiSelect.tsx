@@ -15,6 +15,9 @@ interface MultiSelectProps {
   onChange: (value: string[]) => void
   placeholder?: string
   label?: string
+  searchPlaceholder?: string
+  notFoundText?: string
+  selectedText?: (count: number) => string
 }
 
 export function MultiSelect({
@@ -23,6 +26,9 @@ export function MultiSelect({
   onChange,
   placeholder = 'Pilih...',
   label,
+  searchPlaceholder = 'Cari...',
+  notFoundText = 'Tidak ditemukan',
+  selectedText = (n) => `${n} dipilih`,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -77,14 +83,14 @@ export function MultiSelect({
           onClick={() => setOpen((o) => !o)}
           className={clsx(
             'w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg border transition-all',
-            'focus:outline-none focus:border-amber-500 cursor-pointer',
+            'focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer',
             open
-              ? 'border-amber-500 bg-[#fefaf4] dark:bg-stone-800'
-              : 'border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 hover:border-stone-400 dark:hover:border-stone-500',
+              ? 'ring-2 ring-amber-500 border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800'
+              : 'border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800',
           )}
         >
           <span className={clsx('truncate', value.length > 0 ? 'text-stone-900 dark:text-stone-100' : 'text-stone-400 dark:text-stone-500')}>
-            {value.length > 0 ? `${value.length} genre dipilih` : placeholder}
+            {value.length > 0 ? selectedText(value.length) : placeholder}
           </span>
           <ChevronDown
             className={clsx('w-4 h-4 shrink-0 text-stone-400 dark:text-stone-500 transition-transform', open && 'rotate-180')}
@@ -123,26 +129,32 @@ export function MultiSelect({
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Cari genre..."
+                  placeholder={searchPlaceholder}
                   className="w-full bg-transparent text-sm text-stone-700 dark:text-stone-200 placeholder-stone-400 focus:outline-none"
                 />
               </div>
             </div>
 
             {/* Clear all */}
-            {!query && value.length > 0 && (
+            {!query && (
               <button
                 type="button"
                 onClick={() => onChange([])}
-                className="w-full flex items-center px-3 py-2 text-sm text-stone-400 dark:text-stone-500 hover:bg-stone-50 dark:hover:bg-stone-700 transition-colors border-b border-stone-100 dark:border-stone-700"
+                className={clsx(
+                  'w-full flex items-center justify-between px-3 py-2 text-sm transition-colors',
+                  value.length === 0
+                    ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 font-medium'
+                    : 'text-stone-400 dark:text-stone-500 hover:bg-stone-50 dark:hover:bg-stone-700'
+                )}
               >
-                {placeholder}
+                <span>{placeholder}</span>
+                {value.length === 0 && <Check className="w-4 h-4" />}
               </button>
             )}
 
-            <div className="overflow-y-auto max-h-52">
+            <div className={clsx('overflow-y-auto max-h-52', !query && 'border-t border-stone-100 dark:border-stone-700')}>
               {filtered.length === 0 ? (
-                <p className="px-3 py-4 text-sm text-center text-stone-400 dark:text-stone-500">Tidak ditemukan</p>
+                <p className="px-3 py-4 text-sm text-center text-stone-400 dark:text-stone-500">{notFoundText}</p>
               ) : (
                 filtered.map((opt) => {
                   const isSelected = value.includes(opt.value)

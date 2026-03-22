@@ -69,7 +69,8 @@
     "allGenres": "Semua Genre",
     "openMember": "Buka lowongan member",
     "selectSearch": "Cari...",
-    "selectNotFound": "Tidak ditemukan"
+    "selectNotFound": "Tidak ditemukan",
+    "genreSelected": "{n} genre dipilih"
   },
   "bandCard": {
     "openBadge": "Open",

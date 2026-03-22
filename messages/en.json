@@ -69,7 +69,8 @@
     "allGenres": "All Genres",
     "openMember": "Looking for members",
     "selectSearch": "Search...",
-    "selectNotFound": "Not found"
+    "selectNotFound": "Not found",
+    "genreSelected": "{n} genres selected"
   },
   "bandCard": {
     "openBadge": "Open",

@@ -182,6 +182,9 @@ export function FilterBar() {
           value={genreIds}
           options={genres.map((g) => ({ value: String(g.id), label: g.name }))}
           onChange={handleGenreChange}
+          searchPlaceholder={t('selectSearch')}
+          notFoundText={t('selectNotFound')}
+          selectedText={(n) => t('genreSelected', { n })}
         />
 
         <Checkbox

@@ -19,6 +19,7 @@ interface SelectProps {
   searchable?: boolean
   searchPlaceholder?: string
   notFoundText?: string
+  showClear?: boolean
 }
 
 export function Select({
@@ -31,6 +32,7 @@ export function Select({
   searchable = false,
   searchPlaceholder = 'Cari...',
   notFoundText = 'Tidak ditemukan',
+  showClear = true,
 }: SelectProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -113,7 +115,7 @@ export function Select({
             )}
 
             {/* Clear / all option */}
-            {!query && (
+            {!query && showClear && (
               <button
                 type="button"
                 onClick={() => handleSelect('')}
@@ -129,7 +131,7 @@ export function Select({
               </button>
             )}
 
-            <div className={clsx('overflow-y-auto', searchable ? 'max-h-52' : 'max-h-56', !query && 'border-t border-stone-100 dark:border-stone-700')}>
+            <div className={clsx('overflow-y-auto', searchable ? 'max-h-52' : 'max-h-56', !query && showClear && 'border-t border-stone-100 dark:border-stone-700')}>
               {filtered.length === 0 ? (
                 <p className="px-3 py-4 text-sm text-center text-stone-400 dark:text-stone-500">{notFoundText}</p>
               ) : (

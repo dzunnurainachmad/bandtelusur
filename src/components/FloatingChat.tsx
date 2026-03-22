@@ -79,7 +79,7 @@ export function FloatingChat() {
                 <button
                   onClick={handleClear}
                   title={t('clearHistory')}
-                  className="p-1.5 text-stone-400 hover:text-red-500 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+                  className="p-1.5 text-stone-400 hover:text-red-500 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -87,13 +87,13 @@ export function FloatingChat() {
               <Link
                 href="/chat"
                 title={t('openFull')}
-                className="p-1.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+                className="p-1.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
               </Link>
               <button
                 onClick={() => setOpen(false)}
-                className="p-1.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+                className="p-1.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -111,7 +111,7 @@ export function FloatingChat() {
                     <button
                       key={q}
                       onClick={() => setInput(q)}
-                      className="text-xs border border-stone-300 dark:border-stone-600 rounded-full px-3 py-1.5 hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
+                      className="text-xs border border-stone-300 dark:border-stone-600 rounded-full px-3 py-1.5 hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition-colors cursor-pointer"
                     >
                       {q}
                     </button>
@@ -150,7 +150,7 @@ export function FloatingChat() {
                             key={band.id}
                             href={`/bands/${band.id}`}
                             onClick={() => setOpen(false)}
-                            className="block bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl p-2.5 hover:border-amber-500 transition-colors"
+                            className="block bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl p-2.5 hover:border-amber-500 transition-colors cursor-pointer"
                           >
                             <p className="font-semibold text-xs text-stone-900 dark:text-stone-100">{band.name}</p>
                             {(band.city_name || band.province_name) && (
@@ -212,7 +212,7 @@ export function FloatingChat() {
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="bg-amber-700 text-white p-1.5 rounded-lg hover:bg-amber-800 disabled:opacity-50 transition-colors shrink-0"
+                className="bg-amber-700 text-white p-1.5 rounded-lg hover:bg-amber-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer shrink-0"
               >
                 <Send className="w-3 h-3" />
               </button>
@@ -225,7 +225,7 @@ export function FloatingChat() {
       <button
         onClick={() => setOpen(!open)}
         title={t('title')}
-        className="w-12 h-12 bg-amber-700 hover:bg-amber-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
+        className="w-12 h-12 bg-amber-700 hover:bg-amber-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
       >
         {open ? <X className="w-5 h-5" /> : <Sparkles className="w-5 h-5" />}
       </button>

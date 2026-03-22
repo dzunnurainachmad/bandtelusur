@@ -23,7 +23,7 @@ describe('MultiSelect', () => {
 
   it('shows count when values selected', () => {
     render(<MultiSelect options={options} value={['1', '2']} onChange={() => {}} />)
-    expect(screen.getByText('2 genre dipilih')).toBeInTheDocument()
+    expect(screen.getByText('2 dipilih')).toBeInTheDocument()
   })
 
   it('shows selected tags when closed', () => {
@@ -46,7 +46,7 @@ describe('MultiSelect', () => {
     const onChange = vi.fn()
     const user = userEvent.setup()
     render(<MultiSelect options={options} value={['1']} onChange={onChange} />)
-    await user.click(screen.getByText('1 genre dipilih'))
+    await user.click(screen.getByText('1 dipilih'))
     await user.click(screen.getByText('Metal'))
     expect(onChange).toHaveBeenCalledWith(['1', '2'])
   })
@@ -55,7 +55,7 @@ describe('MultiSelect', () => {
     const onChange = vi.fn()
     const user = userEvent.setup()
     render(<MultiSelect options={options} value={['1', '2']} onChange={onChange} />)
-    await user.click(screen.getByText('2 genre dipilih'))
+    await user.click(screen.getByText('2 dipilih'))
     await user.click(screen.getByText('Rock'))
     expect(onChange).toHaveBeenCalledWith(['2'])
   })
@@ -64,7 +64,7 @@ describe('MultiSelect', () => {
     const user = userEvent.setup()
     render(<MultiSelect options={options} value={[]} onChange={() => {}} />)
     await user.click(screen.getByRole('button'))
-    const searchInput = screen.getByPlaceholderText('Cari genre...')
+    const searchInput = screen.getByPlaceholderText('Cari...')
     await user.type(searchInput, 'me')
     expect(screen.getByText('Metal')).toBeInTheDocument()
     expect(screen.queryByText('Rock')).not.toBeInTheDocument()
@@ -75,7 +75,7 @@ describe('MultiSelect', () => {
     const user = userEvent.setup()
     render(<MultiSelect options={options} value={[]} onChange={() => {}} />)
     await user.click(screen.getByRole('button'))
-    const searchInput = screen.getByPlaceholderText('Cari genre...')
+    const searchInput = screen.getByPlaceholderText('Cari...')
     await user.type(searchInput, 'dangdut')
     expect(screen.getByText('Tidak ditemukan')).toBeInTheDocument()
   })

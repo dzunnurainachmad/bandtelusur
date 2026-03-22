@@ -1,7 +1,17 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { NextIntlClientProvider } from 'next-intl'
 import { BandCard } from '@/components/BandCard'
 import type { Band } from '@/types'
+import messages from '../../messages/en.json'
+
+function renderWithIntl(ui: React.ReactElement) {
+  return render(
+    <NextIntlClientProvider locale="en" messages={messages}>
+      {ui}
+    </NextIntlClientProvider>
+  )
+}
 
 // Mock next/link
 vi.mock('next/link', () => ({
@@ -41,48 +51,48 @@ function makeBand(overrides: Partial<Band> = {}): Band {
 
 describe('BandCard', () => {
   it('renders band name', () => {
-    render(<BandCard band={makeBand({ name: 'Burgerkill' })} />)
-    expect(screen.getByText('Burgerkill')).toBeInTheDocument()
+    renderWithIntl(<BandCard band={makeBand({ name: 'Burgerkill' })} />)
+    expect(screen.getAllByText('Burgerkill').length).toBeGreaterThan(0)
   })
 
   it('renders location when province and city provided', () => {
-    render(<BandCard band={makeBand({ city_name: 'Bandung', province_name: 'Jawa Barat' })} />)
+    renderWithIntl(<BandCard band={makeBand({ city_name: 'Bandung', province_name: 'Jawa Barat' })} />)
     expect(screen.getByText('Bandung, Jawa Barat')).toBeInTheDocument()
   })
 
   it('renders only province when no city', () => {
-    render(<BandCard band={makeBand({ province_name: 'DKI Jakarta' })} />)
-    expect(screen.getByText('DKI Jakarta')).toBeInTheDocument()
+    renderWithIntl(<BandCard band={makeBand({ province_name: 'DKI Jakarta' })} />)
+    expect(screen.getAllByText('DKI Jakarta').length).toBeGreaterThan(0)
   })
 
   it('does not render location when neither provided', () => {
-    render(<BandCard band={makeBand()} />)
+    renderWithIntl(<BandCard band={makeBand()} />)
     expect(screen.queryByText(/,/)).not.toBeInTheDocument()
   })
 
   it('renders bio when provided', () => {
-    render(<BandCard band={makeBand({ bio: 'Band metal dari Bandung' })} />)
+    renderWithIntl(<BandCard band={makeBand({ bio: 'Band metal dari Bandung' })} />)
     expect(screen.getByText('Band metal dari Bandung')).toBeInTheDocument()
   })
 
   it('does not render bio when null', () => {
-    render(<BandCard band={makeBand({ bio: null })} />)
+    renderWithIntl(<BandCard band={makeBand({ bio: null })} />)
     expect(screen.queryByText('Band metal dari Bandung')).not.toBeInTheDocument()
   })
 
   it('renders genre badges', () => {
-    render(<BandCard band={makeBand({
+    renderWithIntl(<BandCard band={makeBand({
       genres: [
         { id: 1, name: 'Metal', slug: 'metal' },
         { id: 2, name: 'Hardcore', slug: 'hardcore' },
       ],
     })} />)
-    expect(screen.getByText('Metal')).toBeInTheDocument()
-    expect(screen.getByText('Hardcore')).toBeInTheDocument()
+    expect(screen.getAllByText('Metal').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Hardcore').length).toBeGreaterThan(0)
   })
 
   it('shows +N when more than 4 genres', () => {
-    render(<BandCard band={makeBand({
+    renderWithIntl(<BandCard band={makeBand({
       genres: [
         { id: 1, name: 'Metal', slug: 'metal' },
         { id: 2, name: 'Rock', slug: 'rock' },
@@ -95,27 +105,27 @@ describe('BandCard', () => {
   })
 
   it('shows Open Member badge when looking for members', () => {
-    render(<BandCard band={makeBand({ is_looking_for_members: true })} />)
+    renderWithIntl(<BandCard band={makeBand({ is_looking_for_members: true })} />)
     expect(screen.getByText('Open Member')).toBeInTheDocument()
   })
 
   it('renders Instagram link when provided', () => {
-    render(<BandCard band={makeBand({ instagram: '@testband' })} />)
+    renderWithIntl(<BandCard band={makeBand({ instagram: '@testband' })} />)
     const link = screen.getByText('Instagram')
     expect(link).toBeInTheDocument()
     expect(link.closest('a')).toHaveAttribute('href', 'https://instagram.com/testband')
   })
 
   it('renders WhatsApp link when contact_wa provided', () => {
-    render(<BandCard band={makeBand({ contact_wa: '628123456789' })} />)
+    renderWithIntl(<BandCard band={makeBand({ contact_wa: '628123456789' })} />)
     const link = screen.getByText('WhatsApp')
     expect(link).toBeInTheDocument()
     expect(link.closest('a')).toHaveAttribute('href', 'https://wa.me/628123456789')
   })
 
   it('links band name to detail page', () => {
-    render(<BandCard band={makeBand({ id: 'band-42' })} />)
-    const link = screen.getByText('Test Band').closest('a')
+    renderWithIntl(<BandCard band={makeBand({ id: 'band-42' })} />)
+    const link = screen.getAllByText('Test Band')[0].closest('a')
     expect(link).toHaveAttribute('href', '/bands/band-42')
   })
 })

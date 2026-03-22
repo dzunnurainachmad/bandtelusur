@@ -43,7 +43,7 @@ export function SaveBandButton({ bandId, initialSaved, isLoggedIn, variant = 'de
         onClick={handleToggle}
         disabled={loading}
         title={saved ? t('removeTitle') : t('saveTitle')}
-        className={`flex-none p-2.5 rounded-lg border transition-colors disabled:opacity-60 ${
+        className={`flex-none p-2.5 rounded-lg border transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
           saved
             ? 'bg-amber-700 text-white border-amber-700 hover:bg-amber-800'
             : 'border-stone-300 dark:border-stone-600 text-stone-400 dark:text-stone-500 hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500'
@@ -59,7 +59,7 @@ export function SaveBandButton({ bandId, initialSaved, isLoggedIn, variant = 'de
       onClick={handleToggle}
       disabled={loading}
       title={saved ? t('removeTitle') : t('saveTitle')}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs transition-colors disabled:opacity-60 ${
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
         saved
           ? 'bg-amber-700 text-white border-amber-700 hover:bg-amber-800 hover:border-amber-800'
           : 'border-stone-300 dark:border-stone-600 text-stone-600 dark:text-stone-400 hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500'

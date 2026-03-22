@@ -62,7 +62,7 @@ export function PlayButton({
       <button
         onClick={handlePlay}
         title={t('play')}
-        className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-colors ${
+        className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-colors cursor-pointer ${
           isPlaying ? 'bg-amber-600 text-white' : 'bg-amber-600 text-white hover:bg-amber-700'
         }`}
       >
@@ -75,7 +75,7 @@ export function PlayButton({
     return (
       <button
         onClick={handlePlay}
-        className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-colors ${
+        className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-colors cursor-pointer ${
           isPlaying ? 'bg-amber-600 text-white' : 'bg-[#fefaf4] text-amber-700 hover:bg-amber-50'
         }`}
       >
@@ -89,7 +89,7 @@ export function PlayButton({
       <button
         onClick={handlePlay}
         title={t('play')}
-        className={`px-3 py-1.5 rounded-lg border transition-colors ${
+        className={`px-3 py-1.5 rounded-lg border transition-colors cursor-pointer ${
           isPlaying
             ? 'border-amber-600 bg-amber-50 text-amber-700'
             : 'border-stone-300 text-stone-600 hover:border-amber-500 hover:text-amber-700 hover:bg-amber-50'
@@ -103,7 +103,7 @@ export function PlayButton({
   return (
     <button
       onClick={handlePlay}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-700 hover:bg-amber-800 text-white transition-colors"
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-700 hover:bg-amber-800 text-white transition-colors cursor-pointer"
     >
       <Play className="w-4 h-4 fill-current" />
       {isPlaying ? t('playing') : t('play')}

@@ -48,6 +48,7 @@ export function SortBar({ currentSort, total, searchParams }: SortBarProps) {
             value={active}
             options={SORT_OPTIONS}
             onChange={(val) => router.push(buildUrl(val || 'updated_desc'))}
+            showClear={false}
           />
         </div>
       </div>
