@@ -13,6 +13,7 @@ function YoutubeIcon({ className }: { className?: string }) {
   )
 }
 import { getBandById, getSimilarBands } from '@/lib/queries'
+import { supabase as supabasePublic } from '@/lib/supabase'
 import { supabaseAdmin } from '@/lib/supabase-admin'
 import { FlagBandButton } from '@/components/FlagBandButton'
 import { getYouTubeEmbedUrl, getSpotifyEmbedUrl, getSpotifyEmbedHeight, getAppleMusicEmbedUrl, getAppleMusicEmbedHeight } from '@/lib/embed'
@@ -20,6 +21,7 @@ import { Badge } from '@/components/ui/Badge'
 import { PlayButton } from '@/components/PlayButton'
 import { BandCard } from '@/components/BandCard'
 import { BandInsights } from '@/components/BandInsights'
+import { PostCard } from '@/components/PostCard'
 import { SaveBandButton } from '@/components/SaveBandButton'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
@@ -70,6 +72,25 @@ export default async function BandDetailPage({ params }: Props) {
     getSimilarBands(id),
     getTranslations('bandDetail'),
   ])
+
+  // Fetch posts tagged with this band (up to 5 for preview)
+  const bandPostsData = band
+    ? await (async () => {
+        const { data: tagRows } = await supabasePublic
+          .from('post_band_tags')
+          .select('post_id')
+          .eq('band_id', band.id)
+        const ids = (tagRows ?? []).map((r: { post_id: string }) => r.post_id)
+        if (ids.length === 0) return []
+        const { data: posts } = await supabaseAdmin
+          .from('posts_view')
+          .select('*')
+          .in('id', ids)
+          .order('created_at', { ascending: false })
+          .limit(5)
+        return posts ?? []
+      })()
+    : []
 
   if (!band) notFound()
 
@@ -383,6 +404,26 @@ export default async function BandDetailPage({ params }: Props) {
       <div className="mt-4 flex justify-end">
         <FlagBandButton bandId={id} />
       </div>
+
+      {/* Gigs & Posts */}
+      {bandPostsData.length > 0 && (
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100">Gigs & Posts</h2>
+            <a
+              href={`/feed?band_id=${band.id}`}
+              className="text-sm text-amber-600 hover:underline"
+            >
+              Lihat semua →
+            </a>
+          </div>
+          <div className="space-y-3">
+            {bandPostsData.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Similar Bands */}
       {similarBands.length > 0 && (

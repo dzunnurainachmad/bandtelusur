@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { LogOut, LayoutDashboard, LogIn, ShieldCheck, MessageSquare, Bookmark, Compass, Plus } from 'lucide-react'
+import { LogOut, LayoutDashboard, LogIn, ShieldCheck, MessageSquare, Bookmark, Compass, Plus, Newspaper } from 'lucide-react'
 import { LogoBT } from './LogoBT'
 import { ThemeToggle } from './ThemeToggle'
 import { useAuth } from '@/contexts/AuthContext'
@@ -82,6 +82,10 @@ export function Navbar() {
           <Link href="/chat" className={navLinkClass('/chat')} title={t('discover')}>
             <MessageSquare className="w-5 h-5 shrink-0" />
             <NavLabel>{t('discover')}</NavLabel>
+          </Link>
+          <Link href="/feed" className={navLinkClass('/feed')} title={t('feed')}>
+            <Newspaper className="w-5 h-5 shrink-0" />
+            <NavLabel>{t('feed')}</NavLabel>
           </Link>
 
           {!loading && user && (
