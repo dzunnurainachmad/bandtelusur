@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Sparkles } from 'lucide-react'
 import { BandTagPicker } from './BandTagPicker'
 import type { TaggedBand } from '@/types'
 
@@ -27,6 +28,7 @@ export function CreatePostForm() {
   const [ticketUrl, setTicketUrl] = useState('')
   const [taggedBands, setTaggedBands] = useState<TaggedBand[]>([])
   const [submitting, setSubmitting] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
@@ -59,6 +61,39 @@ export function CreatePostForm() {
       setError(err instanceof Error ? err.message : 'Terjadi kesalahan')
     } finally {
       setSubmitting(false)
+    }
+  }
+
+  async function handleGenerateDesc() {
+    if (!title.trim()) { setError('Isi judul dulu sebelum generate deskripsi.'); return }
+    setIsGenerating(true)
+    setError('')
+    try {
+      const res = await fetch('/api/generate-gig-desc', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title,
+          bands: taggedBands.map((b) => b.name),
+          location,
+          eventDate: eventDate ? `${eventDate}:00+07:00` : null,
+          ticketPrice,
+        }),
+      })
+      if (!res.ok) throw new Error()
+      const reader = res.body!.getReader()
+      const decoder = new TextDecoder()
+      let desc = ''
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        desc += decoder.decode(value, { stream: true })
+        setBody(desc)
+      }
+    } catch {
+      setError('Gagal generate deskripsi. Coba lagi.')
+    } finally {
+      setIsGenerating(false)
     }
   }
 
@@ -107,12 +142,26 @@ export function CreatePostForm() {
 
       {/* Body */}
       <div>
-        <label className={labelClass}>Deskripsi</label>
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-sm font-medium text-stone-700 dark:text-stone-300">Deskripsi</label>
+          {type === 'gig' && (
+            <button
+              type="button"
+              onClick={handleGenerateDesc}
+              disabled={isGenerating || !title.trim()}
+              className="inline-flex items-center gap-1.5 text-xs text-amber-700 dark:text-amber-500 hover:text-amber-800 dark:hover:text-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              {isGenerating ? 'Generating...' : 'Generate dengan AI'}
+            </button>
+          )}
+        </div>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Ceritakan lebih lanjut..."
           rows={4}
+          readOnly={isGenerating}
           className={inputClass + ' resize-none'}
           maxLength={2000}
         />

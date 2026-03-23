@@ -17,6 +17,7 @@ export const PROMPT_VERSIONS = {
   'analyze-band': 'v1',
   'analyze-photo': 'v1',
   'generate-bio': 'v1',
+  'generate-gig-desc': 'v1',
   'submit-band': 'v1',
   'moderate-band': 'v1',
   'weekly-insights': 'v1',
@@ -68,6 +69,14 @@ Pilih genre hanya dari daftar yang tersedia. Vibe tags boleh bebas.`
 // ---------------------------------------------------------------------------
 export function buildGenerateBioPrompt(details: string): string {
   return `Buatkan bio singkat (2-3 kalimat) dalam bahasa Indonesia untuk band berikut:\n${details}\n\nTulis dengan gaya santai dan menarik. Langsung tulis bio-nya saja tanpa pendahuluan atau label.`
+}
+
+// ---------------------------------------------------------------------------
+// generate-gig-desc — generate a compelling gig description
+// v1: initial — 2-4 sentences, hype tone, based on title/bands/location/date
+// ---------------------------------------------------------------------------
+export function buildGenerateGigDescPrompt(details: string): string {
+  return `Buatkan deskripsi gigs yang menarik dan mengundang penonton dalam bahasa Indonesia berdasarkan info berikut:\n${details}\n\nTulis 2-4 kalimat dengan gaya hype dan energik. Langsung tulis deskripsinya saja tanpa pendahuluan atau label.`
 }
 
 // ---------------------------------------------------------------------------
