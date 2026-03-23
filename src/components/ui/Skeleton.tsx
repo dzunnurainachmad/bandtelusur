@@ -106,6 +106,57 @@ export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edi
   )
 }
 
+export function PostCardSkeleton() {
+  return (
+    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
+      {/* Badge + action */}
+      <div className="flex items-start justify-between">
+        <Bone className="h-5 w-16 rounded-full" />
+        <Bone className="h-6 w-6 rounded-lg" />
+      </div>
+
+      {/* Title */}
+      <div className="space-y-2">
+        <Bone className="h-5 w-3/4" />
+        <Bone className="h-5 w-1/2" />
+      </div>
+
+      {/* Body */}
+      <div className="space-y-1.5">
+        <Bone className="h-4 w-full" />
+        <Bone className="h-4 w-5/6" />
+        <Bone className="h-4 w-2/3" />
+      </div>
+
+      {/* Gig details */}
+      <div className="space-y-2 pt-1">
+        <div className="flex items-center gap-2">
+          <Bone className="h-3.5 w-3.5 rounded shrink-0" />
+          <Bone className="h-4 w-56" />
+        </div>
+        <div className="flex items-center gap-2">
+          <Bone className="h-3.5 w-3.5 rounded shrink-0" />
+          <Bone className="h-4 w-40" />
+        </div>
+      </div>
+
+      {/* Band chips */}
+      <div className="flex gap-1.5 pt-0.5">
+        <Bone className="h-6 w-20 rounded-full" />
+        <Bone className="h-6 w-24 rounded-full" />
+        <Bone className="h-6 w-16 rounded-full" />
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center gap-2 pt-1 border-t border-stone-100 dark:border-stone-800">
+        <Bone className="w-5 h-5 rounded-full shrink-0" />
+        <Bone className="h-3.5 w-28" />
+        <Bone className="h-3.5 w-16 ml-auto" />
+      </div>
+    </div>
+  )
+}
+
 export function CardSkeleton() {
   return (
     <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col h-full">
