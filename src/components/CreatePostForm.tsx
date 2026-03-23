@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Sparkles } from 'lucide-react'
+import { Input } from './ui/Input'
+import { TextArea } from './ui/TextArea'
+import { Button } from './ui/Button'
 import { BandTagPicker } from './BandTagPicker'
 import type { TaggedBand } from '@/types'
 
@@ -97,72 +100,63 @@ export function CreatePostForm() {
     }
   }
 
-  const inputClass =
-    'w-full px-3 py-2.5 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-stone-900 dark:text-stone-100 placeholder:text-stone-400'
-
-  const labelClass = 'block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5'
-
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Type selector */}
       <div>
-        <p className={labelClass}>Tipe Post</p>
+        <p className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+          Tipe Post
+        </p>
         <div className="flex gap-2">
           {(['gig', 'general'] as const).map((t) => (
-            <button
+            <Button
               key={t}
               type="button"
+              variant={type === t ? 'primary' : 'secondary'}
               onClick={() => setType(t)}
-              className={
-                type === t
-                  ? 'flex-1 py-2.5 text-sm font-medium rounded-lg border-2 border-amber-600 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 transition-colors'
-                  : 'flex-1 py-2.5 text-sm font-medium rounded-lg border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 hover:border-stone-300 dark:hover:border-stone-600 transition-colors'
-              }
+              className="flex-1 justify-center"
             >
               {t === 'gig' ? '🎸 Gigs' : '📢 Post Umum'}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
 
       {/* Title */}
-      <div>
-        <label className={labelClass}>
-          Judul <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder={type === 'gig' ? 'Contoh: Gigs Malam Minggu di Bandung' : 'Contoh: Kami mencari drummer!'}
-          className={inputClass}
-          maxLength={200}
-        />
-      </div>
+      <Input
+        label="Judul *"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder={type === 'gig' ? 'Contoh: Gigs Malam Minggu di Bandung' : 'Contoh: Kami mencari drummer!'}
+        maxLength={200}
+      />
 
       {/* Body */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-sm font-medium text-stone-700 dark:text-stone-300">Deskripsi</label>
+          <label className="block text-sm font-medium text-stone-700 dark:text-stone-300">
+            Deskripsi
+          </label>
           {type === 'gig' && (
-            <button
+            <Button
               type="button"
+              variant="ghost-amber"
+              size="sm"
               onClick={handleGenerateDesc}
               disabled={isGenerating || !title.trim()}
-              className="inline-flex items-center gap-1.5 text-xs text-amber-700 dark:text-amber-500 hover:text-amber-800 dark:hover:text-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="text-xs"
             >
               <Sparkles className="w-3.5 h-3.5" />
               {isGenerating ? 'Generating...' : 'Generate dengan AI'}
-            </button>
+            </Button>
           )}
         </div>
-        <textarea
+        <TextArea
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Ceritakan lebih lanjut..."
           rows={4}
           readOnly={isGenerating}
-          className={inputClass + ' resize-none'}
           maxLength={2000}
         />
       </div>
@@ -171,56 +165,44 @@ export function CreatePostForm() {
       {type === 'gig' && (
         <>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className={labelClass}>Tanggal & Waktu</label>
-              <input
-                type="datetime-local"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-                className={inputClass}
-              />
-            </div>
-            <div>
-              <label className={labelClass}>Lokasi</label>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Contoh: Rossi Musik, Jakarta"
-                className={inputClass}
-                maxLength={200}
-              />
-            </div>
+            <Input
+              label="Tanggal & Waktu"
+              type="datetime-local"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
+            />
+            <Input
+              label="Lokasi"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Contoh: Rossi Musik, Jakarta"
+              maxLength={200}
+            />
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className={labelClass}>Harga Tiket</label>
-              <input
-                type="text"
-                value={ticketPrice}
-                onChange={(e) => setTicketPrice(e.target.value)}
-                placeholder="Contoh: Gratis / Rp50.000"
-                className={inputClass}
-                maxLength={100}
-              />
-            </div>
-            <div>
-              <label className={labelClass}>Link Beli Tiket</label>
-              <input
-                type="url"
-                value={ticketUrl}
-                onChange={(e) => setTicketUrl(e.target.value)}
-                placeholder="https://loket.com/..."
-                className={inputClass}
-              />
-            </div>
+            <Input
+              label="Harga Tiket"
+              value={ticketPrice}
+              onChange={(e) => setTicketPrice(e.target.value)}
+              placeholder="Contoh: Gratis / Rp50.000"
+              maxLength={100}
+            />
+            <Input
+              label="Link Beli Tiket"
+              type="url"
+              value={ticketUrl}
+              onChange={(e) => setTicketUrl(e.target.value)}
+              placeholder="https://loket.com/..."
+            />
           </div>
         </>
       )}
 
       {/* Band tags */}
       <div>
-        <label className={labelClass}>Tag Band</label>
+        <p className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">
+          Tag Band
+        </p>
         <BandTagPicker selected={taggedBands} onChange={setTaggedBands} />
       </div>
 
@@ -230,13 +212,9 @@ export function CreatePostForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="w-full py-3 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium rounded-lg transition-colors"
-      >
+      <Button type="submit" fullWidth loading={submitting} size="lg">
         {submitting ? 'Memposting...' : 'Buat Post'}
-      </button>
+      </Button>
     </form>
   )
 }
