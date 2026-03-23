@@ -27,7 +27,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           id={textareaId}
           disabled={disabled}
           className={clsx(
-            'w-full text-sm rounded-lg border resize-none',
+            'w-full text-sm rounded-lg border resize-y',
             'px-3 py-2',
             'bg-[#fefaf4] dark:bg-stone-800',
             'text-stone-900 dark:text-stone-100',
