@@ -5,6 +5,17 @@ import { useRouter } from 'next/navigation'
 import { BandTagPicker } from './BandTagPicker'
 import type { TaggedBand } from '@/types'
 
+// Convert datetime-local value to ISO with browser's local timezone offset
+// e.g. "2026-04-15T20:00" in WIB (UTC+7) → "2026-04-15T20:00:00+07:00"
+function localDatetimeToISO(value: string): string {
+  const offset = new Date().getTimezoneOffset() // minutes, negative = ahead of UTC
+  const sign = offset <= 0 ? '+' : '-'
+  const abs = Math.abs(offset)
+  const hh = String(Math.floor(abs / 60)).padStart(2, '0')
+  const mm = String(abs % 60).padStart(2, '0')
+  return `${value}:00${sign}${hh}:${mm}`
+}
+
 export function CreatePostForm() {
   const router = useRouter()
   const [type, setType] = useState<'gig' | 'general'>('gig')
@@ -31,7 +42,7 @@ export function CreatePostForm() {
           type,
           title,
           body,
-          event_date: eventDate || null,
+          event_date: eventDate ? localDatetimeToISO(eventDate) : null,
           location,
           ticket_price: ticketPrice,
           ticket_url: ticketUrl,

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { CalendarDays, MapPin, Ticket, User, Trash2, ExternalLink } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket, User, Trash2, ExternalLink, ImageDown } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import type { Post } from '@/types'
 
@@ -13,8 +13,8 @@ interface Props {
 
 function formatEventDate(iso: string) {
   const d = new Date(iso)
-  const date = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-  const time = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+  const date = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' })
+  const time = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' })
   return `${date} · ${time}`
 }
 
@@ -53,15 +53,28 @@ export function PostCard({ post, onDelete }: Props) {
         >
           {post.type === 'gig' ? '🎸 Gigs' : '📢 Post'}
         </span>
-        {isOwner && onDelete && (
-          <button
-            onClick={handleDelete}
-            className="p-1.5 text-stone-400 hover:text-red-500 transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
-            title="Hapus post"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-          </button>
-        )}
+        <div className="flex items-center gap-1">
+          {post.type === 'gig' && (
+            <a
+              href={`/api/posts/${post.id}/poster`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 text-stone-400 hover:text-amber-600 transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
+              title="Download poster"
+            >
+              <ImageDown className="w-3.5 h-3.5" />
+            </a>
+          )}
+          {isOwner && onDelete && (
+            <button
+              onClick={handleDelete}
+              className="p-1.5 text-stone-400 hover:text-red-500 transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
+              title="Hapus post"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Title */}
