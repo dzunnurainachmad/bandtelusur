@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { CalendarDays, MapPin, Ticket, User, Trash2, ExternalLink, ImageDown } from 'lucide-react'
+import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import type { Post } from '@/types'
 
@@ -33,11 +34,15 @@ function formatRelative(iso: string) {
 export function PostCard({ post, onDelete }: Props) {
   const { user } = useAuth()
   const isOwner = !!user && user.id === post.user_id
+  const [confirming, setConfirming] = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   async function handleDelete() {
-    if (!confirm('Hapus post ini?')) return
+    setDeleting(true)
     const res = await fetch(`/api/posts/${post.id}`, { method: 'DELETE' })
     if (res.ok) onDelete?.(post.id)
+    else setDeleting(false)
+    setConfirming(false)
   }
 
   return (
@@ -54,7 +59,7 @@ export function PostCard({ post, onDelete }: Props) {
           {post.type === 'gig' ? '🎸 Gigs' : '📢 Post'}
         </span>
         <div className="flex items-center gap-1">
-          {post.type === 'gig' && (
+          {post.type === 'gig' && !confirming && (
             <a
               href={`/api/posts/${post.id}/poster`}
               target="_blank"
@@ -65,9 +70,9 @@ export function PostCard({ post, onDelete }: Props) {
               <ImageDown className="w-3.5 h-3.5" />
             </a>
           )}
-          {isOwner && onDelete && (
+          {isOwner && onDelete && !confirming && (
             <button
-              onClick={handleDelete}
+              onClick={() => setConfirming(true)}
               className="p-1.5 text-stone-400 hover:text-red-500 transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
               title="Hapus post"
             >
@@ -76,6 +81,29 @@ export function PostCard({ post, onDelete }: Props) {
           )}
         </div>
       </div>
+
+      {/* Delete confirmation */}
+      {confirming && (
+        <div className="flex items-center justify-between gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl px-3 py-2.5">
+          <p className="text-sm text-red-700 dark:text-red-400 font-medium">Hapus post ini?</p>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setConfirming(false)}
+              disabled={deleting}
+              className="text-xs text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 px-2.5 py-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+            >
+              Batal
+            </button>
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="text-xs font-medium bg-red-600 hover:bg-red-700 disabled:opacity-60 text-white px-3 py-1.5 rounded-lg transition-colors"
+            >
+              {deleting ? 'Menghapus...' : 'Hapus'}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Title */}
       <h3 className="font-semibold text-stone-900 dark:text-stone-100 leading-snug">{post.title}</h3>

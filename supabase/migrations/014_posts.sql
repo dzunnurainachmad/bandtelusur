@@ -45,22 +45,6 @@ create view posts_view as
   from posts p
   left join profiles pr on pr.id = p.user_id;
 
--- RLS
-alter table posts          enable row level security;
-alter table post_band_tags enable row level security;
-
-create policy "public read posts"  on posts for select using (true);
-create policy "auth insert posts"  on posts for insert to authenticated
-  with check (user_id = auth.uid());
-create policy "owner delete posts" on posts for delete to authenticated
-  using (user_id = auth.uid());
-
-create policy "public read post_band_tags"  on post_band_tags for select using (true);
-create policy "auth insert post_band_tags"  on post_band_tags for insert to authenticated
-  with check (exists (select 1 from posts where id = post_id and user_id = auth.uid()));
-create policy "owner delete post_band_tags" on post_band_tags for delete to authenticated
-  using (exists (select 1 from posts where id = post_id and user_id = auth.uid()));
-
 -- Auto-update updated_at
 create or replace function update_posts_updated_at()
 returns trigger language plpgsql as $$
