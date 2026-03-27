@@ -106,3 +106,56 @@ begin
   return total;
 end;
 $$;
+
+-- 5. Update search_bands_semantic to only return active bands
+create or replace function search_bands_semantic(
+  query_embedding vector(1536),
+  match_threshold float default 0.3,
+  match_count int default 10
+)
+returns setof bands_view
+language plpgsql
+as $$
+begin
+  return query
+  select bv.*
+  from bands b
+  join bands_view bv on bv.id = b.id
+  where b.embedding is not null
+    and b.is_active = true
+    and 1 - (b.embedding <=> query_embedding) >= match_threshold
+  order by b.embedding <=> query_embedding
+  limit match_count;
+end;
+$$;
+
+-- 6. Update get_similar_bands to only return active bands
+create or replace function get_similar_bands(
+  band_id uuid,
+  match_count int default 6
+)
+returns setof bands_view
+language plpgsql
+as $$
+declare
+  source_embedding vector(1536);
+begin
+  select b.embedding into source_embedding
+  from bands b
+  where b.id = band_id;
+
+  if source_embedding is null then
+    return;
+  end if;
+
+  return query
+  select bv.*
+  from bands b
+  join bands_view bv on bv.id = b.id
+  where b.id != band_id
+    and b.embedding is not null
+    and b.is_active = true
+  order by b.embedding <=> source_embedding
+  limit match_count;
+end;
+$$;
