@@ -88,12 +88,12 @@ export function BandTagPicker({ selected, onChange }: Props) {
           onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
           onFocus={() => setOpen(true)}
           placeholder="Cari dan tag band..."
-          className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-stone-900 dark:text-stone-100 placeholder:text-stone-400"
+          className="w-full pl-9 pr-4 py-2 text-sm bg-surface dark:bg-stone-800 border border-stone-400 dark:border-stone-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-stone-900 dark:text-stone-100 placeholder:text-stone-500 dark:placeholder:text-stone-500"
         />
 
         {/* Dropdown */}
         {open && query.trim() && (
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-1 bg-surface dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-xl shadow-lg z-20 max-h-48 overflow-y-auto">
             {loading && (
               <p className="px-3 py-2 text-sm text-stone-400">Mencari...</p>
             )}
@@ -105,7 +105,7 @@ export function BandTagPicker({ selected, onChange }: Props) {
                 key={band.id}
                 type="button"
                 onClick={() => add(band)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-left"
+                className="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors text-left"
               >
                 <div className="w-7 h-7 rounded-lg overflow-hidden shrink-0 bg-stone-100 dark:bg-stone-800 flex items-center justify-center">
                   {band.photo_url ? (
