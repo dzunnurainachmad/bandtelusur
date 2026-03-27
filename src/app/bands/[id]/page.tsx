@@ -116,7 +116,8 @@ export default async function BandDetailPage({ params }: Props) {
         .then(({ data }) => data)
     : null
 
-  const waLink = band.contact_wa?.trim() ? `https://wa.me/${band.contact_wa.trim()}` : null
+  const waDigits = band.contact_wa?.replace(/\D/g, '') ?? ''
+  const waLink = waDigits.length >= 10 ? `https://wa.me/${waDigits}` : null
   const youtubeEmbed = (band.youtube ? getYouTubeEmbedUrl(band.youtube) : null)
     ?? (band.youtube_music ? getYouTubeEmbedUrl(band.youtube_music) : null)
   const spotifyEmbed = band.spotify ? getSpotifyEmbedUrl(band.spotify) : null
