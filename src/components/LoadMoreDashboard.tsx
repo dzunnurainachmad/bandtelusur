@@ -19,6 +19,7 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [activating, setActivating] = useState<string | null>(null)
+  const [activateError, setActivateError] = useState<string | null>(null)
   const sentinelRef = useRef<HTMLDivElement>(null)
 
   const loadMore = useCallback(async () => {
@@ -54,6 +55,7 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
 
   async function handleActivate(bandId: string) {
     setActivating(bandId)
+    setActivateError(null)
     try {
       const res = await fetch(`/api/bands/${bandId}/activate`, { method: 'PATCH' })
       if (!res.ok) throw new Error('failed')
@@ -61,7 +63,7 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
         prev.map((b) => ({ ...b, is_active: b.id === bandId }))
       )
     } catch {
-      // no-op — user can retry
+      setActivateError(bandId)
     } finally {
       setActivating(null)
     }
@@ -88,13 +90,18 @@ export function LoadMoreDashboard({ initialBands, initialHasMore }: Props) {
                   Aktif
                 </span>
               ) : (
-                <button
-                  onClick={() => handleActivate(band.id)}
-                  disabled={activating === band.id}
-                  className="text-xs font-medium text-amber-700 dark:text-amber-500 border border-amber-300 dark:border-amber-700 px-2.5 py-1 rounded-full hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors disabled:opacity-50"
-                >
-                  {activating === band.id ? 'Mengaktifkan…' : 'Aktifkan'}
-                </button>
+                <div className="flex flex-col gap-1">
+                  <button
+                    onClick={() => handleActivate(band.id)}
+                    disabled={activating === band.id}
+                    className="text-xs font-medium text-amber-700 dark:text-amber-500 border border-amber-300 dark:border-amber-700 px-2.5 py-1 rounded-full hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors disabled:opacity-50"
+                  >
+                    {activating === band.id ? 'Mengaktifkan…' : 'Aktifkan'}
+                  </button>
+                  {activateError === band.id && (
+                    <p className="text-xs text-red-600 dark:text-red-400">Gagal mengaktifkan. Coba lagi.</p>
+                  )}
+                </div>
               )}
             </div>
           </div>
