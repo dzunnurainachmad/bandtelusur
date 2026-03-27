@@ -21,6 +21,7 @@ export default async function DashboardPage() {
   ])
 
   const profile = profileRes.data
+  const multipleActive = bands.filter((b) => b.is_active).length > 1
   const displayName = profile?.display_name ?? null
   const initials = (displayName || user.email || '?').slice(0, 2).toUpperCase()
 
@@ -53,6 +54,12 @@ export default async function DashboardPage() {
           </Link>
         </div>
       </div>
+
+      {multipleActive && (
+        <div className="mb-4 px-4 py-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-sm text-amber-800 dark:text-amber-400">
+          Kamu punya lebih dari 1 band aktif. Pilih satu yang ingin ditampilkan di browse.
+        </div>
+      )}
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">

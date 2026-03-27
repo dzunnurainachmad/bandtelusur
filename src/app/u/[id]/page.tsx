@@ -45,7 +45,7 @@ export default async function PublicProfilePage({ params }: Props) {
 
   if (!profile) notFound()
 
-  const { bands } = await getUserBands(profile.id)
+  const { bands } = await getUserBands(profile.id, 0, true)
 
   const displayName = profile.display_name ?? t('defaultUser')
   const initials = displayName.slice(0, 2).toUpperCase()
