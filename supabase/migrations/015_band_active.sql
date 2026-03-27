@@ -4,7 +4,9 @@
 alter table bands add column is_active boolean not null default true;
 
 -- 2. Recreate bands_view to include is_active
-create or replace view bands_view as
+-- Must drop first — CREATE OR REPLACE VIEW cannot reorder existing columns
+drop view if exists bands_view cascade;
+create view bands_view as
 select
   b.id,
   b.user_id,
