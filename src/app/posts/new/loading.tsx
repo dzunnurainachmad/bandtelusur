@@ -6,7 +6,7 @@ export default function NewPostLoading() {
       {/* Page title */}
       <Bone className="h-7 w-28 mb-6" />
 
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 p-5 sm:p-6 space-y-5">
+      <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 p-5 sm:p-6 space-y-5">
         {/* Type selector */}
         <div>
           <Bone className="h-4 w-20 mb-1.5" />

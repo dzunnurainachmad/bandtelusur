@@ -46,7 +46,7 @@ export function PostCard({ post, onDelete }: Props) {
   }
 
   return (
-    <article className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
+    <article className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
       {/* Header: type badge + actions */}
       <div className="flex items-start justify-between gap-2">
         <span

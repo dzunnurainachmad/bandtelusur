@@ -12,7 +12,7 @@ export default function BandDetailLoading() {
         </div>
       </div>
 
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
         <Bone className="aspect-video rounded-none" />
 
         <div className="p-4 sm:p-6 space-y-5">

@@ -6,7 +6,7 @@ export default function BrowseLoading() {
       <Bone className="h-7 w-40 mb-4 sm:mb-6" />
       <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         {/* Filter sidebar skeleton */}
-        <div className="w-full md:w-56 lg:w-64 shrink-0 space-y-4 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4">
+        <div className="w-full md:w-56 lg:w-64 shrink-0 space-y-4 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4">
           <Bone className="h-5 w-20" />
           <Bone className="h-9 w-full" />
           <Bone className="h-9 w-full" />

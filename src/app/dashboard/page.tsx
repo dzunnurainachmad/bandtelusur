@@ -28,7 +28,7 @@ export default async function DashboardPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* Profile card */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8 p-4 bg-[#fefaf4] dark:bg-[#231d15] rounded-xl border border-stone-200 dark:border-stone-700">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8 p-4 bg-surface rounded-xl border border-stone-200 dark:border-stone-700">
         <div className="flex items-center gap-4 flex-1 min-w-0">
           {profile?.avatar_url ? (
             <Image src={profile.avatar_url} alt={displayName ?? ''} width={56} height={56} className="rounded-full object-cover shrink-0 border border-stone-200 dark:border-stone-700" />

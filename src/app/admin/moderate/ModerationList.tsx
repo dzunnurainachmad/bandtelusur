@@ -76,7 +76,7 @@ export function ModerationList({ flags: initial }: { flags: Flag[] }) {
         const verdict = flag.moderation_result
         const isExpanded = expanded[flag.id]
         return (
-          <div key={flag.id} className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-xl p-4 space-y-3">
+          <div key={flag.id} className="bg-surface border border-stone-200 dark:border-stone-700 rounded-xl p-4 space-y-3">
             {/* Band info */}
             <div className="flex items-start justify-between gap-4">
               <div>

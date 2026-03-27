@@ -13,7 +13,7 @@ export function FormFieldSkeleton({ label = true, tall = false }: { label?: bool
 
 export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edit' }) {
   return (
-    <div className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
+    <div className="space-y-5 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
       {/* Fill from URL — submit only */}
       {variant === 'submit' && (
         <div className="border border-dashed border-stone-200 dark:border-stone-700 rounded-xl p-4 space-y-2">
@@ -108,7 +108,7 @@ export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edi
 
 export function PostCardSkeleton() {
   return (
-    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
+    <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
       {/* Badge + action */}
       <div className="flex items-start justify-between">
         <Bone className="h-5 w-16 rounded-full" />
@@ -159,7 +159,7 @@ export function PostCardSkeleton() {
 
 export function CardSkeleton() {
   return (
-    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col h-full">
+    <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col h-full">
 
       {/* ── Mobile: horizontal list row ── */}
       <div className="flex sm:hidden items-center gap-4 p-4">

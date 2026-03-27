@@ -10,7 +10,7 @@ export default async function NewPostPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-6">Buat Post</h1>
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 p-5 sm:p-6">
+      <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 p-5 sm:p-6">
         <CreatePostForm />
       </div>
     </div>

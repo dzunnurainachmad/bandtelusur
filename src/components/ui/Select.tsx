@@ -81,9 +81,9 @@ export function Select({
             'w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg border transition-all',
             'focus:outline-none focus:ring-2 focus:ring-amber-500',
             open
-              ? 'ring-2 ring-amber-500 border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800'
-              : 'border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800',
-            disabled && 'bg-stone-50 dark:bg-[#231d15] text-stone-400 cursor-not-allowed',
+              ? 'ring-2 ring-amber-500 border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800'
+              : 'border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800',
+            disabled && 'bg-stone-50 dark:bg-surface text-stone-400 cursor-not-allowed',
             !disabled && 'cursor-pointer'
           )}
         >
@@ -96,7 +96,7 @@ export function Select({
         </button>
 
         {open && (
-          <div className="absolute z-50 mt-1 w-full bg-[#fefaf4] dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl shadow-lg overflow-hidden">
+          <div className="absolute z-50 mt-1 w-full bg-surface dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl shadow-lg overflow-hidden">
             {/* Search input */}
             {searchable && (
               <div className="px-3 py-2 border-b border-stone-100 dark:border-stone-700">

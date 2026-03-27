@@ -230,7 +230,7 @@ export function ImageCropper({ src, onConfirm, onCancel, square = false }: Props
 
   return (
     <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/80 p-4">
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl">
+      <div className="bg-surface rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl">
 
         <div className="flex items-center justify-between px-4 py-3 border-b border-stone-200 dark:border-stone-700">
           <span className="font-semibold text-sm text-stone-900 dark:text-stone-100">Atur Foto</span>

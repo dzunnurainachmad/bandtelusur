@@ -101,7 +101,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5">
+    <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-6 space-y-5">
       {/* Mode toggle */}
       {mode !== 'forgot' ? (
         <div className="flex rounded-lg border border-stone-200 dark:border-stone-700 p-1 gap-1">
@@ -168,7 +168,7 @@ export function LoginForm() {
             fullWidth
             loading={googleLoading}
             onClick={handleGoogleLogin}
-            className="bg-[#fefaf4] dark:bg-stone-800 text-stone-700 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700"
+            className="bg-surface dark:bg-stone-800 text-stone-700 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700"
           >
             <GoogleIcon />
             {googleLoading ? t('redirecting') : t('continueWithGoogle')}

@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {prefix ? (
           <div className={clsx(
             'flex items-center rounded-lg border px-3 py-2 text-sm transition-all',
-            'bg-[#fefaf4] dark:bg-stone-800',
+            'bg-surface dark:bg-stone-800',
             'focus-within:ring-2 focus-within:ring-amber-500',
             error ? 'border-red-400 dark:border-red-500' : 'border-stone-300 dark:border-stone-600',
             disabled && 'opacity-50 cursor-not-allowed',
@@ -63,7 +63,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               className={clsx(
                 'w-full text-sm rounded-lg border transition-all',
                 'px-3 py-2',
-                'bg-[#fefaf4] dark:bg-stone-800',
+                'bg-surface dark:bg-stone-800',
                 'text-stone-900 dark:text-stone-100',
                 'placeholder-stone-400 dark:placeholder-stone-500',
                 'focus:outline-none focus:ring-2 focus:ring-amber-500',

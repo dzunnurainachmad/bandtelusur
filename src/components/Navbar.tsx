@@ -61,7 +61,7 @@ export function Navbar() {
   return (
     <>
       {/* ── Desktop: Left sidebar (icon-only, expands on hover) ── */}
-      <aside className="group/sidebar hidden lg:flex fixed left-0 top-0 h-full w-16 hover:w-60 flex-col bg-[#fefaf4] dark:bg-[#231d15] border-r border-stone-200 dark:border-stone-800 z-50 transition-[width] duration-200 overflow-hidden">
+      <aside className="group/sidebar hidden lg:flex fixed left-0 top-0 h-full w-16 hover:w-60 flex-col bg-surface border-r border-stone-200 dark:border-stone-800 z-50 transition-[width] duration-200 overflow-hidden">
 
         {/* Logo */}
         <div className="px-3 pt-6 pb-2 shrink-0">
@@ -154,7 +154,7 @@ export function Navbar() {
       </aside>
 
       {/* ── Mobile: Bottom tab bar ── */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#fefaf4]/95 dark:bg-[#231d15]/95 backdrop-blur-md border-t border-stone-200 dark:border-stone-800 safe-b">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-t border-stone-200 dark:border-stone-800 safe-b">
         <div className="flex items-center h-16">
           <Link href="/browse" className={bottomTabClass('/browse')}>
             <Compass className="w-5 h-5" />

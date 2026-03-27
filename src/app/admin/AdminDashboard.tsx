@@ -81,7 +81,7 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
             onClick={() => { setTab(key); setQuery('') }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               tab === key
-                ? 'bg-[#fefaf4] dark:bg-[#231d15] text-stone-900 dark:text-stone-100 shadow-sm'
+                ? 'bg-surface text-stone-900 dark:text-stone-100 shadow-sm'
                 : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200'
             }`}
           >
@@ -120,7 +120,7 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
 
       {/* Users table */}
       {tab === 'users' && (
-        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
+        <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
           <table className="w-full text-sm min-w-150">
             <thead className="bg-stone-50 dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700">
               <tr>
@@ -195,7 +195,7 @@ export function AdminDashboard({ users: initialUsers, bands: initialBands }: Pro
 
       {/* Bands table */}
       {tab === 'bands' && (
-        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
+        <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl overflow-x-auto">
           <table className="w-full text-sm min-w-150">
             <thead className="bg-stone-50 dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700">
               <tr>

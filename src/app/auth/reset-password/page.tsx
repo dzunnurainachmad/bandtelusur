@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
           </p>
         </div>
 
-        <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-6">
+        <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-6">
           {!ready ? (
             <p className="text-sm text-center text-stone-400 py-4">Memverifikasi link...</p>
           ) : (

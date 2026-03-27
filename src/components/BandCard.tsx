@@ -32,7 +32,7 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
   const hasMedia = !!(youtubeEmbed || spotifyEmbed || appleMusicEmbed)
 
   return (
-    <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden hover:shadow-md hover:border-stone-300 dark:hover:border-stone-600 transition-all duration-200 group flex flex-col h-full">
+    <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden hover:shadow-md hover:border-stone-300 dark:hover:border-stone-600 transition-all duration-200 group flex flex-col h-full">
 
       {/* ── Mobile: horizontal list row ── */}
       <div className="flex sm:hidden items-center gap-4 p-4">

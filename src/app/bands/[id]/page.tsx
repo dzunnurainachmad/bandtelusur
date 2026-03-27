@@ -146,7 +146,7 @@ export default async function BandDetailPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+      <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
         {/* Cover photo */}
         <div className="aspect-video bg-linear-to-br from-amber-100 to-orange-100 relative">
           {band.photo_url ? (

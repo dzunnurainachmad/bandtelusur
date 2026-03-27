@@ -28,7 +28,7 @@ export default async function SubmitPage() {
       <p className="text-stone-500 text-sm mb-8">{t('subtitle')}</p>
 
       {atLimit ? (
-        <div className="flex flex-col items-center text-center gap-4 py-16 px-6 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl">
+        <div className="flex flex-col items-center text-center gap-4 py-16 px-6 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl">
           <div className="w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
             <Lock className="w-6 h-6 text-amber-700 dark:text-amber-500" />
           </div>

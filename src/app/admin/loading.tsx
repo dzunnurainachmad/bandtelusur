@@ -15,7 +15,7 @@ export default function AdminLoading() {
       <Bone className="h-10 w-full mb-4 rounded-lg" />
 
       {/* Table skeleton */}
-      <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden">
+      <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl overflow-hidden">
         {/* Header row */}
         <div className="flex gap-4 px-4 py-3 border-b border-stone-200 dark:border-stone-700">
           <Bone className="h-4 w-1/4" />

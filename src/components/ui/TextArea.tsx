@@ -29,7 +29,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           className={clsx(
             'w-full text-sm rounded-lg border resize-y',
             'px-3 py-2',
-            'bg-[#fefaf4] dark:bg-stone-800',
+            'bg-surface dark:bg-stone-800',
             'text-stone-900 dark:text-stone-100',
             'placeholder-stone-400 dark:placeholder-stone-500',
             'focus:outline-none focus:ring-2 focus:ring-amber-500',

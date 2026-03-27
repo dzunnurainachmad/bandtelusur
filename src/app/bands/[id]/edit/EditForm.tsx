@@ -229,7 +229,7 @@ export function EditForm({ band }: Props) {
   ]
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
+    <form onSubmit={handleSubmit} className="space-y-5 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
 
       {/* Photo */}
       <div>
@@ -342,7 +342,7 @@ export function EditForm({ band }: Props) {
         <label className={labelClass}>{f('whatsapp')}</label>
         <div className="flex">
           <span className="inline-flex items-center px-3 border border-r-0 border-stone-300 dark:border-stone-600 rounded-l-lg bg-stone-50 dark:bg-stone-700 text-stone-500 dark:text-stone-400 text-sm">+62</span>
-          <input type="text" value={form.contact_wa.replace(/^62/, '')} onChange={(e) => { const val = e.target.value.replace(/^0/, ''); set('contact_wa', val ? '62' + val : '') }} className="flex-1 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="8123456789" />
+          <input type="text" value={form.contact_wa.replace(/^62/, '')} onChange={(e) => { const val = e.target.value.replace(/^0/, ''); set('contact_wa', val ? '62' + val : '') }} className="flex-1 border border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="8123456789" />
         </div>
       </div>
 

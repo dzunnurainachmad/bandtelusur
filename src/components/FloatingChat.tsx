@@ -67,7 +67,7 @@ export function FloatingChat() {
   return (
     <div className={`hidden lg:block fixed ${bottomOffset} right-6 z-50 transition-[bottom] duration-200`}>
       {open && (
-        <div className="absolute bottom-16 right-0 w-80 h-[480px] bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="absolute bottom-16 right-0 w-80 h-[480px] bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-stone-200 dark:border-stone-700 shrink-0">
             <div className="flex items-center gap-2">

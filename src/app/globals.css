@@ -7,18 +7,21 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
   --color-accent: #b45309;
   --color-accent-hover: #92400e;
 }
 
 :root {
-  --background: #faf6f0;
+  --background: #f0e8dc;
   --foreground: #3b2f20;
+  --surface: #f5ece0;
 }
 
 .dark {
   --background: #1a1510;
   --foreground: #e0d5c4;
+  --surface: #231d15;
 }
 
 html {

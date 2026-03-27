@@ -58,7 +58,7 @@ export default async function Home() {
         <p className="text-center text-sm text-stone-500 dark:text-stone-400 mb-10 sm:mb-14 max-w-md mx-auto">{t('features.subtitle')}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map(({ icon: Icon, iconBg, iconColor, titleKey, descKey }) => (
-            <div key={titleKey} className="text-center p-5 rounded-2xl border border-transparent hover:border-stone-200 dark:hover:border-stone-700 hover:bg-[#fefaf4] dark:hover:bg-[#231d15] transition-all duration-200">
+            <div key={titleKey} className="text-center p-5 rounded-2xl border border-transparent hover:border-stone-200 dark:hover:border-stone-700 hover:bg-surface dark:hover:bg-[#231d15] transition-all duration-200">
               <div className={`${iconBg} w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3`}>
                 <Icon className={`w-6 h-6 ${iconColor}`} />
               </div>
@@ -97,7 +97,7 @@ export default async function Home() {
             <Link
               key={g.id}
               href={`/browse?genre=${g.id}`}
-              className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-4 py-1.5 rounded-full text-sm hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors"
+              className="bg-surface border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-4 py-1.5 rounded-full text-sm hover:border-amber-500 hover:text-amber-700 dark:hover:text-amber-500 transition-colors"
             >
               {g.name}
             </Link>
@@ -106,7 +106,7 @@ export default async function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-stone-200 dark:border-stone-800 bg-[#fefaf4] dark:bg-[#231d15]">
+      <footer className="border-t border-stone-200 dark:border-stone-800 bg-surface">
         <div className="max-w-5xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {/* Brand */}

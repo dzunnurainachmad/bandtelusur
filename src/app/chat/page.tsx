@@ -108,7 +108,7 @@ export default function ChatPage() {
                       className={`rounded-2xl px-4 py-2.5 max-w-[80%] ${
                         message.role === 'user'
                           ? 'bg-amber-700 text-white'
-                          : 'bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200'
+                          : 'bg-surface border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200'
                       }`}
                     >
                       <div className="text-sm prose prose-stone dark:prose-invert prose-sm max-w-none
@@ -134,7 +134,7 @@ export default function ChatPage() {
                   <div key={i} className="my-4 ml-9">
                     <Link
                       href={`/bands/${band.id}`}
-                      className="block bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-xl p-4 hover:border-amber-500 transition-colors"
+                      className="block bg-surface border border-stone-200 dark:border-stone-700 rounded-xl p-4 hover:border-amber-500 transition-colors"
                     >
                       <p className="font-bold text-base text-stone-900 dark:text-stone-100">{band.name}</p>
                       {(band.city_name || band.province_name) && (
@@ -179,7 +179,7 @@ export default function ChatPage() {
                         <Link
                           key={band.id}
                           href={`/bands/${band.id}`}
-                          className="block bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-xl p-3 hover:border-amber-500 transition-colors"
+                          className="block bg-surface border border-stone-200 dark:border-stone-700 rounded-xl p-3 hover:border-amber-500 transition-colors"
                         >
                           <p className="font-semibold text-sm text-stone-900 dark:text-stone-100">{band.name}</p>
                           {(band.city_name || band.province_name) && (
@@ -214,7 +214,7 @@ export default function ChatPage() {
         {isLoading && (
           <div className="flex gap-3">
             <Bot className="w-6 h-6 text-amber-600 shrink-0" />
-            <div className="bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl px-4 py-2.5">
+            <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl px-4 py-2.5">
               <div className="flex gap-1">
                 <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce" />
                 <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce [animation-delay:0.15s]" />
@@ -229,7 +229,7 @@ export default function ChatPage() {
 
       {/* Input */}
       <form onSubmit={handleSubmit} className="sticky bottom-4">
-        <div className="flex gap-2 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-300 dark:border-stone-600 rounded-2xl p-2 shadow-lg">
+        <div className="flex gap-2 bg-surface border border-stone-300 dark:border-stone-600 rounded-2xl p-2 shadow-lg">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}

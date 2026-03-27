@@ -4,7 +4,7 @@ export default function DashboardLoading() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* Profile card skeleton */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8 p-4 bg-[#fefaf4] dark:bg-[#231d15] rounded-xl border border-stone-200 dark:border-stone-700">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8 p-4 bg-surface rounded-xl border border-stone-200 dark:border-stone-700">
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <Bone className="w-14 h-14 rounded-full shrink-0" />
           <div className="flex-1 space-y-2">

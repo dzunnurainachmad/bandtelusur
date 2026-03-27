@@ -278,7 +278,7 @@ export function SubmitForm() {
   const submitLabel = uploading ? t('uploading') : submitting ? t('submitting') : t('submitBtn')
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 bg-[#fefaf4] dark:bg-[#231d15] border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
+    <form onSubmit={handleSubmit} className="space-y-5 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
 
       {/* Fill from URL */}
       <div className="border border-dashed border-amber-300 dark:border-amber-800 rounded-xl p-4 space-y-2">
@@ -476,7 +476,7 @@ export function SubmitForm() {
             type="text"
             value={form.contact_wa.replace(/^62/, '')}
             onChange={(e) => set('contact_wa', '62' + e.target.value.replace(/^0/, ''))}
-            className="flex-1 border border-stone-300 dark:border-stone-600 bg-[#fefaf4] dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="flex-1 border border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800 text-stone-900 dark:text-stone-100 placeholder-stone-400 rounded-r-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
             placeholder="8123456789"
           />
         </div>
