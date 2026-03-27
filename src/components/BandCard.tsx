@@ -75,12 +75,11 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
               </span>
             )}
           </div>
-          {band.username && (
-            <p className="text-[10px] text-stone-400 dark:text-stone-500 truncate">@{band.username}</p>
-          )}
-          {band.owner_display_name && (
+          {(band.username || band.owner_display_name) && (
             <p className="text-[10px] text-stone-400 dark:text-stone-500 truncate">
-              {t('by', { name: band.owner_display_name })}
+              {band.username && `@${band.username}`}
+              {band.username && band.owner_display_name && ' · '}
+              {band.owner_display_name && t('by', { name: band.owner_display_name })}
             </p>
           )}
           {(band.city_name || band.province_name) && (
@@ -154,12 +153,11 @@ export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
           <Link href={`/bands/${band.username ?? band.id}`} className="hover:underline">
             <h3 className="font-bold text-lg text-stone-900 dark:text-stone-100 truncate">{band.name}</h3>
           </Link>
-          {band.username && (
-            <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">@{band.username}</p>
-          )}
-          {band.owner_display_name && (
-            <p className="text-xs text-stone-400 dark:text-stone-500">
-              {t('by', { name: band.owner_display_name })}
+          {(band.username || band.owner_display_name) && (
+            <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 truncate">
+              {band.username && `@${band.username}`}
+              {band.username && band.owner_display_name && ' · '}
+              {band.owner_display_name && t('by', { name: band.owner_display_name })}
             </p>
           )}
 
