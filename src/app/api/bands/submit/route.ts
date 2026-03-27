@@ -31,6 +31,13 @@ export async function POST(request: NextRequest) {
     is_looking_for_members, genre_ids,
   } = body
 
+  if (!name || typeof name !== 'string' || !name.trim()) {
+    return NextResponse.json({ error: 'Nama band wajib diisi.' }, { status: 400 })
+  }
+  if (!username || typeof username !== 'string') {
+    return NextResponse.json({ error: 'Username wajib diisi.' }, { status: 400 })
+  }
+
   const { data: band, error } = await supabaseAdmin
     .from('bands')
     .insert({
