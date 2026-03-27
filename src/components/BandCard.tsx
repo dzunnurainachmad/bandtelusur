@@ -18,8 +18,8 @@ interface BandCardProps {
 
 export function BandCard({ band, isLoggedIn, isSaved = false }: BandCardProps) {
   const t = useTranslations('bandCard')
-  const waLink = band.contact_wa ? `https://wa.me/${band.contact_wa}` : null
-  const emailLink = band.contact_email ? `mailto:${band.contact_email}` : null
+  const waLink = band.contact_wa?.trim() ? `https://wa.me/${band.contact_wa.trim()}` : null
+  const emailLink = band.contact_email?.trim() ? `mailto:${band.contact_email.trim()}` : null
   const contactLink = waLink ?? emailLink
   const contactLabel = waLink ? 'WhatsApp' : 'Email'
   const contactStyle = waLink

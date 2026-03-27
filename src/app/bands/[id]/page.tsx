@@ -116,7 +116,7 @@ export default async function BandDetailPage({ params }: Props) {
         .then(({ data }) => data)
     : null
 
-  const waLink = band.contact_wa ? `https://wa.me/${band.contact_wa}` : null
+  const waLink = band.contact_wa?.trim() ? `https://wa.me/${band.contact_wa.trim()}` : null
   const youtubeEmbed = (band.youtube ? getYouTubeEmbedUrl(band.youtube) : null)
     ?? (band.youtube_music ? getYouTubeEmbedUrl(band.youtube_music) : null)
   const spotifyEmbed = band.spotify ? getSpotifyEmbedUrl(band.spotify) : null
@@ -357,9 +357,9 @@ export default async function BandDetailPage({ params }: Props) {
                   {t('contactWhatsApp')}
                 </a>
               )}
-              {band.contact_email && (
+              {band.contact_email?.trim() && (
                 <a
-                  href={`mailto:${band.contact_email}`}
+                  href={`mailto:${band.contact_email.trim()}`}
                   className="flex items-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 px-4 py-2.5 rounded-lg hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors text-sm min-h-11"
                 >
                   <Mail className="w-4 h-4" /> Email
