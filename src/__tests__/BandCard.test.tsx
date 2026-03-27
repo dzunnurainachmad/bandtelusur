@@ -125,8 +125,14 @@ describe('BandCard', () => {
     expect(link.closest('a')).toHaveAttribute('href', 'https://wa.me/628123456789')
   })
 
-  it('links band name to detail page', () => {
-    renderWithIntl(<BandCard band={makeBand({ id: 'band-42' })} />)
+  it('links band name to detail page using username', () => {
+    renderWithIntl(<BandCard band={makeBand({ username: 'my-band' })} />)
+    const link = screen.getAllByText('Test Band')[0].closest('a')
+    expect(link).toHaveAttribute('href', '/bands/my-band')
+  })
+
+  it('falls back to id when no username', () => {
+    renderWithIntl(<BandCard band={makeBand({ username: null as unknown as string, id: 'band-42' })} />)
     const link = screen.getAllByText('Test Band')[0].closest('a')
     expect(link).toHaveAttribute('href', '/bands/band-42')
   })
