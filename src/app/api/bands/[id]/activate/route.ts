@@ -27,16 +27,9 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  // Deactivate all user's bands, then activate the target
-  const { error: deactivateError } = await supabaseAdmin
-    .from('bands')
-    .update({ is_active: false })
-    .eq('user_id', user.id)
-
-  if (deactivateError) {
-    return NextResponse.json({ error: deactivateError.message }, { status: 500 })
-  }
-
+  // Activate target first, then deactivate others.
+  // This order means a partial failure leaves a temporary multi-active state
+  // (harmless) rather than a zero-active state (breaks dashboard).
   const { error: activateError } = await supabaseAdmin
     .from('bands')
     .update({ is_active: true })
@@ -44,6 +37,16 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
   if (activateError) {
     return NextResponse.json({ error: activateError.message }, { status: 500 })
+  }
+
+  const { error: deactivateError } = await supabaseAdmin
+    .from('bands')
+    .update({ is_active: false })
+    .eq('user_id', user.id)
+    .neq('id', id)
+
+  if (deactivateError) {
+    return NextResponse.json({ error: deactivateError.message }, { status: 500 })
   }
 
   return NextResponse.json({ ok: true })

@@ -17,7 +17,7 @@ export default async function SubmitPage() {
 
   const [admin, activeCount] = await Promise.all([
     isAdmin(),
-    getActiveBandsCount(user.id),
+    getActiveBandsCount(user.id, supabase),
   ])
 
   const atLimit = !admin && activeCount >= 1
@@ -34,17 +34,17 @@ export default async function SubmitPage() {
           </div>
           <div>
             <p className="font-semibold text-stone-900 dark:text-stone-100 mb-1">
-              Kamu sudah punya 1 band aktif
+              {t('upgradeTitle')}
             </p>
             <p className="text-sm text-stone-500 dark:text-stone-400">
-              Upgrade ke Pro untuk daftarkan lebih banyak band.
+              {t('upgradeDesc')}
             </p>
           </div>
           <Link
             href="/pricing"
             className="inline-flex items-center gap-1.5 bg-amber-700 hover:bg-amber-800 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
           >
-            Pelajari Pro →
+            {t('upgradeCta')}
           </Link>
         </div>
       ) : (

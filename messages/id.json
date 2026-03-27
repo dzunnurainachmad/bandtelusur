@@ -108,7 +108,8 @@
     "saved": "Tersimpan",
     "registerBand": "Daftarkan Band",
     "noBands": "Belum ada band terdaftar",
-    "registerFirst": "Daftarkan band pertamamu"
+    "registerFirst": "Daftarkan band pertamamu",
+    "multipleActiveBands": "Kamu punya lebih dari 1 band aktif. Pilih satu yang ingin ditampilkan di browse."
   },
   "saved": {
     "title": "Band Tersimpan",
@@ -192,6 +193,9 @@
     "submitBtn": "Daftarkan Band",
     "analyzingPhoto": "Menganalisis foto...",
     "photoGenreSuggestion": "Saran genre dari foto:",
+    "upgradeTitle": "Kamu sudah punya 1 band aktif",
+    "upgradeDesc": "Upgrade ke Pro untuk daftarkan lebih banyak band.",
+    "upgradeCta": "Pelajari Pro →",
     "errors": {
       "photoSize": "Ukuran foto maksimal 5 MB.",
       "nameRequired": "Nama band wajib diisi.",

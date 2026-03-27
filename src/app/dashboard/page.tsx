@@ -57,7 +57,7 @@ export default async function DashboardPage() {
 
       {multipleActive && (
         <div className="mb-4 px-4 py-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-sm text-amber-800 dark:text-amber-400">
-          Kamu punya lebih dari 1 band aktif. Pilih satu yang ingin ditampilkan di browse.
+          {t('multipleActiveBands')}
         </div>
       )}
 

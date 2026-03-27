@@ -108,7 +108,8 @@
     "saved": "Saved",
     "registerBand": "Register Band",
     "noBands": "No bands registered yet",
-    "registerFirst": "Register your first band"
+    "registerFirst": "Register your first band",
+    "multipleActiveBands": "You have more than 1 active band. Choose one to show in browse."
   },
   "saved": {
     "title": "Saved Bands",
@@ -192,6 +193,9 @@
     "submitBtn": "Register Band",
     "analyzingPhoto": "Analyzing photo...",
     "photoGenreSuggestion": "Genre suggestions from photo:",
+    "upgradeTitle": "You already have 1 active band",
+    "upgradeDesc": "Upgrade to Pro to register more bands.",
+    "upgradeCta": "Learn about Pro →",
     "errors": {
       "photoSize": "Photo size must not exceed 5 MB.",
       "nameRequired": "Band name is required.",

@@ -139,8 +139,10 @@ export async function getUserBands(userId: string, page = 0, activeOnly = false)
   }
 }
 
-export async function getActiveBandsCount(userId: string): Promise<number> {
-  const { count, error } = await supabase
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getActiveBandsCount(userId: string, dbClient?: any): Promise<number> {
+  const client = dbClient ?? supabase
+  const { count, error } = await client
     .from('bands')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', userId)

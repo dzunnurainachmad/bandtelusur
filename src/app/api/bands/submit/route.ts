@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
   const admin = await isAdmin()
   if (!admin) {
-    const activeCount = await getActiveBandsCount(user.id)
+    const activeCount = await getActiveBandsCount(user.id, supabase)
     if (activeCount >= 1) {
       return NextResponse.json(
         { error: 'Kamu sudah punya 1 band aktif. Upgrade ke Pro untuk menambah lebih.' },
