@@ -31,11 +31,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             'px-3 py-2',
             'bg-surface dark:bg-stone-800',
             'text-stone-900 dark:text-stone-100',
-            'placeholder-stone-400 dark:placeholder-stone-500',
+            'placeholder-stone-500 dark:placeholder-stone-500',
             'focus:outline-none focus:ring-2 focus:ring-amber-500',
             error
               ? 'border-red-400 dark:border-red-500'
-              : 'border-stone-300 dark:border-stone-600',
+              : 'border-stone-400 dark:border-stone-600',
             disabled && 'opacity-50 cursor-not-allowed',
             className
           )}

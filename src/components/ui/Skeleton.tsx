@@ -13,10 +13,10 @@ export function FormFieldSkeleton({ label = true, tall = false }: { label?: bool
 
 export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edit' }) {
   return (
-    <div className="space-y-5 bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
+    <div className="space-y-5 bg-surface border border-stone-300 dark:border-stone-700 rounded-2xl p-4 sm:p-6">
       {/* Fill from URL — submit only */}
       {variant === 'submit' && (
-        <div className="border border-dashed border-stone-200 dark:border-stone-700 rounded-xl p-4 space-y-2">
+        <div className="border border-dashed border-stone-300 dark:border-stone-700 rounded-xl p-4 space-y-2">
           <Bone className="h-4 w-40" />
           <Bone className="h-3 w-full" />
           <div className="flex gap-2">
@@ -95,7 +95,7 @@ export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edi
             <Bone className="h-10 flex-1 rounded-lg" />
             <Bone className="h-10 flex-1 rounded-lg" />
           </div>
-          <div className="pt-4 border-t border-stone-200 dark:border-stone-700 flex justify-end">
+          <div className="pt-4 border-t border-stone-300 dark:border-stone-700 flex justify-end">
             <Bone className="h-8 w-32 rounded-lg" />
           </div>
         </>
@@ -108,7 +108,7 @@ export function FormSkeleton({ variant = 'submit' }: { variant?: 'submit' | 'edi
 
 export function PostCardSkeleton() {
   return (
-    <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 p-4 sm:p-5 space-y-3">
+    <div className="bg-surface rounded-2xl border border-stone-300 dark:border-stone-700 p-4 sm:p-5 space-y-3">
       {/* Badge + action */}
       <div className="flex items-start justify-between">
         <Bone className="h-5 w-16 rounded-full" />
@@ -159,7 +159,7 @@ export function PostCardSkeleton() {
 
 export function CardSkeleton() {
   return (
-    <div className="bg-surface rounded-2xl border border-stone-200 dark:border-stone-700 overflow-hidden flex flex-col h-full">
+    <div className="bg-surface rounded-2xl border border-stone-300 dark:border-stone-700 overflow-hidden flex flex-col h-full">
 
       {/* ── Mobile: horizontal list row ── */}
       <div className="flex sm:hidden items-center gap-4 p-4">
