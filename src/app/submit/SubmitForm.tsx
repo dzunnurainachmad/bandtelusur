@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { ImagePlus, Sparkles, X, Globe, Loader2 } from 'lucide-react'
 import type { SubmitBandAgentResult } from '@/lib/schemas'
-import { getProvinces, getCitiesByProvince, getGenres, createBand, uploadBandPhoto } from '@/lib/queries'
+import { getProvinces, getCitiesByProvince, getGenres, uploadBandPhoto } from '@/lib/queries'
 import { Select } from '@/components/ui/Select'
 import { Input } from '@/components/ui/Input'
 import { Checkbox } from '@/components/ui/Checkbox'
@@ -165,26 +165,34 @@ export function SubmitForm() {
         setUploading(false)
       }
 
-      const { id, username } = await createBand({
-        name: form.name.trim(),
-        username: form.username,
-        bio: form.bio || undefined,
-        formed_year: form.formed_year ? Number(form.formed_year) : undefined,
-        province_id: form.province_id ? Number(form.province_id) : undefined,
-        city_id: form.city_id ? Number(form.city_id) : undefined,
-        contact_wa: form.contact_wa || undefined,
-        contact_email: form.contact_email || undefined,
-        instagram: form.instagram || undefined,
-        youtube: form.youtube || undefined,
-        spotify: form.spotify || undefined,
-        youtube_music: form.youtube_music || undefined,
-        apple_music: form.apple_music || undefined,
-        bandcamp: form.bandcamp || undefined,
-        photo_url,
-        is_looking_for_members: form.is_looking_for_members,
-        genre_ids: form.genre_ids,
+      const res = await fetch('/api/bands/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          username: form.username,
+          bio: form.bio || null,
+          formed_year: form.formed_year ? Number(form.formed_year) : null,
+          province_id: form.province_id ? Number(form.province_id) : null,
+          city_id: form.city_id ? Number(form.city_id) : null,
+          contact_wa: form.contact_wa || null,
+          contact_email: form.contact_email || null,
+          instagram: form.instagram || null,
+          youtube: form.youtube || null,
+          spotify: form.spotify || null,
+          youtube_music: form.youtube_music || null,
+          apple_music: form.apple_music || null,
+          bandcamp: form.bandcamp || null,
+          photo_url: photo_url ?? null,
+          is_looking_for_members: form.is_looking_for_members,
+          genre_ids: form.genre_ids,
+        }),
       })
-      fetch('/api/embeddings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bandId: id }) })
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error ?? t('errors.genericError'))
+      }
+      const { id, username } = await res.json()
       router.push(`/bands/${username ?? id}`)
     } catch (err) {
       setError((err as Error).message ?? t('errors.genericError'))
