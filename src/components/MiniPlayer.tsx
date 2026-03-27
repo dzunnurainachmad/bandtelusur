@@ -45,7 +45,7 @@ export function MiniPlayer() {
       {/* Iframe */}
       <div
         className={clsx(
-          'bg-stone-950 transition-all duration-300 overflow-hidden pointer-events-auto',
+          'bg-stone-100 dark:bg-stone-950 transition-all duration-300 overflow-hidden pointer-events-auto',
           expanded
             ? isVideo
               ? 'aspect-video sm:max-h-70'
@@ -64,20 +64,20 @@ export function MiniPlayer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="bg-stone-900 border-t border-stone-700 px-3 py-2.5 sm:px-4 sm:py-3 flex items-center gap-2.5 sm:gap-3 pointer-events-auto">
+      <div className="bg-surface dark:bg-stone-900 border-t border-stone-300 dark:border-stone-700 px-3 py-2.5 sm:px-4 sm:py-3 flex items-center gap-2.5 sm:gap-3 pointer-events-auto">
         {/* Thumbnail */}
-        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden shrink-0 bg-stone-700 flex items-center justify-center">
+        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden shrink-0 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
           {track.photoUrl ? (
             <Image src={track.photoUrl} alt={track.bandName} width={44} height={44} className="object-cover w-full h-full" />
           ) : (
-            <Music className="w-5 h-5 text-stone-400" />
+            <Music className="w-5 h-5 text-stone-400 dark:text-stone-400" />
           )}
         </div>
 
         {/* Band name + source label */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-white truncate">{track.bandName}</p>
-          <p className="text-xs text-stone-400 flex items-center gap-1 mt-0.5">
+          <p className="text-sm font-medium text-stone-900 dark:text-white truncate">{track.bandName}</p>
+          <p className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1 mt-0.5">
             {track.source === 'youtube' && <><Youtube className="w-3 h-3" /> YouTube</>}
             {track.source === 'spotify' && <><Music className="w-3 h-3" /> Spotify</>}
             {track.source === 'apple_music' && <><AppleMusicIcon className="w-3 h-3" /> Apple Music</>}
@@ -86,14 +86,14 @@ export function MiniPlayer() {
 
         {/* Source switch */}
         {sourceCount > 1 && (
-          <div className="flex items-center gap-1 bg-stone-800 rounded-lg p-1">
+          <div className="flex items-center gap-1 bg-stone-100 dark:bg-stone-800 rounded-lg p-1">
             {hasYoutube && (
               <button
                 onClick={() => switchSource('youtube')}
                 title="YouTube"
                 className={clsx(
                   'p-1.5 rounded-md transition-colors',
-                  track.source === 'youtube' ? 'bg-red-600 text-white' : 'text-stone-400 hover:text-white'
+                  track.source === 'youtube' ? 'bg-red-600 text-white' : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
                 )}
               >
                 <Youtube className="w-3.5 h-3.5" />
@@ -105,7 +105,7 @@ export function MiniPlayer() {
                 title="Spotify"
                 className={clsx(
                   'p-1.5 rounded-md transition-colors',
-                  track.source === 'spotify' ? 'bg-green-600 text-white' : 'text-stone-400 hover:text-white'
+                  track.source === 'spotify' ? 'bg-green-600 text-white' : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
                 )}
               >
                 <Music className="w-3.5 h-3.5" />
@@ -117,7 +117,7 @@ export function MiniPlayer() {
                 title="Apple Music"
                 className={clsx(
                   'p-1.5 rounded-md transition-colors',
-                  track.source === 'apple_music' ? 'bg-pink-600 text-white' : 'text-stone-400 hover:text-white'
+                  track.source === 'apple_music' ? 'bg-pink-600 text-white' : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white'
                 )}
               >
                 <AppleMusicIcon className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ export function MiniPlayer() {
         {/* Expand / collapse */}
         <button
           onClick={() => setExpanded(!expanded)}
-          className="p-2 text-stone-400 hover:text-white transition-colors rounded-lg hover:bg-stone-800"
+          className="p-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
         >
           {expanded ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
         </button>
@@ -137,7 +137,7 @@ export function MiniPlayer() {
         {/* Close */}
         <button
           onClick={close}
-          className="p-2 text-stone-400 hover:text-white transition-colors rounded-lg hover:bg-stone-800"
+          className="p-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
         >
           <X className="w-4 h-4" />
         </button>
