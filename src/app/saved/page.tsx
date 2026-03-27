@@ -26,6 +26,7 @@ export default async function SavedBandsPage() {
       .from('bands_view')
       .select('*')
       .in('id', bandIds)
+      .eq('is_active', true)
     const bandMap = new Map((data ?? []).map((b) => [b.id, b]))
     bands = bandIds.map((id) => bandMap.get(id)).filter(Boolean) as Band[]
   }
