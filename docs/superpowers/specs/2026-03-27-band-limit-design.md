@@ -19,8 +19,11 @@ ALTER TABLE bands ADD COLUMN is_active boolean NOT NULL DEFAULT true;
 
 - All existing bands default to `true` — no data loss.
 - `bands_view` is updated to expose `is_active` as a column. **No filter is applied in the view itself.**
-- The `.eq('is_active', true)` filter is applied **only in `getBands()`** (the browse query).
-- Saved bands (`/saved`), user public profile (`/u/[id]`), and dashboard show all bands regardless of `is_active` — so inactive bands never silently disappear for other users.
+- `.eq('is_active', true)` is applied in:
+  - `getBands()` — browse page
+  - `/saved` — saved bands list
+  - `getUserBands()` — user public profile (`/u/[id]`)
+- **Dashboard only** shows all bands regardless of `is_active`, so the owner can manage which one is active.
 
 ---
 
