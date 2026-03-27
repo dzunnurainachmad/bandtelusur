@@ -17,7 +17,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 
   // Verify ownership
-  const { data: band } = await supabaseAdmin
+  const { data: band } = await supabase
     .from('bands')
     .select('id, user_id')
     .eq('id', id)
