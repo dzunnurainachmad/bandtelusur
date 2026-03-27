@@ -100,7 +100,7 @@ export function FilterBar() {
     .filter(Boolean).length
 
   return (
-    <div className="bg-surface border border-stone-200 dark:border-stone-700 rounded-2xl p-4">
+    <div className="bg-surface border border-stone-300 dark:border-stone-700 rounded-2xl p-4">
       <button
         type="button"
         onClick={() => setMobileOpen(!mobileOpen)}

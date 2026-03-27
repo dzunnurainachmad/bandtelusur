@@ -85,8 +85,8 @@ export function MultiSelect({
             'w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg border transition-all',
             'focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer',
             open
-              ? 'ring-2 ring-amber-500 border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800'
-              : 'border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800',
+              ? 'ring-2 ring-amber-500 border-stone-400 dark:border-stone-600 bg-surface dark:bg-stone-800'
+              : 'border-stone-400 dark:border-stone-600 bg-surface dark:bg-stone-800',
           )}
         >
           <span className={clsx('truncate', value.length > 0 ? 'text-stone-900 dark:text-stone-100' : 'text-stone-400 dark:text-stone-500')}>

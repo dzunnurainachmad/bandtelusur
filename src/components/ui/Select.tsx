@@ -81,8 +81,8 @@ export function Select({
             'w-full flex items-center justify-between gap-2 px-3 py-2 text-sm rounded-lg border transition-all',
             'focus:outline-none focus:ring-2 focus:ring-amber-500',
             open
-              ? 'ring-2 ring-amber-500 border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800'
-              : 'border-stone-300 dark:border-stone-600 bg-surface dark:bg-stone-800',
+              ? 'ring-2 ring-amber-500 border-stone-400 dark:border-stone-600 bg-surface dark:bg-stone-800'
+              : 'border-stone-400 dark:border-stone-600 bg-surface dark:bg-stone-800',
             disabled && 'bg-stone-50 dark:bg-surface text-stone-400 cursor-not-allowed',
             !disabled && 'cursor-pointer'
           )}
