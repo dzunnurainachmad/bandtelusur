@@ -1,5 +1,5 @@
 export function Bone({ className }: { className?: string }) {
-  return <div className={`bg-stone-200 dark:bg-stone-700 rounded-lg animate-pulse ${className ?? ''}`} />
+  return <div className={`bg-stone-300 dark:bg-stone-700 rounded-lg animate-pulse ${className ?? ''}`} />
 }
 
 export function FormFieldSkeleton({ label = true, tall = false }: { label?: boolean; tall?: boolean }) {

@@ -58,7 +58,7 @@ export default async function Home() {
         <p className="text-center text-sm text-stone-500 dark:text-stone-400 mb-10 sm:mb-14 max-w-md mx-auto">{t('features.subtitle')}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map(({ icon: Icon, iconBg, iconColor, titleKey, descKey }) => (
-            <div key={titleKey} className="text-center p-5 rounded-2xl border border-transparent hover:border-stone-200 dark:hover:border-stone-700 hover:bg-surface dark:hover:bg-[#231d15] transition-all duration-200">
+            <div key={titleKey} className="text-center p-5 rounded-2xl border border-transparent hover:border-stone-200 dark:hover:border-stone-700 hover:bg-surface transition-all duration-200">
               <div className={`${iconBg} w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3`}>
                 <Icon className={`w-6 h-6 ${iconColor}`} />
               </div>
