@@ -52,6 +52,7 @@ export async function getBands(filters: BandFilters = {}, page = 0): Promise<{ b
   let query = supabase
     .from('bands_view')
     .select('*')
+    .eq('is_active', true)
     .order(sortCol, { ascending: sortAsc })
 
   if (filters.province_id) {
@@ -91,7 +92,7 @@ export async function getBands(filters: BandFilters = {}, page = 0): Promise<{ b
   }
 
   // Count query (lightweight HEAD request)
-  let countQuery = supabase.from('bands_view').select('*', { count: 'exact', head: true })
+  let countQuery = supabase.from('bands_view').select('*', { count: 'exact', head: true }).eq('is_active', true)
   if (filters.province_id) countQuery = countQuery.eq('province_id', filters.province_id)
   if (filters.city_id) countQuery = countQuery.eq('city_id', filters.city_id)
   if (filters.is_looking_for_members !== undefined) countQuery = countQuery.eq('is_looking_for_members', filters.is_looking_for_members)
@@ -112,16 +113,20 @@ export async function getBands(filters: BandFilters = {}, page = 0): Promise<{ b
   }
 }
 
-export async function getUserBands(userId: string, page = 0): Promise<{ bands: Band[]; hasMore: boolean }> {
+export async function getUserBands(userId: string, page = 0, activeOnly = false): Promise<{ bands: Band[]; hasMore: boolean }> {
   const from = page * BANDS_PER_PAGE
   const to = from + BANDS_PER_PAGE
 
-  const { data, error } = await supabase
+  let query = supabase
     .from('bands_view')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
     .range(from, to)
+
+  if (activeOnly) query = query.eq('is_active', true)
+
+  const { data, error } = await query
 
   if (error) throw error
 
@@ -132,6 +137,16 @@ export async function getUserBands(userId: string, page = 0): Promise<{ bands: B
     bands: hasMore ? all.slice(0, BANDS_PER_PAGE) : all,
     hasMore,
   }
+}
+
+export async function getActiveBandsCount(userId: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('bands')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('is_active', true)
+  if (error) throw error
+  return count ?? 0
 }
 
 export async function searchBandsSemantic(query: string, page = 0): Promise<{ bands: Band[]; hasMore: boolean }> {

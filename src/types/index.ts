@@ -35,6 +35,7 @@ export interface Band {
   bandcamp: string | null
   photo_url: string | null
   is_looking_for_members: boolean
+  is_active: boolean
   user_id: string | null
   created_at: string
   updated_at: string
